@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Gerald&#39;s Blog">
 <meta property="og:description" content="安装 Apache 服务运行以下命令安装 Apache。1yum install httpd 设置开机自启动并启动 Apache 服务。12systemctl enable httpdsystemctl start httpd Apache 服务默认监听80端口，远程访问则需要开放 80 端口。12firewall-cmd --zone=public --add-port=80/tcp --per">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-26T23:31:30.850Z">
+<meta property="og:updated_time" content="2020-09-26T23:48:03.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 CentOS 搭建 LAMP 环境">
 <meta name="twitter:description" content="安装 Apache 服务运行以下命令安装 Apache。1yum install httpd 设置开机自启动并启动 Apache 服务。12systemctl enable httpdsystemctl start httpd Apache 服务默认监听80端口，远程访问则需要开放 80 端口。12firewall-cmd --zone=public --add-port=80/tcp --per">
@@ -107,6 +107,7 @@
 <p>设置开机自启动并启动 Apache 服务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> httpd</span><br><span class="line">systemctl start httpd</span><br></pre></td></tr></table></figure></p>
 <p>Apache 服务默认监听80端口，远程访问则需要开放 <code>80</code> 端口。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
 <p>然后用 <code>ip address</code> 命令查看 IP 地址。在浏览器打开 <code>http://IP地址</code>，若正常返回测试页面，则说明 Apache 服务启动成功。</p>
+<a id="more"></a>
 <h2 id="安装-MySQL-数据库"><a href="#安装-MySQL-数据库" class="headerlink" title="安装 MySQL 数据库"></a>安装 MySQL 数据库</h2><p>添加 MySQL Yum 存储库。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://repo.mysql.com/mysql57-community-release-el7-11.noarch.rpm</span><br><span class="line">yum install mysql57-community-release-el7-11.noarch.rpm</span><br></pre></td></tr></table></figure></p>
 <p>安装 MySQL。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure></p>
 <p>设置开机自启动并启动 MySQL。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> mysqld</span><br><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure></p>
@@ -124,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yanggerald.github.io/articles/59011.html" data-id="ckfkbnp0e0017zok5ta2e8tt4" data-title="基于 CentOS 搭建 LAMP 环境" class="article-share-link">分享</a>
+      <a data-url="https://yanggerald.github.io/articles/59011.html" data-id="ckfkbuhy80015g0k542d2k7qk" data-title="基于 CentOS 搭建 LAMP 环境" class="article-share-link">分享</a>
       
       
         <a href="/articles/59011.html#comments" class="article-comment-link">
