@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Gerald&#39;s Blog">
 <meta property="og:description" content="背景信息 CentOS/7.8.2003 Apache/2.4.6 MySQL/5.7.31 PHP/7.3.22 phpMyAdmin/4.4.15.10">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-07T09:37:56.069Z">
+<meta property="og:updated_time" content="2020-10-08T08:16:33.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 CentOS 搭建 LAMP 环境">
 <meta name="twitter:description" content="背景信息 CentOS/7.8.2003 Apache/2.4.6 MySQL/5.7.31 PHP/7.3.22 phpMyAdmin/4.4.15.10">
@@ -119,10 +119,10 @@
 <p>安装 MySQL。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure></p>
 <p>设置开机自启动并启动 MySQL。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> mysqld</span><br><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure></p>
 <p>查看 MySQL 的初始密码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"password"</span> /var/<span class="built_in">log</span>/mysqld.log</span><br></pre></td></tr></table></figure></p>
-<p>运行以下命令，根据提示配置 MySQL 的安全性。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure></p>
+<p>运行以下命令，根据提示配置 MySQL 的安全性，配置时需要输入 MySQL 的初始密码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure></p>
 <h2 id="安装-PHP"><a href="#安装-PHP" class="headerlink" title="安装 PHP"></a>安装 PHP</h2><p>安装 EPEL 源。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br></pre></td></tr></table></figure></p>
 <p>安装 Remi 源。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm</span><br></pre></td></tr></table></figure></p>
-<p>安装 PHP。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install php73-php php73-php-fpm php73-php-mysqlnd</span><br></pre></td></tr></table></figure></p>
+<p>安装 PHP 及需要的扩展。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install php73-php php73-php-fpm php73-php-mysqlnd php73-php-mbstring</span><br></pre></td></tr></table></figure></p>
 <p>设置开机自启动并启动 PHP-FPM。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> php73-php-fpm</span><br><span class="line">systemctl start php73-php-fpm</span><br></pre></td></tr></table></figure></p>
 <p>在网站根目录 <code>/var/www/html/</code> 新建 phpinfo.php 测试文件，其包含的内容如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>重启 Apache 服务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart httpd</span><br></pre></td></tr></table></figure></p>
@@ -138,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yanggerald.github.io/articles/59011.html" data-id="ckfz7oc6f0010o0k5w7hi26i8" data-title="基于 CentOS 搭建 LAMP 环境" class="article-share-link">分享</a>
+      <a data-url="https://yanggerald.github.io/articles/59011.html" data-id="ckg0qdz03002qiwk5xaxx5jvz" data-title="基于 CentOS 搭建 LAMP 环境" class="article-share-link">分享</a>
       
       
         <a href="/articles/59011.html#comments" class="article-comment-link">
