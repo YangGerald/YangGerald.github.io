@@ -5,9 +5,9 @@
   <subtitle>夏天的雷雨其实和春花秋月一样，遇到了就要好好欣赏。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://yanggerald.github.io/"/>
+  <link href="https://blog.iambug.cn/"/>
   <updated>2020-09-26T23:31:36.508Z</updated>
-  <id>https://yanggerald.github.io/</id>
+  <id>https://blog.iambug.cn/</id>
   
   <author>
     <name>Gerald</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Adobe Creative Cloud 2019 应用程序</title>
-    <link href="https://yanggerald.github.io/articles/46696.html"/>
-    <id>https://yanggerald.github.io/articles/46696.html</id>
+    <link href="https://blog.iambug.cn/articles/46696.html"/>
+    <id>https://blog.iambug.cn/articles/46696.html</id>
     <published>2020-09-21T13:36:00.000Z</published>
     <updated>2020-09-26T23:31:36.508Z</updated>
     
@@ -32,17 +32,17 @@
     
     </summary>
     
-      <category term="资源共享" scheme="https://yanggerald.github.io/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
     
     
-      <category term="Adobe" scheme="https://yanggerald.github.io/tags/Adobe/"/>
+      <category term="Adobe" scheme="https://blog.iambug.cn/tags/Adobe/"/>
     
   </entry>
   
   <entry>
     <title>基于 CentOS 搭建 LAMP 环境</title>
-    <link href="https://yanggerald.github.io/articles/59011.html"/>
-    <id>https://yanggerald.github.io/articles/59011.html</id>
+    <link href="https://blog.iambug.cn/articles/59011.html"/>
+    <id>https://blog.iambug.cn/articles/59011.html</id>
     <published>2020-09-13T13:50:00.000Z</published>
     <updated>2020-10-08T08:16:33.621Z</updated>
     
@@ -60,19 +60,19 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="LAMP" scheme="https://yanggerald.github.io/tags/LAMP/"/>
+      <category term="LAMP" scheme="https://blog.iambug.cn/tags/LAMP/"/>
     
-      <category term="CentOS" scheme="https://yanggerald.github.io/tags/CentOS/"/>
+      <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
     
   </entry>
   
   <entry>
     <title>V2Ray 的搭建及使用</title>
-    <link href="https://yanggerald.github.io/articles/5903.html"/>
-    <id>https://yanggerald.github.io/articles/5903.html</id>
+    <link href="https://blog.iambug.cn/articles/5903.html"/>
+    <id>https://blog.iambug.cn/articles/5903.html</id>
     <published>2020-09-04T09:51:00.000Z</published>
     <updated>2020-09-05T12:18:46.344Z</updated>
     
@@ -89,17 +89,17 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="V2Ray" scheme="https://yanggerald.github.io/tags/V2Ray/"/>
+      <category term="V2Ray" scheme="https://blog.iambug.cn/tags/V2Ray/"/>
     
   </entry>
   
   <entry>
     <title>Linux 上使用 IRC 命令行客户端 Irssi 聊天</title>
-    <link href="https://yanggerald.github.io/articles/29650.html"/>
-    <id>https://yanggerald.github.io/articles/29650.html</id>
+    <link href="https://blog.iambug.cn/articles/29650.html"/>
+    <id>https://blog.iambug.cn/articles/29650.html</id>
     <published>2020-08-23T14:30:00.000Z</published>
     <updated>2020-08-26T04:56:48.563Z</updated>
     
@@ -111,21 +111,21 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="IRC" scheme="https://yanggerald.github.io/tags/IRC/"/>
+      <category term="IRC" scheme="https://blog.iambug.cn/tags/IRC/"/>
     
-      <category term="Irssi" scheme="https://yanggerald.github.io/tags/Irssi/"/>
+      <category term="Irssi" scheme="https://blog.iambug.cn/tags/Irssi/"/>
     
-      <category term="freenode" scheme="https://yanggerald.github.io/tags/freenode/"/>
+      <category term="freenode" scheme="https://blog.iambug.cn/tags/freenode/"/>
     
   </entry>
   
   <entry>
     <title>七月，再出发</title>
-    <link href="https://yanggerald.github.io/articles/12013.html"/>
-    <id>https://yanggerald.github.io/articles/12013.html</id>
+    <link href="https://blog.iambug.cn/articles/12013.html"/>
+    <id>https://blog.iambug.cn/articles/12013.html</id>
     <published>2020-08-15T10:01:00.000Z</published>
     <updated>2020-08-15T16:51:40.206Z</updated>
     
@@ -137,17 +137,17 @@
     
     </summary>
     
-      <category term="闲言碎语" scheme="https://yanggerald.github.io/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+      <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
     
     
-      <category term="海之言" scheme="https://yanggerald.github.io/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+      <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>亲爱的新年好</title>
-    <link href="https://yanggerald.github.io/articles/54899.html"/>
-    <id>https://yanggerald.github.io/articles/54899.html</id>
+    <link href="https://blog.iambug.cn/articles/54899.html"/>
+    <id>https://blog.iambug.cn/articles/54899.html</id>
     <published>2019-12-31T14:51:00.000Z</published>
     <updated>2020-01-04T04:12:07.258Z</updated>
     
@@ -159,17 +159,17 @@
     
     </summary>
     
-      <category term="闲言碎语" scheme="https://yanggerald.github.io/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+      <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
     
     
-      <category term="海之言" scheme="https://yanggerald.github.io/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+      <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>一个故事</title>
-    <link href="https://yanggerald.github.io/articles/39439.html"/>
-    <id>https://yanggerald.github.io/articles/39439.html</id>
+    <link href="https://blog.iambug.cn/articles/39439.html"/>
+    <id>https://blog.iambug.cn/articles/39439.html</id>
     <published>2019-09-17T14:23:00.000Z</published>
     <updated>2020-09-09T02:50:57.584Z</updated>
     
@@ -181,17 +181,17 @@
     
     </summary>
     
-      <category term="闲言碎语" scheme="https://yanggerald.github.io/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+      <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
     
     
-      <category term="人生忠告" scheme="https://yanggerald.github.io/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/"/>
+      <category term="人生忠告" scheme="https://blog.iambug.cn/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/"/>
     
   </entry>
   
   <entry>
     <title>Adobe Creative Suite 6 应用程序</title>
-    <link href="https://yanggerald.github.io/articles/34805.html"/>
-    <id>https://yanggerald.github.io/articles/34805.html</id>
+    <link href="https://blog.iambug.cn/articles/34805.html"/>
+    <id>https://blog.iambug.cn/articles/34805.html</id>
     <published>2019-06-26T15:09:00.000Z</published>
     <updated>2020-01-04T03:50:48.952Z</updated>
     
@@ -203,17 +203,17 @@
     
     </summary>
     
-      <category term="资源共享" scheme="https://yanggerald.github.io/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
     
     
-      <category term="Adobe" scheme="https://yanggerald.github.io/tags/Adobe/"/>
+      <category term="Adobe" scheme="https://blog.iambug.cn/tags/Adobe/"/>
     
   </entry>
   
   <entry>
     <title>Chrome 浏览器离线安装包</title>
-    <link href="https://yanggerald.github.io/articles/29243.html"/>
-    <id>https://yanggerald.github.io/articles/29243.html</id>
+    <link href="https://blog.iambug.cn/articles/29243.html"/>
+    <id>https://blog.iambug.cn/articles/29243.html</id>
     <published>2019-05-07T14:23:00.000Z</published>
     <updated>2019-05-07T14:38:47.755Z</updated>
     
@@ -229,19 +229,19 @@
     
     </summary>
     
-      <category term="资源共享" scheme="https://yanggerald.github.io/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
     
     
-      <category term="Chrome" scheme="https://yanggerald.github.io/tags/Chrome/"/>
+      <category term="Chrome" scheme="https://blog.iambug.cn/tags/Chrome/"/>
     
-      <category term="Google" scheme="https://yanggerald.github.io/tags/Google/"/>
+      <category term="Google" scheme="https://blog.iambug.cn/tags/Google/"/>
     
   </entry>
   
   <entry>
     <title>Git 应用实例</title>
-    <link href="https://yanggerald.github.io/articles/60416.html"/>
-    <id>https://yanggerald.github.io/articles/60416.html</id>
+    <link href="https://blog.iambug.cn/articles/60416.html"/>
+    <id>https://blog.iambug.cn/articles/60416.html</id>
     <published>2019-04-23T10:37:00.000Z</published>
     <updated>2019-10-02T15:28:03.855Z</updated>
     
@@ -253,17 +253,17 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="Git" scheme="https://yanggerald.github.io/tags/Git/"/>
+      <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 修改</title>
-    <link href="https://yanggerald.github.io/articles/62821.html"/>
-    <id>https://yanggerald.github.io/articles/62821.html</id>
+    <link href="https://blog.iambug.cn/articles/62821.html"/>
+    <id>https://blog.iambug.cn/articles/62821.html</id>
     <published>2019-03-28T05:52:00.000Z</published>
     <updated>2020-06-26T07:31:47.159Z</updated>
     
@@ -275,17 +275,17 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="Hexo" scheme="https://yanggerald.github.io/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 迁移</title>
-    <link href="https://yanggerald.github.io/articles/7337.html"/>
-    <id>https://yanggerald.github.io/articles/7337.html</id>
+    <link href="https://blog.iambug.cn/articles/7337.html"/>
+    <id>https://blog.iambug.cn/articles/7337.html</id>
     <published>2019-03-26T10:42:00.000Z</published>
     <updated>2019-10-02T15:29:58.436Z</updated>
     
@@ -302,21 +302,21 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="Git" scheme="https://yanggerald.github.io/tags/Git/"/>
+      <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
     
-      <category term="Hexo" scheme="https://yanggerald.github.io/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
     
-      <category term="Node.js" scheme="https://yanggerald.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://blog.iambug.cn/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 安装</title>
-    <link href="https://yanggerald.github.io/articles/29157.html"/>
-    <id>https://yanggerald.github.io/articles/29157.html</id>
+    <link href="https://blog.iambug.cn/articles/29157.html"/>
+    <id>https://blog.iambug.cn/articles/29157.html</id>
     <published>2019-03-20T09:20:00.000Z</published>
     <updated>2019-10-02T15:30:42.830Z</updated>
     
@@ -329,25 +329,25 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="Git" scheme="https://yanggerald.github.io/tags/Git/"/>
+      <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
     
-      <category term="Hexo" scheme="https://yanggerald.github.io/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
     
-      <category term="Node.js" scheme="https://yanggerald.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://blog.iambug.cn/tags/Node-js/"/>
     
-      <category term="SSH" scheme="https://yanggerald.github.io/tags/SSH/"/>
+      <category term="SSH" scheme="https://blog.iambug.cn/tags/SSH/"/>
     
-      <category term="GitHub" scheme="https://yanggerald.github.io/tags/GitHub/"/>
+      <category term="GitHub" scheme="https://blog.iambug.cn/tags/GitHub/"/>
     
   </entry>
   
   <entry>
     <title>使用 PuTTY 修改 MySQL 的用户密码</title>
-    <link href="https://yanggerald.github.io/articles/47174.html"/>
-    <id>https://yanggerald.github.io/articles/47174.html</id>
+    <link href="https://blog.iambug.cn/articles/47174.html"/>
+    <id>https://blog.iambug.cn/articles/47174.html</id>
     <published>2019-03-09T12:18:00.000Z</published>
     <updated>2019-10-02T15:31:16.939Z</updated>
     
@@ -359,19 +359,19 @@
     
     </summary>
     
-      <category term="网络日志" scheme="https://yanggerald.github.io/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="PuTTY" scheme="https://yanggerald.github.io/tags/PuTTY/"/>
+      <category term="PuTTY" scheme="https://blog.iambug.cn/tags/PuTTY/"/>
     
-      <category term="MySQL" scheme="https://yanggerald.github.io/tags/MySQL/"/>
+      <category term="MySQL" scheme="https://blog.iambug.cn/tags/MySQL/"/>
     
   </entry>
   
   <entry>
     <title>fancyBox 脚本的使用</title>
-    <link href="https://yanggerald.github.io/articles/39717.html"/>
-    <id>https://yanggerald.github.io/articles/39717.html</id>
+    <link href="https://blog.iambug.cn/articles/39717.html"/>
+    <id>https://blog.iambug.cn/articles/39717.html</id>
     <published>2019-02-20T06:15:00.000Z</published>
     <updated>2019-09-18T01:04:53.607Z</updated>
     
@@ -383,23 +383,23 @@
     
     </summary>
     
-      <category term="Web前端" scheme="https://yanggerald.github.io/categories/Web%E5%89%8D%E7%AB%AF/"/>
+      <category term="Web前端" scheme="https://blog.iambug.cn/categories/Web%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="HTML" scheme="https://yanggerald.github.io/tags/HTML/"/>
+      <category term="HTML" scheme="https://blog.iambug.cn/tags/HTML/"/>
     
-      <category term="CSS" scheme="https://yanggerald.github.io/tags/CSS/"/>
+      <category term="CSS" scheme="https://blog.iambug.cn/tags/CSS/"/>
     
-      <category term="jQuery" scheme="https://yanggerald.github.io/tags/jQuery/"/>
+      <category term="jQuery" scheme="https://blog.iambug.cn/tags/jQuery/"/>
     
-      <category term="fancyBox" scheme="https://yanggerald.github.io/tags/fancyBox/"/>
+      <category term="fancyBox" scheme="https://blog.iambug.cn/tags/fancyBox/"/>
     
   </entry>
   
   <entry>
     <title>CS、CC 应用程序激活工具（AMTEmu）</title>
-    <link href="https://yanggerald.github.io/articles/28791.html"/>
-    <id>https://yanggerald.github.io/articles/28791.html</id>
+    <link href="https://blog.iambug.cn/articles/28791.html"/>
+    <id>https://blog.iambug.cn/articles/28791.html</id>
     <published>2019-02-19T04:43:00.000Z</published>
     <updated>2019-09-18T01:07:44.477Z</updated>
     
@@ -411,19 +411,19 @@
     
     </summary>
     
-      <category term="资源共享" scheme="https://yanggerald.github.io/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
     
     
-      <category term="Adobe" scheme="https://yanggerald.github.io/tags/Adobe/"/>
+      <category term="Adobe" scheme="https://blog.iambug.cn/tags/Adobe/"/>
     
-      <category term="AMTEmu" scheme="https://yanggerald.github.io/tags/AMTEmu/"/>
+      <category term="AMTEmu" scheme="https://blog.iambug.cn/tags/AMTEmu/"/>
     
   </entry>
   
   <entry>
     <title>Windows 光盘映像</title>
-    <link href="https://yanggerald.github.io/articles/7426.html"/>
-    <id>https://yanggerald.github.io/articles/7426.html</id>
+    <link href="https://blog.iambug.cn/articles/7426.html"/>
+    <id>https://blog.iambug.cn/articles/7426.html</id>
     <published>2018-12-26T09:47:00.000Z</published>
     <updated>2019-04-19T04:36:41.770Z</updated>
     
@@ -439,10 +439,10 @@
     
     </summary>
     
-      <category term="资源共享" scheme="https://yanggerald.github.io/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
     
     
-      <category term="Windows" scheme="https://yanggerald.github.io/tags/Windows/"/>
+      <category term="Windows" scheme="https://blog.iambug.cn/tags/Windows/"/>
     
   </entry>
   
