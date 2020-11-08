@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2020-09-26T23:31:36.508Z</updated>
+  <updated>2020-11-08T08:54:39.832Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 7 上为 Apache 安装免费的 SSL 证书</title>
+    <link href="https://blog.iambug.cn/articles/43147.html"/>
+    <id>https://blog.iambug.cn/articles/43147.html</id>
+    <published>2020-11-08T01:14:00.000Z</published>
+    <updated>2020-11-08T08:54:39.832Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装-EPEL-源"><a href="#安装-EPEL-源" class="headerlink" title="安装 EPEL 源"></a>安装 EPEL 源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="安装-mod-ssl-模块"><a href="#安装-mod-ssl-模块" class="headerlink" title="安装 mod_ssl 模块"></a>安装 mod_ssl 模块</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mod_ssl</span><br></pre></td></tr></table></figure><h2 id="安装-Certbot-客户端"><a href="#安装-Certbot-客户端" class="headerlink" title="安装 Certbot 客户端"></a>安装 Certbot 客户端</h2><p>从 EPEL 存储库安装 Certbot 客户端：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install python-certbot-apache</span><br></pre></td></tr></table></figure></p><h2 id="虚拟主机配置"><a href="#虚拟主机配置" class="headerlink" title="虚拟主机配置"></a>虚拟主机配置</h2><p>在80端口上配置虚拟主机，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">    ServerName example.com</span><br><span class="line">    DocumentRoot &quot;/var/www/html&quot;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure></p><h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>添加 A 记录，将域名指向 IP 地址，如果使用 CDN 服务，例如 Cloudflare，则需将代理状态设置为 <code>仅限 DNS</code>，SSL 证书配置完成后可以改为 <code>已代理</code>。</p><h2 id="获取并配置-SSL-证书"><a href="#获取并配置-SSL-证书" class="headerlink" title="获取并配置 SSL 证书"></a>获取并配置 SSL 证书</h2><p>替换以下命令中的 <code>example.com</code>，为域名配置 SSL 证书。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot --apache -d example.com</span><br></pre></td></tr></table></figure></p><h2 id="自动续订证书"><a href="#自动续订证书" class="headerlink" title="自动续订证书"></a>自动续订证书</h2><p>Let’s Encrypt 的免费 SSL 证书的有效期为90天，所以需要定期进行续订。编辑 crontab 文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p><p>添加以下定时任务。此任务将在每月1日的中午12点自动执行 <code>certbot renew</code> 命令，尝试续订30天内到期的证书并将输出存入 <code>/var/log/ssl-renew.log</code> 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 1 * * /usr/bin/certbot renew &gt;&gt; /var/log/ssl-renew.log</span><br></pre></td></tr></table></figure></p><h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>开放 <code>443</code> 端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=443/tcp --permanent</span><br></pre></td></tr></table></figure></p><p>重新加载 firewalld，使规则立即生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p><p>然后在浏览器打开 <code>https://域名/</code>，如果地址栏出现锁的图标说明 SSL 证书安装成功。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;安装-EPEL-源&quot;&gt;&lt;a href=&quot;#安装-EPEL-源&quot; class=&quot;headerlink&quot; title=&quot;安装 EPEL 源&quot;&gt;&lt;/a&gt;安装 EPEL 源&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+    
+    
+      <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+      <category term="SSL" scheme="https://blog.iambug.cn/tags/SSL/"/>
+    
+      <category term="HTTPS" scheme="https://blog.iambug.cn/tags/HTTPS/"/>
+    
+      <category term="Apache" scheme="https://blog.iambug.cn/tags/Apache/"/>
+    
+  </entry>
   
   <entry>
     <title>Adobe Creative Cloud 2019 应用程序</title>
@@ -63,9 +91,9 @@
       <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="LAMP" scheme="https://blog.iambug.cn/tags/LAMP/"/>
-    
       <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+      <category term="LAMP" scheme="https://blog.iambug.cn/tags/LAMP/"/>
     
   </entry>
   
@@ -305,9 +333,9 @@
       <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
-    
       <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
+    
+      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
     
       <category term="Node.js" scheme="https://blog.iambug.cn/tags/Node-js/"/>
     
@@ -332,9 +360,9 @@
       <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
     
     
-      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
-    
       <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
+    
+      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
     
       <category term="Node.js" scheme="https://blog.iambug.cn/tags/Node-js/"/>
     
