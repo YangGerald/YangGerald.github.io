@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Gerald&#39;s Blog">
 <meta property="og:description" content="安装 EPEL 源1yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-11-08T08:54:39.832Z">
+<meta property="og:updated_time" content="2020-11-14T05:50:56.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7 上为 Apache 安装免费的 SSL 证书">
 <meta name="twitter:description" content="安装 EPEL 源1yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">
@@ -109,7 +109,7 @@
 <h2 id="安装-Certbot-客户端"><a href="#安装-Certbot-客户端" class="headerlink" title="安装 Certbot 客户端"></a>安装 Certbot 客户端</h2><p>从 EPEL 存储库安装 Certbot 客户端：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install python-certbot-apache</span><br></pre></td></tr></table></figure></p>
 <h2 id="虚拟主机配置"><a href="#虚拟主机配置" class="headerlink" title="虚拟主机配置"></a>虚拟主机配置</h2><p>在80端口上配置虚拟主机，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">    ServerName example.com</span><br><span class="line">    DocumentRoot &quot;/var/www/html&quot;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>添加 A 记录，将域名指向 IP 地址，如果使用 CDN 服务，例如 Cloudflare，则需将代理状态设置为 <code>仅限 DNS</code>，SSL 证书配置完成后可以改为 <code>已代理</code>。</p>
-<h2 id="获取并配置-SSL-证书"><a href="#获取并配置-SSL-证书" class="headerlink" title="获取并配置 SSL 证书"></a>获取并配置 SSL 证书</h2><p>替换以下命令中的 <code>example.com</code>，为域名配置 SSL 证书。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot --apache -d example.com</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取并配置-SSL-证书"><a href="#获取并配置-SSL-证书" class="headerlink" title="获取并配置 SSL 证书"></a>获取并配置 SSL 证书</h2><p>替换以下命令中的 <code>example.com</code>，为域名配置 SSL 证书，此过程需要输入邮箱地址。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot --apache -d example.com</span><br></pre></td></tr></table></figure></p>
 <h2 id="自动续订证书"><a href="#自动续订证书" class="headerlink" title="自动续订证书"></a>自动续订证书</h2><p>Let’s Encrypt 的免费 SSL 证书的有效期为90天，所以需要定期进行续订。编辑 crontab 文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p>
 <p>添加以下定时任务。此任务将在每月1日的中午12点自动执行 <code>certbot renew</code> 命令，尝试续订30天内到期的证书并将输出存入 <code>/var/log/ssl-renew.log</code> 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 1 * * /usr/bin/certbot renew &gt;&gt; /var/log/ssl-renew.log</span><br></pre></td></tr></table></figure></p>
 <h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>开放 <code>443</code> 端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=443/tcp --permanent</span><br></pre></td></tr></table></figure></p>
@@ -119,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://blog.iambug.cn/articles/43147.html" data-id="ckhh1xju40006tkk5ndpgu9tm" data-title="CentOS 7 上为 Apache 安装免费的 SSL 证书" class="article-share-link">分享</a>
+      <a data-url="https://blog.iambug.cn/articles/43147.html" data-id="ckhh9w7vu0005v0k5cgltfxyl" data-title="CentOS 7 上为 Apache 安装免费的 SSL 证书" class="article-share-link">分享</a>
       
       
         <a href="/articles/43147.html#comments" class="article-comment-link">
