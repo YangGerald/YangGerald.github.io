@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo 安装 | Gerald&#39;s Blog</title>
+  <title>如何从 Cloudflare 获取真实客户端 IP？ | Gerald&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="安装 Git下载 Git，安装。 官网下载： https://git-scm.com/镜像下载： https://npm.taobao.org/mirrors/git-for-windows/">
-<meta name="keywords" content="Git,Hexo,Node.js,SSH,GitHub">
+  <meta name="description" content="Cloudflare 可以为网站提供免费的 CDN 和 DDoS 防护，但在使用时 Apache 获取到的 IP 地址将是 Cloudflare 的，而不是访问者的真实客户端 IP。如果希望在 Web 服务器的日志中记录真实客户端 IP 或者根据 IP 进行访问控制的配置，则可以使用 mod_remoteip 模块来获取真实客户端 IP，本文将在 CentOS 7上完成这一个过程。">
+<meta name="keywords" content="CDN,DDoS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 安装">
-<meta property="og:url" content="https://blog.iambug.cn/articles/29157.html">
+<meta property="og:title" content="如何从 Cloudflare 获取真实客户端 IP？">
+<meta property="og:url" content="https://blog.iambug.cn/articles/56007.html">
 <meta property="og:site_name" content="Gerald&#39;s Blog">
-<meta property="og:description" content="安装 Git下载 Git，安装。 官网下载： https://git-scm.com/镜像下载： https://npm.taobao.org/mirrors/git-for-windows/">
+<meta property="og:description" content="Cloudflare 可以为网站提供免费的 CDN 和 DDoS 防护，但在使用时 Apache 获取到的 IP 地址将是 Cloudflare 的，而不是访问者的真实客户端 IP。如果希望在 Web 服务器的日志中记录真实客户端 IP 或者根据 IP 进行访问控制的配置，则可以使用 mod_remoteip 模块来获取真实客户端 IP，本文将在 CentOS 7上完成这一个过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-02T15:30:42.830Z">
+<meta property="og:updated_time" content="2020-11-21T16:47:29.561Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo 安装">
-<meta name="twitter:description" content="安装 Git下载 Git，安装。 官网下载： https://git-scm.com/镜像下载： https://npm.taobao.org/mirrors/git-for-windows/">
+<meta name="twitter:title" content="如何从 Cloudflare 获取真实客户端 IP？">
+<meta name="twitter:description" content="Cloudflare 可以为网站提供免费的 CDN 和 DDoS 防护，但在使用时 Apache 获取到的 IP 地址将是 Cloudflare 的，而不是访问者的真实客户端 IP。如果希望在 Web 服务器的日志中记录真实客户端 IP 或者根据 IP 进行访问控制的配置，则可以使用 mod_remoteip 模块来获取真实客户端 IP，本文将在 CentOS 7上完成这一个过程。">
   
     <link rel="alternate" href="/atom.xml" title="Gerald&#39;s Blog" type="application/atom+xml">
   
@@ -77,10 +77,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Hexo-安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-如何从-Cloudflare-获取真实客户端-IP？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/articles/29157.html" class="article-date">
-  <time class="dt-published" datetime="2019-03-20T09:20:00.000Z" itemprop="datePublished">2019-03-20</time>
+    <a href="/articles/56007.html" class="article-date">
+  <time class="dt-published" datetime="2020-11-18T13:44:00.000Z" itemprop="datePublished">2020-11-18</time>
 </a>
     
   <div class="article-category">
@@ -95,7 +95,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Hexo 安装
+      如何从 Cloudflare 获取真实客户端 IP？
     </h1>
   
 
@@ -103,54 +103,26 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h2><p>下载 Git，安装。</p>
-<p>官网下载： <code>https://git-scm.com/</code><br>镜像下载： <code>https://npm.taobao.org/mirrors/git-for-windows/</code><br><a id="more"></a></p>
-<p>安装完成后，在开始菜单打开 Git Bash，配置用户名称和邮件地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"John Doe"</span></span><br><span class="line">git config --global user.email johndoe@example.com</span><br></pre></td></tr></table></figure></p>
-<h2 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h2><p>从 <code>https://nodejs.org/zh-cn/</code> 下载 Node.js，安装。</p>
-<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>打开 Windows 系统自带的命令提示符，执行以下命令安装 Hexo。<code>&lt;folder&gt;</code> 替换为文件夹名，例如： <code>npm init blog</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure></p>
-<p>用浏览器访问网址 <code>http://localhost:4000/</code> 查看效果。</p>
-<h2 id="发布到-GitHub"><a href="#发布到-GitHub" class="headerlink" title="发布到 GitHub"></a>发布到 GitHub</h2><ol>
-<li><p>创建存储库。登录 GitHub 账号（如果没有请到 <code>https://github.com/</code> 进行注册），创建一个名为 <code>username.github.io</code> 的新存储库，其中 <code>username</code> 是 GitHub 用户名。</p>
-</li>
-<li><p>修改配置文件 <code>_config.yml</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/username/username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建 SSH 密钥。在 Git Bash 命令行输入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">"your_email@example.com"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>创建 SSH 密钥。过程中会提示输入要保存密钥的文件（按 Enter 键，默认即可）和输入密码。</p>
-<ol start="4">
-<li>添加 SSH 公钥到 GitHub。输入：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .ssh</span><br><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>查看公钥并复制到剪贴板。在 GitHub 的 “Settings” -&gt; “SSH and GPG keys” 新建 SSH 密钥，添加复制的 SSH 密钥。</p>
-<ol start="5">
-<li><p>接着回到 Git Bash 验证是否添加成功。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装 hexo-deployer-git。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署到 GitHub。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>完美结束！！！</p>
+        <p>Cloudflare 可以为网站提供免费的 CDN 和 DDoS 防护，但在使用时 Apache 获取到的 IP 地址将是 Cloudflare 的，而不是访问者的真实客户端 IP。如果希望在 Web 服务器的日志中记录真实客户端 IP 或者根据 IP 进行访问控制的配置，则可以使用 <code>mod_remoteip</code> 模块来获取真实客户端 IP，本文将在 CentOS 7上完成这一个过程。</p>
+<a id="more"></a>
+<h2 id="启用-mod-remoteip-模块"><a href="#启用-mod-remoteip-模块" class="headerlink" title="启用 mod_remoteip 模块"></a>启用 mod_remoteip 模块</h2><p>Apache 2.4.6默认已经包含了 <code>mod_remoteip</code> 模块，打开 <code>/etc/httpd/conf/httpd.conf</code> 配置文件，添加以下配置即可加载 <code>mod_remoteip</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule remoteip_module modules/mod_remoteip.so</span><br></pre></td></tr></table></figure></p>
+<h2 id="定义可信代理地址"><a href="#定义可信代理地址" class="headerlink" title="定义可信代理地址"></a>定义可信代理地址</h2><p>新建 <code>/etc/httpd/conf.d/remoteip.conf</code> 文件，包含 <code>RemoteIPHeader CF-Connecting-IP</code>，然后再添加可信代理地址，在 Cloudflare 已经给出了其当前 IP 范围的 <a href="https://www.cloudflare.com/ips-v4" target="_blank" rel="noopener">IPv4</a> 和 <a href="https://www.cloudflare.com/ips-v6" target="_blank" rel="noopener">IPv6</a> 列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">RemoteIPHeader CF-Connecting-IP</span><br><span class="line">RemoteIPTrustedProxy 173.245.48.0/20</span><br><span class="line">RemoteIPTrustedProxy 103.21.244.0/22</span><br><span class="line">RemoteIPTrustedProxy 103.22.200.0/22</span><br><span class="line">RemoteIPTrustedProxy 103.31.4.0/22</span><br><span class="line">RemoteIPTrustedProxy 141.101.64.0/18</span><br><span class="line">RemoteIPTrustedProxy 108.162.192.0/18</span><br><span class="line">RemoteIPTrustedProxy 190.93.240.0/20</span><br><span class="line">RemoteIPTrustedProxy 188.114.96.0/20</span><br><span class="line">RemoteIPTrustedProxy 197.234.240.0/22</span><br><span class="line">RemoteIPTrustedProxy 198.41.128.0/17</span><br><span class="line">RemoteIPTrustedProxy 162.158.0.0/15</span><br><span class="line">RemoteIPTrustedProxy 104.16.0.0/12</span><br><span class="line">RemoteIPTrustedProxy 172.64.0.0/13</span><br><span class="line">RemoteIPTrustedProxy 131.0.72.0/22</span><br><span class="line">RemoteIPTrustedProxy 2400:cb00::/32</span><br><span class="line">RemoteIPTrustedProxy 2606:4700::/32</span><br><span class="line">RemoteIPTrustedProxy 2803:f800::/32</span><br><span class="line">RemoteIPTrustedProxy 2405:b500::/32</span><br><span class="line">RemoteIPTrustedProxy 2405:8100::/32</span><br><span class="line">RemoteIPTrustedProxy 2a06:98c0::/29</span><br><span class="line">RemoteIPTrustedProxy 2c0f:f248::/32</span><br></pre></td></tr></table></figure></p>
+<h2 id="自定义日志格式"><a href="#自定义日志格式" class="headerlink" title="自定义日志格式"></a>自定义日志格式</h2><p>打开 <code>/etc/httpd/conf/httpd.conf</code> 文件，默认的日志格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot;&quot; combined</span><br><span class="line">LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common</span><br><span class="line"></span><br><span class="line">&lt;IfModule logio_module&gt;</span><br><span class="line">  # You need to enable mod_logio.c to use %I and %O</span><br><span class="line">  LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot; %I %O&quot; combinedio</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果在日志中记录真实客户端 IP 就将远程主机 IP <code>%h</code> 替换为访问的客户端 IP <code>%a</code>。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot;&quot; combined</span><br><span class="line">LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common</span><br><span class="line"></span><br><span class="line">&lt;IfModule logio_module&gt;</span><br><span class="line">  # You need to enable mod_logio.c to use %I and %O</span><br><span class="line">  LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot; %I %O&quot; combinedio</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://blog.iambug.cn/articles/29157.html" data-id="ckhrxh6cv00068wk5ba3fyaa7" data-title="Hexo 安装" class="article-share-link">分享</a>
+      <a data-url="https://blog.iambug.cn/articles/56007.html" data-id="ckhrxh6g600198wk5mxw2eem5" data-title="如何从 Cloudflare 获取真实客户端 IP？" class="article-share-link">分享</a>
       
       
-        <a href="/articles/29157.html#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/articles/29157.html" itemprop="commentCount"></span>
+        <a href="/articles/56007.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/56007.html" itemprop="commentCount"></span>
           留言
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CDN/">CDN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DDoS/">DDoS</a></li></ul>
 
     </footer>
   </div>
@@ -158,19 +130,10 @@
     
 <nav id="article-nav">
   
-    <a href="/articles/7337.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Hexo 迁移
-        
-      </div>
-    </a>
   
-  
-    <a href="/articles/47174.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/articles/43147.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">使用 PuTTY 修改 MySQL 的用户密码</div>
+      <div class="article-nav-title">CentOS 7 上为 Apache 安装免费 SSL 证书</div>
     </a>
   
 </nav>
