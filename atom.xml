@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2020-11-21T16:47:29.561Z</updated>
+  <updated>2020-11-22T09:34:33.423Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows 7 光盘映像（ISO 文件）</title>
+    <link href="https://blog.iambug.cn/articles/56536.html"/>
+    <id>https://blog.iambug.cn/articles/56536.html</id>
+    <published>2020-11-22T01:11:00.000Z</published>
+    <updated>2020-11-22T09:34:33.423Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>Windows 7 旗舰版（32位）</strong><br><code>http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x86_dvd_u_677486.iso</code></p><a id="more"></a><p><strong>Windows 7 旗舰版（64位）</strong><br><code>http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;Windows 7 旗舰版（32位）&lt;/strong&gt;&lt;br&gt;&lt;code&gt;http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x86_dvd_u_677486.iso&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+    
+    
+      <category term="Windows" scheme="https://blog.iambug.cn/tags/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title>如何从 Cloudflare 获取真实客户端 IP？</title>
@@ -263,34 +285,6 @@
   </entry>
   
   <entry>
-    <title>Chrome 浏览器离线安装包</title>
-    <link href="https://blog.iambug.cn/articles/29243.html"/>
-    <id>https://blog.iambug.cn/articles/29243.html</id>
-    <published>2019-05-07T14:23:00.000Z</published>
-    <updated>2019-05-07T14:38:47.755Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>http://www.chrome64bit.com/</code></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;code&gt;http://www.chrome64bit.com/&lt;/code&gt;&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-      <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
-    
-    
-      <category term="Chrome" scheme="https://blog.iambug.cn/tags/Chrome/"/>
-    
-      <category term="Google" scheme="https://blog.iambug.cn/tags/Google/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Git 应用实例</title>
     <link href="https://blog.iambug.cn/articles/60416.html"/>
     <id>https://blog.iambug.cn/articles/60416.html</id>
@@ -473,21 +467,17 @@
   </entry>
   
   <entry>
-    <title>Windows 光盘映像</title>
+    <title>Windows 光盘映像官方下载工具</title>
     <link href="https://blog.iambug.cn/articles/7426.html"/>
     <id>https://blog.iambug.cn/articles/7426.html</id>
     <published>2018-12-26T09:47:00.000Z</published>
-    <updated>2019-04-19T04:36:41.770Z</updated>
+    <updated>2020-11-22T10:09:51.833Z</updated>
     
-    <content type="html"><![CDATA[<p><code>https://www.microsoft.com/zh-cn/software-download/windows10</code></p>]]></content>
+    <content type="html"><![CDATA[<p><strong>Windows 8.1</strong><br><code>https://www.microsoft.com/zh-cn/software-download/windows8</code></p><a id="more"></a><p><strong>Windows 10</strong><br><code>https://www.microsoft.com/zh-cn/software-download/windows10</code></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;code&gt;https://www.microsoft.com/zh-cn/software-download/windows10&lt;/code&gt;&lt;/p&gt;
-
-      
+      &lt;p&gt;&lt;strong&gt;Windows 8.1&lt;/strong&gt;&lt;br&gt;&lt;code&gt;https://www.microsoft.com/zh-cn/software-download/windows8&lt;/code&gt;&lt;/p&gt;
     
     </summary>
     
