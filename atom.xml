@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2020-11-22T09:34:33.423Z</updated>
+  <updated>2020-12-01T12:20:58.933Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>海之言</title>
+    <link href="https://blog.iambug.cn/articles/43953.html"/>
+    <id>https://blog.iambug.cn/articles/43953.html</id>
+    <published>2020-12-01T12:10:00.000Z</published>
+    <updated>2020-12-01T12:20:58.933Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>糖，是甜的~</strong><br>2020-12-01 20:11</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;糖，是甜的~&lt;/strong&gt;&lt;br&gt;2020-12-01 20:11&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+    
+    
+      <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows 7 光盘映像（ISO 文件）</title>
