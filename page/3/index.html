@@ -4,20 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>Linux 上使用 IRC 命令行客户端 Irssi 聊天 | Gerald&#39;s Blog</title>
+  <title>Gerald&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="IRC（Internet Relay Chat）是用于实时聊天会话的应用层协议。其主要用于群聊，但同样也可以用于私聊。">
-<meta name="keywords" content="IRC,Irssi,freenode">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Linux 上使用 IRC 命令行客户端 Irssi 聊天">
-<meta property="og:url" content="https://blog.iambug.cn/articles/29650.html">
+  <meta name="description" content="欢迎访问 Gerald&apos;s Blog，我将在这里记录生活的点滴，收藏和分享我的二进制生活。">
+<meta name="keywords" content="Gerald&#39;s Blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gerald&#39;s Blog">
+<meta property="og:url" content="https://blog.iambug.cn/page/3/index.html">
 <meta property="og:site_name" content="Gerald&#39;s Blog">
-<meta property="og:description" content="IRC（Internet Relay Chat）是用于实时聊天会话的应用层协议。其主要用于群聊，但同样也可以用于私聊。">
+<meta property="og:description" content="欢迎访问 Gerald&apos;s Blog，我将在这里记录生活的点滴，收藏和分享我的二进制生活。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-08-26T04:56:48.563Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux 上使用 IRC 命令行客户端 Irssi 聊天">
-<meta name="twitter:description" content="IRC（Internet Relay Chat）是用于实时聊天会话的应用层协议。其主要用于群聊，但同样也可以用于私聊。">
+<meta name="twitter:title" content="Gerald&#39;s Blog">
+<meta name="twitter:description" content="欢迎访问 Gerald&apos;s Blog，我将在这里记录生活的点滴，收藏和分享我的二进制生活。">
   
     <link rel="alternate" href="/atom.xml" title="Gerald&#39;s Blog" type="application/atom+xml">
   
@@ -77,14 +76,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux-上使用-IRC-命令行客户端-Irssi-聊天" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main">
+  
+    <article id="post-Windows-光盘映像官方下载工具" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/articles/29650.html" class="article-date">
-  <time class="dt-published" datetime="2020-08-23T14:30:00.000Z" itemprop="datePublished">2020-08-23</time>
+    <a href="/articles/7426.html" class="article-date">
+  <time class="dt-published" datetime="2018-12-26T09:47:00.000Z" itemprop="datePublished">2018-12-26</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/网络日志/">网络日志</a>
+    <a class="article-category-link" href="/categories/资源共享/">资源共享</a>
   </div>
 
   </div>
@@ -94,8 +95,8 @@
       <header class="article-header">
         
   
-    <h1 class="p-name article-title" itemprop="headline name">
-      Linux 上使用 IRC 命令行客户端 Irssi 聊天
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/articles/7426.html">Windows 光盘映像官方下载工具</a>
     </h1>
   
 
@@ -103,70 +104,41 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>IRC（Internet Relay Chat）是用于实时聊天会话的应用层协议。其主要用于群聊，但同样也可以用于私聊。</p>
-<a id="more"></a>
-<h2 id="安装-Irssi"><a href="#安装-Irssi" class="headerlink" title="安装 Irssi"></a>安装 Irssi</h2><p>Irssi 是一个基于命令行的 IRC 客户端。在 Kali Linux 中可使用下面的命令进行安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install irssi</span><br></pre></td></tr></table></figure></p>
-<h2 id="使用-Irssi"><a href="#使用-Irssi" class="headerlink" title="使用 Irssi"></a>使用 Irssi</h2><p>安装后，在终端输入 <code>irssi</code> 即可运行 Irssi。其次需要连接到网络，例如连接到 freenode：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/connect Freenode</span><br></pre></td></tr></table></figure></p>
-<p>连接到网络后就可以加入一些频道聊天了。例如加入到 <code>#linux-cn</code> 频道：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/join <span class="comment">#linux-cn</span></span><br></pre></td></tr></table></figure></p>
-<p>如果发言则在频道中输入内容，按 Enter 键发送。</p>
-<h2 id="注册昵称"><a href="#注册昵称" class="headerlink" title="注册昵称"></a>注册昵称</h2><p>某些频道是需要注册昵称才能加入的，同时这也可以防止其他人注册它，便于之后重复使用相同昵称。注册的步骤为：<br>1.切换到想要的昵称（同时也是用户名）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/nick YourNick</span><br></pre></td></tr></table></figure></p>
-<p>2.替换以下命令的密码和和邮箱部分，注册 IRC 昵称。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/msg NickServ REGISTER YourPassword youremail@example.com</span><br></pre></td></tr></table></figure></p>
-<p>3.注册后，将收到包含验证命令的电子邮件，需要复制命令到 Irssi 进行验证。</p>
-<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>在已连接到网络的状态下，执行下列命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/nick YourNick</span><br><span class="line">/msg NickServ identify YourPassword</span><br></pre></td></tr></table></figure></p>
-<h2 id="注册频道"><a href="#注册频道" class="headerlink" title="注册频道"></a>注册频道</h2><p>1.首先需要检查频道是否可以注册。freenode 上的频道分为两类，以单个#号开头的主频道保留用于专题项目，以两个#号开头的专题频道或关于频道用于分配给最先注册该频道的人。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/msg ChanServ info <span class="comment">##channelname</span></span><br></pre></td></tr></table></figure></p>
-<p>如果频道已注册，则返回有关该频道的信息，否则提示未注册。<br>2.创建频道。<br>在 IRC 创建频道只需加入频道即可，如果是第一个加入该频道的，则可以创建频道。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/join <span class="comment">##channelname</span></span><br></pre></td></tr></table></figure></p>
-<p>3.注册频道。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/msg ChanServ register <span class="comment">##channelname</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>窗口切换<br><code>Ctrl+P</code> 上一个窗口<br><code>Ctrl+N</code> 下一个窗口</li>
-<li>关闭当前窗口<br><code>/window close</code></li>
-<li>退出 Irssi<br><code>/quit</code></li>
-</ul>
-
+        <p><strong>Windows 8.1</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.microsoft.com/zh-cn/software-download/windows8</span><br></pre></td></tr></table></figure></p>
+        
+          <p class="article-more-link">
+            <a href="/articles/7426.html#more">阅读原文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://blog.iambug.cn/articles/29650.html" data-id="ckivgkt5a000htkk5r7lg4txf" data-title="Linux 上使用 IRC 命令行客户端 Irssi 聊天" class="article-share-link">分享</a>
+      <a data-url="https://blog.iambug.cn/articles/7426.html" data-id="ckivgkt62000stkk58ilahi01" data-title="Windows 光盘映像官方下载工具" class="article-share-link">分享</a>
       
       
-        <a href="/articles/29650.html#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/articles/29650.html" itemprop="commentCount"></span>
+        <a href="/articles/7426.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/7426.html" itemprop="commentCount"></span>
           留言
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IRC/">IRC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Irssi/">Irssi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/freenode/">freenode</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
 
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/articles/5903.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          V2Ray 的搭建及使用
-        
-      </div>
-    </a>
-  
-  
-    <a href="/articles/12013.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">毕业了，在七月</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
 
 
-  <section id="comments" class="vcomment">
+  
 
-  </section>
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 </section>
         
           <aside id="sidebar">
