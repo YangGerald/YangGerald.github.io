@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Gerald&#39;s Blog">
 <meta property="og:description" content="安装 EPEL 源1yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-11-18T14:20:00.104Z">
+<meta property="og:updated_time" content="2020-12-30T14:22:41.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7 上为 Apache 安装免费 SSL 证书">
 <meta name="twitter:description" content="安装 EPEL 源1yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">
@@ -110,7 +110,7 @@
 <h2 id="虚拟主机配置"><a href="#虚拟主机配置" class="headerlink" title="虚拟主机配置"></a>虚拟主机配置</h2><p>在80端口上配置虚拟主机，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">    ServerName example.com</span><br><span class="line">    DocumentRoot &quot;/var/www/html&quot;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>添加 A 记录，将域名指向 IP 地址，如果使用 CDN 服务，例如 Cloudflare，则需将代理状态设置为 <code>仅限 DNS</code>，SSL 证书配置完成后可以改为 <code>已代理</code>。</p>
 <h2 id="获取并配置-SSL-证书"><a href="#获取并配置-SSL-证书" class="headerlink" title="获取并配置 SSL 证书"></a>获取并配置 SSL 证书</h2><p>替换以下命令中的 <code>example.com</code>，为域名配置 SSL 证书，此过程需要输入邮箱地址。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot --apache -d example.com</span><br></pre></td></tr></table></figure></p>
-<h2 id="自动续订证书"><a href="#自动续订证书" class="headerlink" title="自动续订证书"></a>自动续订证书</h2><p>Let’s Encrypt 的免费 SSL 证书的有效期为90天，所以需要定期进行续订。编辑 crontab 文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p>
+<h2 id="自动续订证书"><a href="#自动续订证书" class="headerlink" title="自动续订证书"></a>自动续订证书</h2><p>Let’s Encrypt 的免费 SSL 证书的有效期为90天，所以需要定期进行续订。编辑 crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p>
 <p>添加以下定时任务。此任务将在每月1日的中午12点自动执行 <code>certbot renew</code> 命令，尝试续订30天内到期的证书并将输出存入 <code>/var/log/ssl-renew.log</code> 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 1 * * /usr/bin/certbot renew &gt;&gt; /var/log/ssl-renew.log</span><br></pre></td></tr></table></figure></p>
 <h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>开放 <code>443</code> 端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=443/tcp --permanent</span><br></pre></td></tr></table></figure></p>
 <p>重新加载 firewalld，使规则立即生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
@@ -119,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://blog.iambug.cn/articles/43147.html" data-id="ckivgkt3y0006tkk5t74l4522" data-title="CentOS 7 上为 Apache 安装免费 SSL 证书" class="article-share-link">分享</a>
+      <a data-url="https://blog.iambug.cn/articles/43147.html" data-id="ckjdpmhcl0005ikk529iynncp" data-title="CentOS 7 上为 Apache 安装免费 SSL 证书" class="article-share-link">分享</a>
       
       
         <a href="/articles/43147.html#comments" class="article-comment-link">
@@ -169,7 +169,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络日志/">网络日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/资源共享/">资源共享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/闲言碎语/">闲言碎语</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统运维/">系统运维</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络日志/">网络日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/资源共享/">资源共享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/闲言碎语/">闲言碎语</a></li></ul>
     </div>
   </div>
 
@@ -179,7 +179,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMTEmu/">AMTEmu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adobe/">Adobe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDoS/">DDoS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IRC/">IRC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Irssi/">Irssi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PuTTY/">PuTTY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V2Ray/">V2Ray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fancyBox/">fancyBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freenode/">freenode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人生忠告/">人生忠告</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/海之言/">海之言</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMTEmu/">AMTEmu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adobe/">Adobe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cron/">Cron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDoS/">DDoS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IRC/">IRC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Irssi/">Irssi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PuTTY/">PuTTY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tar/">Tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V2Ray/">V2Ray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fancyBox/">fancyBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freenode/">freenode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人生忠告/">人生忠告</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/海之言/">海之言</a></li></ul>
     </div>
   </div>
 
@@ -189,7 +189,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AMTEmu/" style="font-size: 10px;">AMTEmu</a> <a href="/tags/Adobe/" style="font-size: 16.67px;">Adobe</a> <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 13.33px;">CentOS</a> <a href="/tags/DDoS/" style="font-size: 10px;">DDoS</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16.67px;">Hexo</a> <a href="/tags/IRC/" style="font-size: 10px;">IRC</a> <a href="/tags/Irssi/" style="font-size: 10px;">Irssi</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/PuTTY/" style="font-size: 10px;">PuTTY</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/V2Ray/" style="font-size: 10px;">V2Ray</a> <a href="/tags/Windows/" style="font-size: 13.33px;">Windows</a> <a href="/tags/fancyBox/" style="font-size: 10px;">fancyBox</a> <a href="/tags/freenode/" style="font-size: 10px;">freenode</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/人生忠告/" style="font-size: 10px;">人生忠告</a> <a href="/tags/海之言/" style="font-size: 20px;">海之言</a>
+      <a href="/tags/AMTEmu/" style="font-size: 10px;">AMTEmu</a> <a href="/tags/Adobe/" style="font-size: 16.67px;">Adobe</a> <a href="/tags/Apache/" style="font-size: 13.33px;">Apache</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 16.67px;">CentOS</a> <a href="/tags/Cron/" style="font-size: 10px;">Cron</a> <a href="/tags/DDoS/" style="font-size: 10px;">DDoS</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16.67px;">Hexo</a> <a href="/tags/IRC/" style="font-size: 10px;">IRC</a> <a href="/tags/Irssi/" style="font-size: 10px;">Irssi</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/PuTTY/" style="font-size: 10px;">PuTTY</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tar/" style="font-size: 10px;">Tar</a> <a href="/tags/V2Ray/" style="font-size: 10px;">V2Ray</a> <a href="/tags/Windows/" style="font-size: 13.33px;">Windows</a> <a href="/tags/fancyBox/" style="font-size: 10px;">fancyBox</a> <a href="/tags/freenode/" style="font-size: 10px;">freenode</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/人生忠告/" style="font-size: 10px;">人生忠告</a> <a href="/tags/海之言/" style="font-size: 20px;">海之言</a>
     </div>
   </div>
 
@@ -211,6 +211,10 @@
       <ul>
         
           <li>
+            <a href="/articles/30006.html">自动备份 Web 服务器</a>
+          </li>
+        
+          <li>
             <a href="/articles/27465.html">一个留言，在冬天</a>
           </li>
         
@@ -226,10 +230,6 @@
             <a href="/articles/56007.html">如何从 Cloudflare 获取真实客户端 IP？</a>
           </li>
         
-          <li>
-            <a href="/articles/43147.html">CentOS 7 上为 Apache 安装免费 SSL 证书</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -242,7 +242,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Gerald<br>
+      &copy; 2021 Gerald<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
       | <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279417070'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279417070%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
     </div>

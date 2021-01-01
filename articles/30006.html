@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>亲爱的新年好 | Gerald&#39;s Blog</title>
+  <title>自动备份 Web 服务器 | Gerald&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="由于生活的忙碌，好久没写点啥了，之前也没有打算今晚要说点什么回顾下2019、回顾些往昔之类的，一直也没这习惯。突然敲起字来可能是因为去看了《亲爱的新年好》脑袋进水的原因，不过于我而言还真是极其特别的一天呢。">
-<meta name="keywords" content="海之言">
+  <meta name="description" content="以下的内容是在 Centos 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。">
+<meta name="keywords" content="CentOS,Apache,MySQL,Shell,Tar,Cron">
 <meta property="og:type" content="article">
-<meta property="og:title" content="亲爱的新年好">
-<meta property="og:url" content="https://blog.iambug.cn/articles/54899.html">
+<meta property="og:title" content="自动备份 Web 服务器">
+<meta property="og:url" content="https://blog.iambug.cn/articles/30006.html">
 <meta property="og:site_name" content="Gerald&#39;s Blog">
-<meta property="og:description" content="由于生活的忙碌，好久没写点啥了，之前也没有打算今晚要说点什么回顾下2019、回顾些往昔之类的，一直也没这习惯。突然敲起字来可能是因为去看了《亲爱的新年好》脑袋进水的原因，不过于我而言还真是极其特别的一天呢。">
+<meta property="og:description" content="以下的内容是在 Centos 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-04T04:12:07.258Z">
+<meta property="og:updated_time" content="2021-01-01T03:18:04.596Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="亲爱的新年好">
-<meta name="twitter:description" content="由于生活的忙碌，好久没写点啥了，之前也没有打算今晚要说点什么回顾下2019、回顾些往昔之类的，一直也没这习惯。突然敲起字来可能是因为去看了《亲爱的新年好》脑袋进水的原因，不过于我而言还真是极其特别的一天呢。">
+<meta name="twitter:title" content="自动备份 Web 服务器">
+<meta name="twitter:description" content="以下的内容是在 Centos 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。">
   
     <link rel="alternate" href="/atom.xml" title="Gerald&#39;s Blog" type="application/atom+xml">
   
@@ -77,14 +77,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-亲爱的新年好" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-自动备份-Web-服务器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/articles/54899.html" class="article-date">
-  <time class="dt-published" datetime="2019-12-31T14:51:00.000Z" itemprop="datePublished">2019-12-31</time>
+    <a href="/articles/30006.html" class="article-date">
+  <time class="dt-published" datetime="2020-12-29T04:58:00.000Z" itemprop="datePublished">2020-12-29</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/闲言碎语/">闲言碎语</a>
+    <a class="article-category-link" href="/categories/系统运维/">系统运维</a>
   </div>
 
   </div>
@@ -95,7 +95,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      亲爱的新年好
+      自动备份 Web 服务器
     </h1>
   
 
@@ -103,30 +103,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>由于生活的忙碌，好久没写点啥了，之前也没有打算今晚要说点什么回顾下2019、回顾些往昔之类的，一直也没这习惯。突然敲起字来可能是因为去看了《亲爱的新年好》脑袋进水的原因，不过于我而言还真是极其特别的一天呢。</p>
+        <p>以下的内容是在 Centos 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。</p>
 <a id="more"></a>
-<p>沧海桑田，没有人会记住那些不堪入目的岁月。那是沉默的，并非我不想去提及而是我清楚的知道没有人对它有丝毫兴趣。我努力的想去记住不过是因为它和我有关系罢了，犹如圣埃克苏佩里在《小王子》中所说的。</p>
-<p class="message is-default">你对我来说，不过是一个男孩子，跟成千上万个男孩子毫无两样。我不需要你，你也不需要我。我对你不过是一只狐狸，跟成千上万只狐狸毫无两样。但是，你要是驯养我，咱们俩就会相互需要，你对我来说，是世上唯一的。我对你也是世上唯一的……</p>
-
-<embed id="v_player_cctv" width="670" height="500" flashvars="adCalls=http%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D265%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D%7B%21@%23%7Dhttp%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D266%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D%7B%21@%23%7Dhttp%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D267%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D%7B%21@%23%7Dhttp%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D268%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D%7B%21@%23%7Dhttp%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D269%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D%7B%21@%23%7Dhttp%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D270%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D&adAfter=http%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D271%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D&adPause=http%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D274%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D&adBanner=http%3A//galaxy.bjcathay.com/s%3Fz%3Dcathay%26c%3D276%26op%3D1%26_page_group%3Ddianbo%26_subsite%3Dtvcctv%26_CHANNEL%3DPAGEQzWshG2sccn0oQ88EMHa180425%26_sorts%3D%26_tvcctvpindao%3DCHAL1450952056131267%26_shipinji%3D%26_videoid%3D&videoId=xeYrcPttnYWA0Sf598l180526&filePath=/flvxml/2009/10/14/&isAutoPlay=false&url=http://tv.cctv.com/2018/05/26/VIDE1xeYrcPttnYWA0Sf598l180526.shtml&tai=news&configPath=http://js.player.cntv.cn/xml/config/outside1.xml&widgetsConfig=http://js.player.cntv.cn/xml/widgetsConfig/common.xml&languageConfig=&hour24DataURL=VodCycleData.xml&outsideChannelId=channelBugu&videoCenterId=4fd2ba1239464719acfb33bfb3f7a8a8" allowscriptaccess="always" allowfullscreen="true" menu="false" quality="best" bgcolor="#000000" name="v_player_cctv" src="https://player.cntv.cn/standard/cntvOutSidePlayer.swf" type="application/x-shockwave-flash" lk_mediaid="lk_juiceapp_mediaPopup_1257416656250" lk_media="yes">
-
-<p>2019说特别其实也没什么特别的，也都和以往一样，有酸的、甜的、苦的、还有辣的。而此时之所以有种很特别的感觉，那只是自私的认为今天是最后一天拥有权限了，无比不舍在这里的那些日子，最起码所做的我喜欢并认为有意义。如果实在要说出点什么不一样的来，那一定就是今天的电影票、朋友发来的消息。国庆看《我和我的祖国》，今天看《亲爱的新年好》，咋瞧这年头看电影是跟着时间潮流来的呀，虽然一直将自个置于潮流界的底层，哈哈~。需要说明的是原谅我沉迷于干实事没有及时收消息，真是感谢发消息过来的伙计。</p>
-<p>2019感谢你让我充满冒险精神并爱上生活，你让我真实的感受到自己的存在。我已经记住你了，再见。</p>
-<p>2020你好，我来了!至于19年没有完成的就拜托你了……</p>
+<h2 id="备份准备"><a href="#备份准备" class="headerlink" title="备份准备"></a>备份准备</h2><p>执行备份前，首先在当前用户的主目录中创建一个 <code>backup</code> 目录来存储备份文件，然后在 <code>backup</code> 目录新建 <code>.env</code> 文件并替换命令中相应的变量值，执行命令将备份时所需要的备份信息写入到 <code>.env</code> 文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建备份存储目录</span></span><br><span class="line">mkdir -p /home/$(whoami)/backup &amp;&amp; <span class="built_in">cd</span> /home/$(whoami)/backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建环境文件</span></span><br><span class="line">touch .env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入备份信息到.env文件</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># DATE-&gt;日期</span></span><br><span class="line"><span class="comment"># MYSQL_USERNAME-&gt;数据库用户名</span></span><br><span class="line"><span class="comment"># MYSQL_PASSWORD-&gt;数据库密码</span></span><br><span class="line"><span class="comment"># DATABASE_NAME-&gt;数据库名</span></span><br><span class="line"><span class="comment"># WEB_DIRECTORY-&gt;Web目录</span></span><br><span class="line"><span class="comment"># CONFIGURATION_DIRECTORY-&gt;配置目录</span></span><br><span class="line"><span class="comment"># STORAGE_PATH-&gt;存储路径</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export DATE=$(date +%F-%H-%M)'</span> &gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export MYSQL_USERNAME='root'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export MYSQL_PASSWORD='root'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export DATABASE_NAME='example_db'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export WEB_DIRECTORY='/var/www'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export CONFIGURATION_DIRECTORY='/etc/httpd'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export STORAGE_PATH='/home/<span class="variable">$(whoami)</span>/backup'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure></p>
+<h2 id="执行备份"><a href="#执行备份" class="headerlink" title="执行备份"></a>执行备份</h2><p>在 <code>backup</code> 目录创建 <code>web_server_backup.sh</code> 脚本并将下面的代码粘贴到脚本中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份数据库</span></span><br><span class="line">backup_database()</span><br><span class="line">&#123;</span><br><span class="line">  echo "*** Backup database ‘$DATABASE_NAME’ as ‘$STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql’ ***" &gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  mysqldump -u $MYSQL_USERNAME -p$MYSQL_PASSWORD $DATABASE_NAME &gt; $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql</span><br><span class="line">  if [ -e $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql ]; then</span><br><span class="line">    echo 'info: Backup database successfully!' &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  else</span><br><span class="line">    echo 'error: Failed to backup database.' &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份文件</span></span><br><span class="line">backup_file()</span><br><span class="line">&#123;</span><br><span class="line">  echo "*** Backup directory ‘$WEB_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***" &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;WEB_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;WEB_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  echo "*** Backup directory ‘$CONFIGURATION_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***" &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;CONFIGURATION_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;CONFIGURATION_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取备份信息</span></span><br><span class="line">source $1</span><br><span class="line"></span><br><span class="line">backup_database</span><br><span class="line">backup_file</span><br></pre></td></tr></table></figure></p>
+<p>执行备份，其过程中生成的日志将与备份文件保存在相同的目录中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash web_server_backup.sh /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用-Cron-自动化"><a href="#使用-Cron-自动化" class="headerlink" title="使用 Cron 自动化"></a>使用 Cron 自动化</h2><p>编辑 crontab。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p>
+<p>添加以下定时任务，该任务将会在每周星期一到时自动执行备份脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * 1 /usr/bin/env bash /home/$(whoami)/backup/web_server_backup.sh /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://blog.iambug.cn/articles/54899.html" data-id="ckjdpmhfo0010ikk5e3f969tv" data-title="亲爱的新年好" class="article-share-link">分享</a>
+      <a data-url="https://blog.iambug.cn/articles/30006.html" data-id="ckjdpmhh7001kikk5rsm10ojs" data-title="自动备份 Web 服务器" class="article-share-link">分享</a>
       
       
-        <a href="/articles/54899.html#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/articles/54899.html" itemprop="commentCount"></span>
+        <a href="/articles/30006.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/30006.html" itemprop="commentCount"></span>
           留言
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/海之言/">海之言</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache/">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cron/">Cron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tar/">Tar</a></li></ul>
 
     </footer>
   </div>
@@ -134,19 +131,10 @@
     
 <nav id="article-nav">
   
-    <a href="/articles/12013.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          毕业了，在七月
-        
-      </div>
-    </a>
   
-  
-    <a href="/articles/39439.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/articles/27465.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">一个故事</div>
+      <div class="article-nav-title">一个留言，在冬天</div>
     </a>
   
 </nav>
