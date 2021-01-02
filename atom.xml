@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2021-01-02T03:48:32.352Z</updated>
+  <updated>2021-01-02T07:26:25.154Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>哇，2021了</title>
+    <link href="https://blog.iambug.cn/articles/15817.html"/>
+    <id>https://blog.iambug.cn/articles/15817.html</id>
+    <published>2021-01-02T06:29:00.000Z</published>
+    <updated>2021-01-02T07:26:25.154Z</updated>
+    
+    <content type="html"><![CDATA[<p>2021第二天了，新的一年，真是一片喜庆的景象，用怎样的心情去度过如此美好的时间就需要看个人的选择了。当我选择忽略以前和现在的所有，用一种开心、快乐的心情去迎接这到来的美好时，却又在几条语音中开始思索着这世间的种种，顿时回到另一个状态，令我感到伤心、难受。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2021第二天了，新的一年，真是一片喜庆的景象，用怎样的心情去度过如此美好的时间就需要看个人的选择了。当我选择忽略以前和现在的所有，用一种开心、快乐的心情去迎接这到来的美好时，却又在几条语音中开始思索着这世间的种种，顿时回到另一个状态，令我感到伤心、难受。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+    
+    
+      <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+    
+  </entry>
   
   <entry>
     <title>自动备份 Web 服务器</title>
@@ -497,34 +523,6 @@
       <category term="PuTTY" scheme="https://blog.iambug.cn/tags/PuTTY/"/>
     
       <category term="MySQL" scheme="https://blog.iambug.cn/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>fancyBox 脚本的使用</title>
-    <link href="https://blog.iambug.cn/articles/39717.html"/>
-    <id>https://blog.iambug.cn/articles/39717.html</id>
-    <published>2019-02-20T06:15:00.000Z</published>
-    <updated>2019-09-18T01:04:53.607Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>fancyBox 用于呈现各种类型的媒体。以弹框的形式显示图像、视频和 HTML 内容，具有响应式、可触控和自定义的特点。<br>演示和帮助，请访问：<code>https://fancyapps.com</code>。<br><a id="more"></a></p><h2 id="HTML-基本示例"><a href="#HTML-基本示例" class="headerlink" title="HTML 基本示例"></a>HTML 基本示例</h2><p>通过链接 <code>jquery-3.2.1.min.js</code>、<code>jquery.fancybox.min.css</code>和<code>jquery.fancybox.min.js</code> 文件到 HTML 文件安装fancyBox。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>My page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- CSS --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"jquery.fancybox.min.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Your HTML content goes here --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- JS --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//code.jquery.com/jquery-3.2.1.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery.fancybox.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>在 GitHub 下载：<code>https://github.com/fancyapps/fancybox</code>。<br>或者直接链接 cdnjs 上的 fancyBox 文件：<code>https://cdnjs.com/libraries/fancybox</code>。</p><h2 id="安装-fancyBox"><a href="#安装-fancyBox" class="headerlink" title="安装 fancyBox"></a>安装 fancyBox</h2><ol><li><p>添加 jQuery 和 fancyBox 文件</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//code.jquery.com/jquery-3.2.1.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span>  <span class="attr">href</span>=<span class="string">"/path/to/jquery.fancybox.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/path/to/jquery.fancybox.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>创建链接</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">data-fancybox</span>=<span class="string">"gallery"</span> <span class="attr">href</span>=<span class="string">"big_1.jpg"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"small_1.jpg"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">data-fancybox</span>=<span class="string">"gallery"</span> <span class="attr">href</span>=<span class="string">"big_2.jpg"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"small_2.jpg"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;fancyBox 用于呈现各种类型的媒体。以弹框的形式显示图像、视频和 HTML 内容，具有响应式、可触控和自定义的特点。&lt;br&gt;演示和帮助，请访问：&lt;code&gt;https://fancyapps.com&lt;/code&gt;。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Web前端" scheme="https://blog.iambug.cn/categories/Web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="HTML" scheme="https://blog.iambug.cn/tags/HTML/"/>
-    
-      <category term="CSS" scheme="https://blog.iambug.cn/tags/CSS/"/>
-    
-      <category term="jQuery" scheme="https://blog.iambug.cn/tags/jQuery/"/>
-    
-      <category term="fancyBox" scheme="https://blog.iambug.cn/tags/fancyBox/"/>
     
   </entry>
   
