@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2021-01-02T07:26:25.154Z</updated>
+  <updated>2021-01-06T16:18:40.512Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何在 CentOS 7 中设置时间？</title>
+    <link href="https://blog.iambug.cn/articles/42067.html"/>
+    <id>https://blog.iambug.cn/articles/42067.html</id>
+    <published>2021-01-05T11:54:00.000Z</published>
+    <updated>2021-01-06T16:18:40.512Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 <code>systemctl restart crond</code> 命令重启。</p><a id="more"></a><h2 id="显示当前时间"><a href="#显示当前时间" class="headerlink" title="显示当前时间"></a>显示当前时间</h2><p>执行下面的命令会显示当前系统的时区与时间。如果时区是 <code>UTC</code>，那么时间会和 <code>Asia/Shanghai</code> 的相差8小时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date</span><br></pre></td></tr></table></figure></p><h2 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h2><p>显示当前设置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl</span><br></pre></td></tr></table></figure></p><p>列出时区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl list-timezones</span><br></pre></td></tr></table></figure></p><p>设置时区为 <code>Asia/Shanghai</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-timezone Asia/Shanghai</span><br></pre></td></tr></table></figure></p><h2 id="设置时间"><a href="#设置时间" class="headerlink" title="设置时间"></a>设置时间</h2><p>通常我们会选择设置网络时间同步，但如果需要将时间设为特定的时间，则可以通过替换时间并执行以下命令来完成。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-time <span class="string">'2021-01-01 01:01:01'</span></span><br></pre></td></tr></table></figure></p><h2 id="设置实时时钟"><a href="#设置实时时钟" class="headerlink" title="设置实时时钟"></a>设置实时时钟</h2><p>将实时时钟设为本地时区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-local-rtc 1</span><br></pre></td></tr></table></figure></p><p>还原为默认的 <code>UTC</code> 时区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-local-rtc 0</span><br></pre></td></tr></table></figure></p><h2 id="设置网络时间同步"><a href="#设置网络时间同步" class="headerlink" title="设置网络时间同步"></a>设置网络时间同步</h2><p>启用和禁用网络时间同步需要系统上安装 NTP，如果未安装则先用下面的命令安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ntp</span><br></pre></td></tr></table></figure></p><p>启用网络时间同步。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure></p><p>禁用时间同步。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-ntp <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 &lt;code&gt;systemctl restart crond&lt;/code&gt; 命令重启。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+      <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+      <category term="Apache" scheme="https://blog.iambug.cn/tags/Apache/"/>
+    
+      <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
+    
+  </entry>
   
   <entry>
     <title>哇，2021了</title>
@@ -47,7 +73,7 @@
     <link href="https://blog.iambug.cn/articles/30006.html"/>
     <id>https://blog.iambug.cn/articles/30006.html</id>
     <published>2020-12-29T04:58:00.000Z</published>
-    <updated>2021-01-02T03:48:32.352Z</updated>
+    <updated>2021-01-05T14:03:01.364Z</updated>
     
     <content type="html"><![CDATA[<p>以下的内容是在 CentOS 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。</p><a id="more"></a><h2 id="备份准备"><a href="#备份准备" class="headerlink" title="备份准备"></a>备份准备</h2><p>执行备份前，首先在当前用户的主目录中创建一个 <code>backup</code> 目录来存储备份文件，然后在 <code>backup</code> 目录新建 <code>.env</code> 文件并替换命令中相应的变量值，执行命令将备份时所需要的备份信息写入到 <code>.env</code> 文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建备份存储目录</span></span><br><span class="line">mkdir -p /home/$(whoami)/backup &amp;&amp; <span class="built_in">cd</span> /home/$(whoami)/backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建环境文件</span></span><br><span class="line">touch .env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入备份信息到.env文件</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># DATE-&gt;日期</span></span><br><span class="line"><span class="comment"># MYSQL_USERNAME-&gt;数据库用户名</span></span><br><span class="line"><span class="comment"># MYSQL_PASSWORD-&gt;数据库密码</span></span><br><span class="line"><span class="comment"># DATABASE_NAME-&gt;数据库名</span></span><br><span class="line"><span class="comment"># WEB_DIRECTORY-&gt;Web目录</span></span><br><span class="line"><span class="comment"># CONFIGURATION_DIRECTORY-&gt;配置目录</span></span><br><span class="line"><span class="comment"># STORAGE_PATH-&gt;存储路径</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export DATE=$(date +%F-%H-%M)'</span> &gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export MYSQL_USERNAME='root'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export MYSQL_PASSWORD='root'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export DATABASE_NAME='example_db'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export WEB_DIRECTORY='/var/www'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export CONFIGURATION_DIRECTORY='/etc/httpd'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export STORAGE_PATH='/home/<span class="variable">$(whoami)</span>/backup'"</span> &gt;&gt; /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure></p><h2 id="执行备份"><a href="#执行备份" class="headerlink" title="执行备份"></a>执行备份</h2><p>在 <code>backup</code> 目录创建 <code>web_server_backup.sh</code> 脚本并将下面的代码粘贴到脚本中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份数据库</span></span><br><span class="line">backup_database()</span><br><span class="line">&#123;</span><br><span class="line">  echo "*** Backup database ‘$DATABASE_NAME’ as ‘$STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql’ ***" &gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  mysqldump -u $MYSQL_USERNAME -p$MYSQL_PASSWORD $DATABASE_NAME &gt; $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql</span><br><span class="line">  if [ -e $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql ]; then</span><br><span class="line">    echo 'info: Backup database successfully!' &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  else</span><br><span class="line">    echo 'error: Failed to backup database.' &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份文件</span></span><br><span class="line">backup_file()</span><br><span class="line">&#123;</span><br><span class="line">  echo "*** Backup directory ‘$WEB_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***" &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;WEB_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;WEB_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  echo "*** Backup directory ‘$CONFIGURATION_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***" &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;CONFIGURATION_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;CONFIGURATION_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取备份信息</span></span><br><span class="line">source $1</span><br><span class="line"></span><br><span class="line">backup_database</span><br><span class="line">backup_file</span><br></pre></td></tr></table></figure></p><p>执行备份，其过程中生成的日志将与备份文件保存在相同的目录中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash web_server_backup.sh /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure></p><h2 id="使用-Cron-自动化"><a href="#使用-Cron-自动化" class="headerlink" title="使用 Cron 自动化"></a>使用 Cron 自动化</h2><p>编辑 crontab。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p><p>添加以下定时任务，该任务将会在每周星期一到时自动执行备份脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * 1 /usr/bin/env bash /home/$(whoami)/backup/web_server_backup.sh /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure></p>]]></content>
     
@@ -66,11 +92,11 @@
     
       <category term="MySQL" scheme="https://blog.iambug.cn/tags/MySQL/"/>
     
+      <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
+    
       <category term="Shell" scheme="https://blog.iambug.cn/tags/Shell/"/>
     
       <category term="Tar" scheme="https://blog.iambug.cn/tags/Tar/"/>
-    
-      <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
     
   </entry>
   
@@ -499,30 +525,6 @@
       <category term="SSH" scheme="https://blog.iambug.cn/tags/SSH/"/>
     
       <category term="GitHub" scheme="https://blog.iambug.cn/tags/GitHub/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 PuTTY 修改 MySQL 的用户密码</title>
-    <link href="https://blog.iambug.cn/articles/47174.html"/>
-    <id>https://blog.iambug.cn/articles/47174.html</id>
-    <published>2019-03-09T12:18:00.000Z</published>
-    <updated>2019-10-02T15:31:16.939Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="下载-PuTTY"><a href="#下载-PuTTY" class="headerlink" title="下载 PuTTY"></a>下载 PuTTY</h2><p><code>https://www.chiark.greenend.org.uk/~sgtatham/putty/</code><br><a id="more"></a></p><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>安装并打开 PuTTY 输入登录信息连接到数据库服务器。</p><section class="message is-default"><p><b>主机名：</b>服务器地址<br><b>端口：</b>22<br><b>连接类型：</b>SSH</p></section><h2 id="修改-MySQL-密码"><a href="#修改-MySQL-密码" class="headerlink" title="修改 MySQL 密码"></a>修改 MySQL 密码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u 用户名 -p</span><br><span class="line"><span class="built_in">set</span> password=password(<span class="string">"新密码"</span>);</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;下载-PuTTY&quot;&gt;&lt;a href=&quot;#下载-PuTTY&quot; class=&quot;headerlink&quot; title=&quot;下载 PuTTY&quot;&gt;&lt;/a&gt;下载 PuTTY&lt;/h2&gt;&lt;p&gt;&lt;code&gt;https://www.chiark.greenend.org.uk/~sgtatham/putty/&lt;/code&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
-    
-    
-      <category term="PuTTY" scheme="https://blog.iambug.cn/tags/PuTTY/"/>
-    
-      <category term="MySQL" scheme="https://blog.iambug.cn/tags/MySQL/"/>
     
   </entry>
   

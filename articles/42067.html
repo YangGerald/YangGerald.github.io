@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>标签: CSS | Gerald&#39;s Blog</title>
+  <title>如何在 CentOS 7 中设置时间？ | Gerald&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="欢迎访问 Gerald&apos;s Blog，我将在这里记录生活的点滴，收藏和分享我的二进制生活。">
-<meta name="keywords" content="Gerald&#39;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gerald&#39;s Blog">
-<meta property="og:url" content="https://blog.iambug.cn/tags/CSS/index.html">
+  <meta name="description" content="在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 systemctl restart crond 命令重启。">
+<meta name="keywords" content="CentOS,Apache,Cron">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在 CentOS 7 中设置时间？">
+<meta property="og:url" content="https://blog.iambug.cn/articles/42067.html">
 <meta property="og:site_name" content="Gerald&#39;s Blog">
-<meta property="og:description" content="欢迎访问 Gerald&apos;s Blog，我将在这里记录生活的点滴，收藏和分享我的二进制生活。">
+<meta property="og:description" content="在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 systemctl restart crond 命令重启。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-06T16:18:40.512Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gerald&#39;s Blog">
-<meta name="twitter:description" content="欢迎访问 Gerald&apos;s Blog，我将在这里记录生活的点滴，收藏和分享我的二进制生活。">
+<meta name="twitter:title" content="如何在 CentOS 7 中设置时间？">
+<meta name="twitter:description" content="在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 systemctl restart crond 命令重启。">
   
     <link rel="alternate" href="/atom.xml" title="Gerald&#39;s Blog" type="application/atom+xml">
   
@@ -76,41 +77,81 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/articles/39717.html" class="archive-article-date">
-  <time class="dt-published" datetime="2019-02-20T06:15:00.000Z" itemprop="datePublished">2月 20</time>
+        <section id="main"><article id="post-如何在-CentOS-7-中设置时间？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/articles/42067.html" class="article-date">
+  <time class="dt-published" datetime="2021-01-05T11:54:00.000Z" itemprop="datePublished">2021-01-05</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统运维/">系统运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/articles/39717.html">fancyBox 脚本的使用</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何在 CentOS 7 中设置时间？
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 <code>systemctl restart crond</code> 命令重启。</p>
+<a id="more"></a>
+<h2 id="显示当前时间"><a href="#显示当前时间" class="headerlink" title="显示当前时间"></a>显示当前时间</h2><p>执行下面的命令会显示当前系统的时区与时间。如果时区是 <code>UTC</code>，那么时间会和 <code>Asia/Shanghai</code> 的相差8小时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h2><p>显示当前设置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl</span><br></pre></td></tr></table></figure></p>
+<p>列出时区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl list-timezones</span><br></pre></td></tr></table></figure></p>
+<p>设置时区为 <code>Asia/Shanghai</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-timezone Asia/Shanghai</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置时间"><a href="#设置时间" class="headerlink" title="设置时间"></a>设置时间</h2><p>通常我们会选择设置网络时间同步，但如果需要将时间设为特定的时间，则可以通过替换时间并执行以下命令来完成。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-time <span class="string">'2021-01-01 01:01:01'</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="设置实时时钟"><a href="#设置实时时钟" class="headerlink" title="设置实时时钟"></a>设置实时时钟</h2><p>将实时时钟设为本地时区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-local-rtc 1</span><br></pre></td></tr></table></figure></p>
+<p>还原为默认的 <code>UTC</code> 时区。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-local-rtc 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置网络时间同步"><a href="#设置网络时间同步" class="headerlink" title="设置网络时间同步"></a>设置网络时间同步</h2><p>启用和禁用网络时间同步需要系统上安装 NTP，如果未安装则先用下面的命令安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ntp</span><br></pre></td></tr></table></figure></p>
+<p>启用网络时间同步。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>禁用时间同步。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl <span class="built_in">set</span>-ntp <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.iambug.cn/articles/42067.html" data-id="ckjlmq2vz001lvwk520ux93p4" data-title="如何在 CentOS 7 中设置时间？" class="article-share-link">分享</a>
+      
+      
+        <a href="/articles/42067.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/42067.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache/">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cron/">Cron</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/articles/15817.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">哇，2021了</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
+
+  <section id="comments" class="vcomment">
+
+  </section>
 </section>
         
           <aside id="sidebar">
