@@ -6,18 +6,18 @@
   
   <title>使用 SSH 密钥登录 Linux 服务器 | Gerald&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。我们可以结合 Failban 使用来增强其安全性，不过接下来要讨论的是 SSH 密钥登录，因为这种方式在安全性上的表现似乎也不逊色。">
+  <meta name="description" content="通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。虽然可以结合 Fail2ban 使用来增强其安全性，但接下来要讨论的是 SSH 密钥登录，因为这种方式似乎也不逊色。">
 <meta name="keywords" content="Git,SSH,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 SSH 密钥登录 Linux 服务器">
 <meta property="og:url" content="https://blog.iambug.cn/articles/35996.html">
 <meta property="og:site_name" content="Gerald&#39;s Blog">
-<meta property="og:description" content="通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。我们可以结合 Failban 使用来增强其安全性，不过接下来要讨论的是 SSH 密钥登录，因为这种方式在安全性上的表现似乎也不逊色。">
+<meta property="og:description" content="通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。虽然可以结合 Fail2ban 使用来增强其安全性，但接下来要讨论的是 SSH 密钥登录，因为这种方式似乎也不逊色。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-09T15:31:22.263Z">
+<meta property="og:updated_time" content="2021-01-09T15:43:28.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 SSH 密钥登录 Linux 服务器">
-<meta name="twitter:description" content="通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。我们可以结合 Failban 使用来增强其安全性，不过接下来要讨论的是 SSH 密钥登录，因为这种方式在安全性上的表现似乎也不逊色。">
+<meta name="twitter:description" content="通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。虽然可以结合 Fail2ban 使用来增强其安全性，但接下来要讨论的是 SSH 密钥登录，因为这种方式似乎也不逊色。">
   
     <link rel="alternate" href="/atom.xml" title="Gerald&#39;s Blog" type="application/atom+xml">
   
@@ -103,7 +103,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。我们可以结合 Failban 使用来增强其安全性，不过接下来要讨论的是 SSH 密钥登录，因为这种方式在安全性上的表现似乎也不逊色。</p>
+        <p>通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。虽然可以结合 Fail2ban 使用来增强其安全性，但接下来要讨论的是 SSH 密钥登录，因为这种方式似乎也不逊色。</p>
 <a id="more"></a>
 <h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>Linux 系统中，<code>root</code> 用户拥有系统的所有特权，并且可以执行任何命令，出于安全考虑，建议不要使用 <code>root</code> 执行日常任务。下面命令将添加一个名为 <code>exaple_user</code> 的用户，执行命令前应替换为所需的用户名。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser example_user</span><br></pre></td></tr></table></figure></p>
 <p>设置用户密码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd example_user</span><br></pre></td></tr></table></figure></p>
@@ -126,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://blog.iambug.cn/articles/35996.html" data-id="ckjpvdnvv0017r0k5j2albtq6" data-title="使用 SSH 密钥登录 Linux 服务器" class="article-share-link">分享</a>
+      <a data-url="https://blog.iambug.cn/articles/35996.html" data-id="ckjpvudac0017tck5x8j04uqj" data-title="使用 SSH 密钥登录 Linux 服务器" class="article-share-link">分享</a>
       
       
         <a href="/articles/35996.html#comments" class="article-comment-link">
