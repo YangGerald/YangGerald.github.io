@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2021-01-09T15:43:28.813Z</updated>
+  <updated>2021-01-17T11:15:15.581Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>通过 Termux 将手机变为电脑</title>
+    <link href="https://blog.iambug.cn/articles/57066.html"/>
+    <id>https://blog.iambug.cn/articles/57066.html</id>
+    <published>2021-01-15T15:25:00.000Z</published>
+    <updated>2021-01-17T11:15:15.581Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装-Termux"><a href="#安装-Termux" class="headerlink" title="安装 Termux"></a>安装 Termux</h2><p>在 <code>https://termux.com/</code> 下载 Termux 并安装，安装过程很简单，与其他 APP 的安装基本上没什么区别。</p><a id="more"></a><h2 id="安装-PRoot"><a href="#安装-PRoot" class="headerlink" title="安装 PRoot"></a>安装 PRoot</h2><p>PRoot 的主要作用是在 Termux 内运行 Linux，而无需 root 手机。需要在 Termux 执行以下命令安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install proot</span><br></pre></td></tr></table></figure></p><p>改变根目录。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-chroot</span><br></pre></td></tr></table></figure></p><h2 id="授予-Termux-存储权限"><a href="#授予-Termux-存储权限" class="headerlink" title="授予 Termux 存储权限"></a>授予 Termux 存储权限</h2><p>使用 Termux 前，需要为其授予存储权限，此过程将在当前用户的主目录创建 <code>storage</code> 文件夹。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-setup-storage</span><br></pre></td></tr></table></figure></p><h2 id="设置终端样式"><a href="#设置终端样式" class="headerlink" title="设置终端样式"></a>设置终端样式</h2><p>参考：<code>https://github.com/Cabbagec/termux-ohmyzsh</code></p><h2 id="设置唤醒锁定"><a href="#设置唤醒锁定" class="headerlink" title="设置唤醒锁定"></a>设置唤醒锁定</h2><p>使用唤醒锁定可以避免 Termux 进入睡眠模式，保持在后台运行。通过下拉通知菜单，点击 <code>ACQUIRE WAKELOCK</code> 打开唤醒锁定，要关闭则点击 <code>RELEASE WAKELOCK</code>，或者使用以下的命令行方式。</p><ul><li><p>打开唤醒锁定</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-wake-lock</span><br></pre></td></tr></table></figure></li><li><p>关闭唤醒锁定</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-wake-unlock</span><br></pre></td></tr></table></figure></li></ul><h2 id="安装-Kali-NetHunter"><a href="#安装-Kali-NetHunter" class="headerlink" title="安装 Kali NetHunter"></a>安装 Kali NetHunter</h2><p>参考：<code>https://github.com/Hax4us/Nethunter-In-Termux</code></p><h2 id="使用图形界面"><a href="#使用图形界面" class="headerlink" title="使用图形界面"></a>使用图形界面</h2><p>在 NetHunter 执行以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lxde-core lxde kali-defaults kali-root-login desktop-base</span><br></pre></td></tr></table></figure></p><p>启动 VNC。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure></p><p>但这种方式仅允许来自本地的 VNC 连接，如果是远程连接，还应该指定 <code>-localhost</code>参数为 <code>no</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver -localhost no</span><br></pre></td></tr></table></figure></p><p>接下来在 <code>https://www.realvnc.com/en/connect/download/viewer/</code> 下载并安装 VNC Viewer，然后用 VNC 服务地址和端口连接。</p><p><img src="/images/2021-01-15/img-1.jpg" alt="Kali Hunter"></p><h2 id="创建软链接"><a href="#创建软链接" class="headerlink" title="创建软链接"></a>创建软链接</h2><p>QQ 接收到的文件会保存在 <code>QQfile_recv</code> 目录中，执行以下命令在 NetHunter 创建该目录的软链接。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /data/data/com.termux/files/home/storage/shared/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv QQfile</span><br></pre></td></tr></table></figure></p><h2 id="Hacker’s-Keyboard"><a href="#Hacker’s-Keyboard" class="headerlink" title="Hacker’s Keyboard"></a>Hacker’s Keyboard</h2><p>Hacker’s Keyboard 不支持中文输入，但仍然是 Android 上很不错的输入软件，例如拼音和符号的输入。需要使用则从 <code>https://github.com/klausw/hackerskeyboard</code> 下载并安装。</p><p><img src="/images/2021-01-15/img-2.jpg" alt="Hacker&#39;s Keyboard"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;安装-Termux&quot;&gt;&lt;a href=&quot;#安装-Termux&quot; class=&quot;headerlink&quot; title=&quot;安装 Termux&quot;&gt;&lt;/a&gt;安装 Termux&lt;/h2&gt;&lt;p&gt;在 &lt;code&gt;https://termux.com/&lt;/code&gt; 下载 Termux 并安装，安装过程很简单，与其他 APP 的安装基本上没什么区别。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+    
+    
+      <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+      <category term="Termux" scheme="https://blog.iambug.cn/tags/Termux/"/>
+    
+      <category term="NetHunter" scheme="https://blog.iambug.cn/tags/NetHunter/"/>
+    
+      <category term="VNC" scheme="https://blog.iambug.cn/tags/VNC/"/>
+    
+      <category term="黑客键盘" scheme="https://blog.iambug.cn/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/"/>
+    
+      <category term="Kali" scheme="https://blog.iambug.cn/tags/Kali/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 SSH 密钥登录 Linux 服务器</title>
@@ -131,7 +163,7 @@
     <link href="https://blog.iambug.cn/articles/27465.html"/>
     <id>https://blog.iambug.cn/articles/27465.html</id>
     <published>2020-12-19T08:08:00.000Z</published>
-    <updated>2020-12-19T08:41:24.766Z</updated>
+    <updated>2021-01-17T10:17:16.401Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2020-12-19/img-1.jpg" alt></p>]]></content>
     
@@ -407,7 +439,7 @@
     <link href="https://blog.iambug.cn/articles/39439.html"/>
     <id>https://blog.iambug.cn/articles/39439.html</id>
     <published>2019-09-17T14:23:00.000Z</published>
-    <updated>2020-12-19T08:34:14.548Z</updated>
+    <updated>2021-01-17T10:20:19.585Z</updated>
     
     <content type="html"><![CDATA[<p><strong>原文：</strong><br><img src="/images/2019-09-17/img-1.png" alt></p><a id="more"></a><p><strong>翻译：</strong><br>Warren Beatty是个演员，他几乎睡遍了全世界最漂亮的女人。<br>有一次他接受采访，记者问他：你对付女人这么成功，秘诀是什么？<br>他说：我每见到一个女的，都会问她愿不愿意跟我上床。<br>记者气儿都喘不匀了，说：这也行？<br>他回答：哎，真挨了不少嘴巴呀——但也真睡了不少姑娘。<br>这样伟大的经验，足以用来指导我们的全部人生。</p>]]></content>
     
@@ -489,37 +521,6 @@
     
     
       <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo 迁移</title>
-    <link href="https://blog.iambug.cn/articles/7337.html"/>
-    <id>https://blog.iambug.cn/articles/7337.html</id>
-    <published>2019-03-26T10:42:00.000Z</published>
-    <updated>2019-10-02T15:29:58.436Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="备份文件"><a href="#备份文件" class="headerlink" title="备份文件"></a>备份文件</h2><ol><li>_config.yml</li><li>package.json</li><li>scaffolds</li><li>source</li><li>themes<a id="more"></a></li></ol><h2 id="配置-Hexo-环境"><a href="#配置-Hexo-环境" class="headerlink" title="配置 Hexo 环境"></a>配置 Hexo 环境</h2><ol><li><p>安装 Git，配置用户名称和邮件地址。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"John Doe"</span></span><br><span class="line">git config --global user.email johndoe@example.com</span><br></pre></td></tr></table></figure></li><li><p>安装 Node.js。</p></li><li><p>安装 Hexo。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></li><li><p>把备份文件复制粘贴到相应路径。</p></li><li><p>进入网站目录，执行下面的命令。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure></li></ol><p>用浏览器访问网址 <code>http://localhost:4000/</code> 查看效果。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;备份文件&quot;&gt;&lt;a href=&quot;#备份文件&quot; class=&quot;headerlink&quot; title=&quot;备份文件&quot;&gt;&lt;/a&gt;备份文件&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;_config.yml&lt;/li&gt;
-&lt;li&gt;package.json&lt;/li&gt;
-&lt;li&gt;scaffolds&lt;/li&gt;
-&lt;li&gt;source&lt;/li&gt;
-&lt;li&gt;themes
-    
-    </summary>
-    
-      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
-    
-    
-      <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
-    
-      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
-    
-      <category term="Node.js" scheme="https://blog.iambug.cn/tags/Node-js/"/>
     
   </entry>
   
