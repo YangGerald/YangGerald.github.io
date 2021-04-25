@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2021-04-25T13:13:45.949Z</updated>
+  <updated>2021-04-25T14:04:54.944Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -20,21 +20,27 @@
     <title>利用 Hydra 暴力破解 SSH 密码</title>
     <link href="https://blog.iambug.cn/articles/38544.html"/>
     <id>https://blog.iambug.cn/articles/38544.html</id>
-    <published>2021-01-31T12:18:37.000Z</published>
-    <updated>2021-04-25T13:13:45.949Z</updated>
+    <published>2021-01-31T12:18:00.000Z</published>
+    <updated>2021-04-25T14:04:54.944Z</updated>
     
-    <content type="html"><![CDATA[<p>在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。</p><h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>在 Kali Linux 打开终端，使用 Nmap 对攻击目标进行端口扫描。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -p22 192.168.1.3</span><br></pre></td></tr></table></figure></p><p><strong>参数说明：</strong></p><ul><li><code>-sV</code> 版本探测</li><li><code>-p</code> 目标端口</li><li><code>192.168.1.3</code> 目标 IP 地址</li></ul><h2 id="修改默认端口"><a href="#修改默认端口" class="headerlink" title="修改默认端口"></a>修改默认端口</h2><p>在 SSH 服务中，我们应该避免使用默认端口，将 <code>22</code> 端口修改为其他端口。如果服务器是 CentOS 系统，则打开 <code>/etc/ssh/sshd_config</code> 文件，查找 <code>port</code> 项，去掉注释并修改端口为 <code>2222</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></p><p>重启 SSH 服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure></p><p>开放 <code>2222</code> 端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=2222/tcp --permanent</span><br></pre></td></tr></table></figure></p><p>重新加载 firewalld，使规则立即生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p><h2 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h2><p>在终端执行下面的命令，利用 Hydra 对目标进行暴力攻击。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L username.txt -P password.txt ssh://192.168.1.3</span><br></pre></td></tr></table></figure></p><p><strong>参数说明：</strong></p><ul><li><code>-L</code> 从文件加载登录名</li><li><code>-P</code> 从文件加载密码</li><li><code>ssh://192.168.1.3</code> 包含协议的攻击目标地址</li></ul><p>要防御上面的暴力攻击，可以使用 Fail2ban 来保护服务器。</p>]]></content>
+    <content type="html"><![CDATA[<p>在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。</p><a id="more"></a><h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>在 Kali Linux 打开终端，使用 Nmap 对攻击目标进行端口扫描。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -p22 192.168.1.3</span><br></pre></td></tr></table></figure></p><p><strong>参数说明：</strong></p><ul><li><code>-sV</code> 版本探测</li><li><code>-p</code> 目标端口</li><li><code>192.168.1.3</code> 目标 IP 地址</li></ul><h2 id="修改默认端口"><a href="#修改默认端口" class="headerlink" title="修改默认端口"></a>修改默认端口</h2><p>在 SSH 服务中，我们应该避免使用默认端口，将 <code>22</code> 端口修改为其他端口。如果服务器是 CentOS 系统，则打开 <code>/etc/ssh/sshd_config</code> 文件，查找 <code>port</code> 项，去掉注释并修改端口为 <code>2222</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></p><p>重启 SSH 服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure></p><p>开放 <code>2222</code> 端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=2222/tcp --permanent</span><br></pre></td></tr></table></figure></p><p>重新加载 firewalld，使规则立即生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p><h2 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h2><p>在终端执行下面的命令，利用 Hydra 对目标进行暴力攻击。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L username.txt -P password.txt ssh://192.168.1.3</span><br></pre></td></tr></table></figure></p><p><strong>参数说明：</strong></p><ul><li><code>-L</code> 从文件加载登录名</li><li><code>-P</code> 从文件加载密码</li><li><code>ssh://192.168.1.3</code> 包含协议的攻击目标地址</li></ul><p>要防御上面的暴力攻击，可以使用 Fail2ban 来保护服务器。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。&lt;/p&gt;
-&lt;h2 id=&quot;端
-      
+      &lt;p&gt;在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。&lt;/p&gt;
     
     </summary>
     
+      <category term="网络安全" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="SSH" scheme="https://blog.iambug.cn/tags/SSH/"/>
+    
+      <category term="Hydra" scheme="https://blog.iambug.cn/tags/Hydra/"/>
+    
+      <category term="Nmap" scheme="https://blog.iambug.cn/tags/Nmap/"/>
+    
+      <category term="暴力攻击" scheme="https://blog.iambug.cn/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/"/>
     
   </entry>
   
