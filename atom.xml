@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2021-01-17T11:15:15.581Z</updated>
+  <updated>2021-04-25T13:13:45.949Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利用 Hydra 暴力破解 SSH 密码</title>
+    <link href="https://blog.iambug.cn/articles/38544.html"/>
+    <id>https://blog.iambug.cn/articles/38544.html</id>
+    <published>2021-01-31T12:18:37.000Z</published>
+    <updated>2021-04-25T13:13:45.949Z</updated>
+    
+    <content type="html"><![CDATA[<p>在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。</p><h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>在 Kali Linux 打开终端，使用 Nmap 对攻击目标进行端口扫描。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -p22 192.168.1.3</span><br></pre></td></tr></table></figure></p><p><strong>参数说明：</strong></p><ul><li><code>-sV</code> 版本探测</li><li><code>-p</code> 目标端口</li><li><code>192.168.1.3</code> 目标 IP 地址</li></ul><h2 id="修改默认端口"><a href="#修改默认端口" class="headerlink" title="修改默认端口"></a>修改默认端口</h2><p>在 SSH 服务中，我们应该避免使用默认端口，将 <code>22</code> 端口修改为其他端口。如果服务器是 CentOS 系统，则打开 <code>/etc/ssh/sshd_config</code> 文件，查找 <code>port</code> 项，去掉注释并修改端口为 <code>2222</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure></p><p>重启 SSH 服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure></p><p>开放 <code>2222</code> 端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=2222/tcp --permanent</span><br></pre></td></tr></table></figure></p><p>重新加载 firewalld，使规则立即生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p><h2 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h2><p>在终端执行下面的命令，利用 Hydra 对目标进行暴力攻击。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L username.txt -P password.txt ssh://192.168.1.3</span><br></pre></td></tr></table></figure></p><p><strong>参数说明：</strong></p><ul><li><code>-L</code> 从文件加载登录名</li><li><code>-P</code> 从文件加载密码</li><li><code>ssh://192.168.1.3</code> 包含协议的攻击目标地址</li></ul><p>要防御上面的暴力攻击，可以使用 Fail2ban 来保护服务器。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。&lt;/p&gt;
+&lt;h2 id=&quot;端
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>通过 Termux 将手机变为电脑</title>
@@ -499,28 +521,6 @@
     
     
       <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo 修改</title>
-    <link href="https://blog.iambug.cn/articles/62821.html"/>
-    <id>https://blog.iambug.cn/articles/62821.html</id>
-    <published>2019-03-28T05:52:00.000Z</published>
-    <updated>2020-06-26T07:31:47.159Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h2><h3 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h3><p>./_config.yml<br><a id="more"></a></p><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>参数： <code>title</code></p><h3 id="副标题"><a href="#副标题" class="headerlink" title="副标题"></a>副标题</h3><p>参数： <code>subtitle</code></p><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>参数： <code>description</code></p><h3 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h3><p>参数： <code>keywords</code></p><h3 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h3><p>参数： <code>author</code></p><h3 id="网址"><a href="#网址" class="headerlink" title="网址"></a>网址</h3><p>参数： <code>url</code></p><h3 id="永久链接"><a href="#永久链接" class="headerlink" title="永久链接"></a>永久链接</h3><p>参数： <code>permalink</code><br>默认值： <code>:year/:month/:day/:title/</code></p><h2 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h2><h3 id="文件路径-1"><a href="#文件路径-1" class="headerlink" title="文件路径"></a>文件路径</h3><p>./themes/landscape/_config.yml</p><h3 id="摘要链接"><a href="#摘要链接" class="headerlink" title="摘要链接"></a>摘要链接</h3><p>参数： <code>excerpt_link</code></p><h3 id="Valine-配置"><a href="#Valine-配置" class="headerlink" title="Valine 配置"></a>Valine 配置</h3><p>参数： <code>valine</code></p><h2 id="导航栏修改为中文"><a href="#导航栏修改为中文" class="headerlink" title="导航栏修改为中文"></a>导航栏修改为中文</h2><p>文件路径： <code>./themes/landscape/_config.yml</code><br>参数： <code>menu</code><br><strong>注：</strong>用 Windows 系统自带的记事本（其他工具就看运气了）编辑会出现中文乱码的情况，需要将文件另存为 <code>UTF-8</code> 编码替换同名文件。</p><h2 id="启用-RSS"><a href="#启用-RSS" class="headerlink" title="启用 RSS"></a>启用 RSS</h2><p>安装 <code>hexo-generator-feed</code> 插件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure></p><p><strong>注：</strong>需要配置 <code>url</code> 参数为自己的网址。</p><p>更多信息： <code>https://github.com/hexojs/hexo-generator-feed</code></p><h2 id="更换-banner-图片"><a href="#更换-banner-图片" class="headerlink" title="更换 banner 图片"></a>更换 banner 图片</h2><p>使用新 banner 图片替换 <code>./themes/landscape/source/css/images/banner.jpg</code> 图片。</p><h2 id="修改-jQuery-源"><a href="#修改-jQuery-源" class="headerlink" title="修改 jQuery 源"></a>修改 jQuery 源</h2><p>文件路径： <code>./themes/landscape/layout/_partial/after-footer.ejs</code><br>修改：<br><code>//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js</code><br>改为<br><code>https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js</code></p><p>更多信息： <code>https://jquery.com/download/</code></p><h2 id="Google-搜索修改为百度搜索"><a href="#Google-搜索修改为百度搜索" class="headerlink" title="Google 搜索修改为百度搜索"></a>Google 搜索修改为百度搜索</h2><p>文件路径： <code>./node_modules/hexo/lib/plugins/helper/search_form.js</code><br><code>form</code> 表单：</p><ul><li>action 属性： <code>//google.com/search</code> -&gt; <code>http://zhannei.baidu.com/cse/site</code></li><li>name 属性： <code>sitesearch</code> -&gt; <code>cc</code></li><li>value 属性： <code>${config.url}</code> -&gt; <code>example.com</code>，value 值为网站的主域，不能带 <code>https://</code>。</li></ul><h2 id="文章链接结构优化"><a href="#文章链接结构优化" class="headerlink" title="文章链接结构优化"></a>文章链接结构优化</h2><p>安装 <code>hexo-abbrlink</code> 插件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure></p><p>修改文章永久链接为： <code>permalink: posts/:abbrlink/</code>。</p><p>更多信息： <code>https://github.com/rozbo/hexo-abbrlink</code></p><h2 id="创建404页面"><a href="#创建404页面" class="headerlink" title="创建404页面"></a>创建404页面</h2><p>新建名为 <code>404.html</code> 的网页文件，移动到 <code>./themes/landscape/source/</code> 路径下。</p><h2 id="安装-hexo-admin"><a href="#安装-hexo-admin" class="headerlink" title="安装 hexo admin"></a>安装 hexo admin</h2><p>安装 <code>hexo admin</code> 插件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin</span><br></pre></td></tr></table></figure></p><p>访问网址 <code>http://localhost:4000/admin/</code>。</p><p>更多信息： <code>https://github.com/jaredly/hexo-admin</code></p><h2 id="提交网址"><a href="#提交网址" class="headerlink" title="提交网址"></a>提交网址</h2><p>登录百度搜索资源平台 <code>https://ziyuan.baidu.com/</code> 添加网站。输入要添加的网站，验证网站选择“HTML标签验证”方式，这需要按照如下配置 <code>_config.yml</code> 和 <code>head.ejs</code> 文件。<br>文件路径： <code>./themes/landscape/_config.yml</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baidu_site_verification: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p><p>如提交到 Google，则配置为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google_site_verification: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p><p>文件路径： <code>./themes/landscape/layout/_partial/head.ejs</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.baidu_site_verification)&#123; %&gt;</span><br><span class="line">  &lt;meta name=<span class="string">"baidu-site-verification"</span> content=<span class="string">"xxx"</span> /&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p><p>配置完成后，发布网站：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p><p>最后点击完成验证。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;config-yml&quot;&gt;&lt;a href=&quot;#config-yml&quot; class=&quot;headerlink&quot; title=&quot;_config.yml&quot;&gt;&lt;/a&gt;_config.yml&lt;/h2&gt;&lt;h3 id=&quot;文件路径&quot;&gt;&lt;a href=&quot;#文件路径&quot; class=&quot;headerlink&quot; title=&quot;文件路径&quot;&gt;&lt;/a&gt;文件路径&lt;/h3&gt;&lt;p&gt;./_config.yml&lt;br&gt;
-    
-    </summary>
-    
-      <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
-    
-    
-      <category term="Hexo" scheme="https://blog.iambug.cn/tags/Hexo/"/>
     
   </entry>
   
