@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>自动备份 Web 服务器 | Gerald&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="以下的内容是在 CentOS 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动备份 Web 服务器">
+<meta property="og:url" content="https://blog.iambug.cn/articles/30006.html">
+<meta property="og:site_name" content="Gerald&#39;s Blog">
+<meta property="og:description" content="以下的内容是在 CentOS 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-29T04:58:00.000Z">
+<meta property="article:modified_time" content="2021-01-05T14:03:02.000Z">
+<meta property="article:author" content="Gerald">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="Apache">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Cron">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Tar">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Gerald's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/css/bulma-message.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    <meta name="baidu-site-verification" content="code-g6ijHMgAuL" />
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Gerald&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">夏天的雷雨其实和春花秋月一样，遇到了就要好好欣赏。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/software">软件</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.iambug.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-自动备份-Web-服务器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/articles/30006.html" class="article-date">
+  <time class="dt-published" datetime="2020-12-29T04:58:00.000Z" itemprop="datePublished">2020-12-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      自动备份 Web 服务器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下的内容是在 CentOS 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。</p>
+<span id="more"></span>
+<h2 id="备份准备"><a href="#备份准备" class="headerlink" title="备份准备"></a>备份准备</h2><p>执行备份前，首先在当前用户的主目录中创建一个 <code>backup</code> 目录来存储备份文件，然后在 <code>backup</code> 目录新建 <code>.env</code> 文件并替换命令中相应的变量值，执行命令将备份时所需要的备份信息写入到 <code>.env</code> 文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建备份存储目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /home/$(<span class="built_in">whoami</span>)/backup &amp;&amp; <span class="built_in">cd</span> /home/$(<span class="built_in">whoami</span>)/backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建环境文件</span></span><br><span class="line"><span class="built_in">touch</span> .<span class="built_in">env</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入备份信息到.env文件</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># DATE-&gt;日期</span></span><br><span class="line"><span class="comment"># MYSQL_USERNAME-&gt;数据库用户名</span></span><br><span class="line"><span class="comment"># MYSQL_PASSWORD-&gt;数据库密码</span></span><br><span class="line"><span class="comment"># DATABASE_NAME-&gt;数据库名</span></span><br><span class="line"><span class="comment"># WEB_DIRECTORY-&gt;Web目录</span></span><br><span class="line"><span class="comment"># CONFIGURATION_DIRECTORY-&gt;配置目录</span></span><br><span class="line"><span class="comment"># STORAGE_PATH-&gt;存储路径</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export DATE=$(date +%F-%H-%M)&#x27;</span> &gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export MYSQL_USERNAME=&#x27;root&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export MYSQL_PASSWORD=&#x27;root&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export DATABASE_NAME=&#x27;example_db&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export WEB_DIRECTORY=&#x27;/var/www&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export CONFIGURATION_DIRECTORY=&#x27;/etc/httpd&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export STORAGE_PATH=&#x27;/home/<span class="subst">$(whoami)</span>/backup&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行备份"><a href="#执行备份" class="headerlink" title="执行备份"></a>执行备份</h2><p>在 <code>backup</code> 目录创建 <code>web_server_backup.sh</code> 脚本并将下面的代码粘贴到脚本中。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份数据库</span></span><br><span class="line">backup_database()</span><br><span class="line">&#123;</span><br><span class="line">  echo &quot;*** Backup database ‘$DATABASE_NAME’ as ‘$STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql’ ***&quot; &gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  mysqldump -u $MYSQL_USERNAME -p$MYSQL_PASSWORD $DATABASE_NAME &gt; $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql</span><br><span class="line">  if [ -e $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql ]; then</span><br><span class="line">    echo &#x27;info: Backup database successfully!&#x27; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  else</span><br><span class="line">    echo &#x27;error: Failed to backup database.&#x27; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份文件</span></span><br><span class="line">backup_file()</span><br><span class="line">&#123;</span><br><span class="line">  echo &quot;*** Backup directory ‘$WEB_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***&quot; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;WEB_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;WEB_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  echo &quot;*** Backup directory ‘$CONFIGURATION_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***&quot; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;CONFIGURATION_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;CONFIGURATION_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取备份信息</span></span><br><span class="line">source $1</span><br><span class="line"></span><br><span class="line">backup_database</span><br><span class="line">backup_file</span><br></pre></td></tr></table></figure>
+<p>执行备份，其过程中生成的日志将与备份文件保存在相同的目录中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash web_server_backup.sh /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Cron-自动化"><a href="#使用-Cron-自动化" class="headerlink" title="使用 Cron 自动化"></a>使用 Cron 自动化</h2><p>编辑 crontab。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>添加以下定时任务，该任务将会在每周星期一到时自动执行备份脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * 1 /usr/bin/env bash /home/$(whoami)/backup/web_server_backup.sh /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.iambug.cn/articles/30006.html" data-id="cl6swr5zw006d64wmffbm34al" data-title="自动备份 Web 服务器" class="article-share-link">分享</a>
+      
+      
+        <a href="/articles/30006.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/30006.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/" rel="tag">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cron/" rel="tag">Cron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tar/" rel="tag">Tar</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/articles/15817.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          哇，2021了
+        
+      </div>
+    </a>
+  
+  
+    <a href="/articles/27465.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">一个留言，在冬天</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  <section id="comments" class="vcomment">
+
+  </section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/">网络日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">资源共享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/">闲言碎语</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMTEmu/" rel="tag">AMTEmu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adobe/" rel="tag">Adobe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/" rel="tag">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/" rel="tag">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cron/" rel="tag">Cron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDoS/" rel="tag">DDoS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPG/" rel="tag">GPG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hallelujah/" rel="tag">Hallelujah</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IRC/" rel="tag">IRC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Irssi/" rel="tag">Irssi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/" rel="tag">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metasploit/" rel="tag">Metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NetHunter/" rel="tag">NetHunter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nmap/" rel="tag">Nmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PuTTY/" rel="tag">PuTTY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyInstaller/" rel="tag">PyInstaller</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tar/" rel="tag">Tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Termux/" rel="tag">Termux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V2Ray/" rel="tag">V2Ray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Win-KeX/" rel="tag">Win-KeX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fancyBox/" rel="tag">fancyBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freenode/" rel="tag">freenode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/" rel="tag">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" rel="tag">云存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" rel="tag">人生忠告</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" rel="tag">教堂婚礼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" rel="tag">暴力攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" rel="tag">海之言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" rel="tag">黑客键盘</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AMTEmu/" style="font-size: 10px;">AMTEmu</a> <a href="/tags/Adobe/" style="font-size: 14px;">Adobe</a> <a href="/tags/Apache/" style="font-size: 14px;">Apache</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 20px;">CentOS</a> <a href="/tags/Cron/" style="font-size: 12px;">Cron</a> <a href="/tags/DDoS/" style="font-size: 10px;">DDoS</a> <a href="/tags/GPG/" style="font-size: 10px;">GPG</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hallelujah/" style="font-size: 10px;">Hallelujah</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/IRC/" style="font-size: 10px;">IRC</a> <a href="/tags/Irssi/" style="font-size: 10px;">Irssi</a> <a href="/tags/Kali/" style="font-size: 14px;">Kali</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Metasploit/" style="font-size: 10px;">Metasploit</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NetHunter/" style="font-size: 10px;">NetHunter</a> <a href="/tags/Nmap/" style="font-size: 10px;">Nmap</a> <a href="/tags/Node-js/" style="font-size: 12px;">Node.js</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/PuTTY/" style="font-size: 10px;">PuTTY</a> <a href="/tags/PyInstaller/" style="font-size: 10px;">PyInstaller</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/SSH/" style="font-size: 14px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tar/" style="font-size: 10px;">Tar</a> <a href="/tags/Termux/" style="font-size: 10px;">Termux</a> <a href="/tags/V2Ray/" style="font-size: 10px;">V2Ray</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Win-KeX/" style="font-size: 10px;">Win-KeX</a> <a href="/tags/Windows/" style="font-size: 14px;">Windows</a> <a href="/tags/fancyBox/" style="font-size: 10px;">fancyBox</a> <a href="/tags/freenode/" style="font-size: 10px;">freenode</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" style="font-size: 10px;">云存储</a> <a href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" style="font-size: 10px;">人生忠告</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" style="font-size: 10px;">教堂婚礼</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 12px;">数据库</a> <a href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" style="font-size: 10px;">暴力攻击</a> <a href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" style="font-size: 18px;">海之言</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" style="font-size: 10px;">黑客键盘</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/articles/60956.html">Metasploit 生成木马并获取 PC 的控制权</a>
+          </li>
+        
+          <li>
+            <a href="/articles/19491.html">如何在 CentOS 7 安装图形界面</a>
+          </li>
+        
+          <li>
+            <a href="/articles/64820.html">如何在 CentOS 7 部署 Oracle 19c 数据库</a>
+          </li>
+        
+          <li>
+            <a href="/articles/45452.html">PyInstaller 生成 Python 脚本的可执行程序</a>
+          </li>
+        
+          <li>
+            <a href="/articles/13652.html">备份服务器文件上传到七牛云</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Gerald<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      | <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279417070'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279417070%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/software" class="mobile-nav-link">软件</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js"></script>
+
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "WmKqC8zD3NGA0c7Vv3DODm1U-gzGzoHsz",
+        appKey: "aCqOJKdiQ6GE8aKFOkC1Kb6L",
+        placeholder: "说点什么吧...",
+        pageSize:'10',
+        avatar:'monsterid',
+        lang:'zh-cn'
+    });
+</script>
+
+  </div>
+</body>
+</html>

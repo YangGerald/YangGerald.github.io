@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>V2Ray 的搭建及使用 | Gerald&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="创建 VPSVultr 的不错，接下来就说它吧。首先用邮箱注册并登录邮箱验证账户，然后充值（支持支付宝），创建 VPS，等待其状态变为 Running。以下是本文创建 VPS 的一些选项：  服务器：Cloud Compute 位置：Seoul 类型：CentOS 7 x64">
+<meta property="og:type" content="article">
+<meta property="og:title" content="V2Ray 的搭建及使用">
+<meta property="og:url" content="https://blog.iambug.cn/articles/5903.html">
+<meta property="og:site_name" content="Gerald&#39;s Blog">
+<meta property="og:description" content="创建 VPSVultr 的不错，接下来就说它吧。首先用邮箱注册并登录邮箱验证账户，然后充值（支持支付宝），创建 VPS，等待其状态变为 Running。以下是本文创建 VPS 的一些选项：  服务器：Cloud Compute 位置：Seoul 类型：CentOS 7 x64">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-04T09:51:00.000Z">
+<meta property="article:modified_time" content="2020-09-05T12:18:48.000Z">
+<meta property="article:author" content="Gerald">
+<meta property="article:tag" content="V2Ray">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Gerald's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/css/bulma-message.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    <meta name="baidu-site-verification" content="code-g6ijHMgAuL" />
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Gerald&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">夏天的雷雨其实和春花秋月一样，遇到了就要好好欣赏。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/software">软件</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.iambug.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-V2Ray-的搭建及使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/articles/5903.html" class="article-date">
+  <time class="dt-published" datetime="2020-09-04T09:51:00.000Z" itemprop="datePublished">2020-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/">网络日志</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      V2Ray 的搭建及使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="创建-VPS"><a href="#创建-VPS" class="headerlink" title="创建 VPS"></a>创建 VPS</h2><p><a target="_blank" rel="noopener" href="https://www.vultr.com/?ref=8663467">Vultr</a> 的不错，接下来就说它吧。首先用邮箱注册并登录邮箱验证账户，然后充值（支持支付宝），创建 VPS，等待其状态变为 Running。以下是本文创建 VPS 的一些选项：</p>
+<ul>
+<li>服务器：Cloud Compute</li>
+<li>位置：Seoul</li>
+<li>类型：CentOS 7 x64</li>
+</ul>
+<span id="more"></span>
+<h2 id="安装-V2Ray"><a href="#安装-V2Ray" class="headerlink" title="安装 V2Ray"></a>安装 V2Ray</h2><p>通过 SSH 连接到服务器。输入命令下载脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh</span><br></pre></td></tr></table></figure>
+<p>执行脚本安装 V2Ray：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash install-release.sh</span><br></pre></td></tr></table></figure>
+<p>设置开机自启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> v2ray</span><br></pre></td></tr></table></figure>
+<p>启动 V2Ray：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start v2ray</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>打开 <code>/usr/local/etc/v2ray/config.json</code> 文件，配置为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;inbounds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">10086</span><span class="punctuation">,</span> <span class="comment">// 服务器监听端口</span></span><br><span class="line">    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vmess&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;clients&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span> <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b831381d-6324-4d53-ad4f-8cda48b30811&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;outbounds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;freedom&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>重启 V2Ray：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart v2ray</span><br></pre></td></tr></table></figure>
+<p>测试配置文件有效性，如果有问题则输出错误信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2ray -<span class="built_in">test</span> -config=/usr/local/etc/v2ray/config.json</span><br></pre></td></tr></table></figure>
+
+<h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>开放配置中设置的 <code>10086</code> 端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=10086/tcp --permanent</span><br></pre></td></tr></table></figure>
+<p>重新加载 firewalld，使规则立即生效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p>如果需要关闭 <code>10086</code> 端口，则输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --remove-port=10086/tcp --permanent</span><br></pre></td></tr></table></figure>
+
+<h2 id="在客户端使用"><a href="#在客户端使用" class="headerlink" title="在客户端使用"></a>在客户端使用</h2><ul>
+<li><p><strong>Android</strong><br>1.打开 <code>https://github.com/2dust/v2rayNG/releases</code> 下载 v2rayNG 并安装。<br>2.在 v2rayNG 中点击右上角的加号 <code>+</code>，选择 <code>手动输入[Vmess]</code> 进入到配置界面。这里需要配置的主要参数有地址、端口、用户ID，其中地址为服务器地址，端口和用户ID则需要分别与配置中的 <code>port</code> 和 <code>id</code> 对应，再输入一个喜欢的别名吧，这显得并不那么重要，但它是必填项（噢~我绝对没有一点说开发者的意思，他很好！），点击右上角的勾 <code>√</code> 保存配置。<br>3.点击右下角的灰色图标启动服务，测试连接成功就可以使用了。</p>
+</li>
+<li><p><strong>Windows</strong><br>1.打开 <code>https://github.com/2dust/v2rayN/releases</code> 下载 v2rayN-Core.zip 并解压，双击目录中的 v2rayN.exe 运行。<br>2.在 v2rayN 主界面点击 <code>服务器</code>，选择 <code>添加[VMess]服务器</code>，接下来与 Andriod 上类似，配置地址、端口、用户ID及别名（选填）。<br>3.右击电脑右下角的 v2rayN 图标，在 <code>Http代理</code> 中开启服务。</p>
+</li>
+<li><p><strong>Linux</strong><br>1.打开 <code>https://github.com/v2ray/v2ray-core/releases</code> 选择相应 Linux 版本的 V2Ray 下载，此处下载 v2ray-linux-64.zip，下载完成后解压。<br>2.打开 config.json 文件，配置如下：</p>
+</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;inbounds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">1080</span><span class="punctuation">,</span>  <span class="comment">// SOCKS 代理端口，在浏览器中需配置代理并指向这个端口</span></span><br><span class="line">    <span class="attr">&quot;listen&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;socks&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;udp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;outbounds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vmess&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;vnext&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;server&quot;</span><span class="punctuation">,</span> <span class="comment">// 服务器地址，请修改为你自己的服务器 ip 或域名</span></span><br><span class="line">        <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">10086</span><span class="punctuation">,</span>  <span class="comment">// 服务器端口</span></span><br><span class="line">        <span class="attr">&quot;users&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span> <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b831381d-6324-4d53-ad4f-8cda48b30811&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;freedom&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;direct&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;routing&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;domainStrategy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;IPOnDemand&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;field&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;ip&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;geoip:private&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outboundTag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;direct&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上述配置中需要把 <code>address</code> 项的值改为服务器地址，此配置会把局域网之外的所有流量转发到服务器。<br>3.在 v2ray 文件所在目录中打开终端，执行 <code>./v2ray</code> 启动 V2Ray。<br>4.为 Chrome 浏览器安装 Proxy SwitchyOmega 扩展。在该扩展的选项中点击 <code>新建情景模式</code>，输入情景名称，类型为默认的 <code>代理服务器</code> 类型，然后创建，配置代理协议为 <code>SOCKS5</code>，代理服务器为 <code>127.0.0.1</code>，端口为 <code>1080</code>，点击 <code>应用选项</code> 保存配置。<br>5.最后在浏览器右上角点击 Proxy SwitchyOmega 扩展的图标，选择创建的情景模式即可。玩得愉快~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.iambug.cn/articles/5903.html" data-id="cl6swr5z2000s64wm332bbfgx" data-title="V2Ray 的搭建及使用" class="article-share-link">分享</a>
+      
+      
+        <a href="/articles/5903.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/5903.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/V2Ray/" rel="tag">V2Ray</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/articles/59011.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          基于 CentOS 搭建 LAMP 环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/articles/29650.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Linux 上使用 IRC 命令行客户端 Irssi 聊天</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  <section id="comments" class="vcomment">
+
+  </section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/">网络日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">资源共享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/">闲言碎语</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMTEmu/" rel="tag">AMTEmu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adobe/" rel="tag">Adobe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/" rel="tag">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/" rel="tag">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cron/" rel="tag">Cron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDoS/" rel="tag">DDoS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPG/" rel="tag">GPG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hallelujah/" rel="tag">Hallelujah</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IRC/" rel="tag">IRC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Irssi/" rel="tag">Irssi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/" rel="tag">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metasploit/" rel="tag">Metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NetHunter/" rel="tag">NetHunter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nmap/" rel="tag">Nmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PuTTY/" rel="tag">PuTTY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyInstaller/" rel="tag">PyInstaller</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tar/" rel="tag">Tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Termux/" rel="tag">Termux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V2Ray/" rel="tag">V2Ray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Win-KeX/" rel="tag">Win-KeX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fancyBox/" rel="tag">fancyBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freenode/" rel="tag">freenode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/" rel="tag">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" rel="tag">云存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" rel="tag">人生忠告</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" rel="tag">教堂婚礼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" rel="tag">暴力攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" rel="tag">海之言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" rel="tag">黑客键盘</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AMTEmu/" style="font-size: 10px;">AMTEmu</a> <a href="/tags/Adobe/" style="font-size: 14px;">Adobe</a> <a href="/tags/Apache/" style="font-size: 14px;">Apache</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 20px;">CentOS</a> <a href="/tags/Cron/" style="font-size: 12px;">Cron</a> <a href="/tags/DDoS/" style="font-size: 10px;">DDoS</a> <a href="/tags/GPG/" style="font-size: 10px;">GPG</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hallelujah/" style="font-size: 10px;">Hallelujah</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/IRC/" style="font-size: 10px;">IRC</a> <a href="/tags/Irssi/" style="font-size: 10px;">Irssi</a> <a href="/tags/Kali/" style="font-size: 14px;">Kali</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Metasploit/" style="font-size: 10px;">Metasploit</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NetHunter/" style="font-size: 10px;">NetHunter</a> <a href="/tags/Nmap/" style="font-size: 10px;">Nmap</a> <a href="/tags/Node-js/" style="font-size: 12px;">Node.js</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/PuTTY/" style="font-size: 10px;">PuTTY</a> <a href="/tags/PyInstaller/" style="font-size: 10px;">PyInstaller</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/SSH/" style="font-size: 14px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tar/" style="font-size: 10px;">Tar</a> <a href="/tags/Termux/" style="font-size: 10px;">Termux</a> <a href="/tags/V2Ray/" style="font-size: 10px;">V2Ray</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Win-KeX/" style="font-size: 10px;">Win-KeX</a> <a href="/tags/Windows/" style="font-size: 14px;">Windows</a> <a href="/tags/fancyBox/" style="font-size: 10px;">fancyBox</a> <a href="/tags/freenode/" style="font-size: 10px;">freenode</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" style="font-size: 10px;">云存储</a> <a href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" style="font-size: 10px;">人生忠告</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" style="font-size: 10px;">教堂婚礼</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 12px;">数据库</a> <a href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" style="font-size: 10px;">暴力攻击</a> <a href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" style="font-size: 18px;">海之言</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" style="font-size: 10px;">黑客键盘</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/articles/60956.html">Metasploit 生成木马并获取 PC 的控制权</a>
+          </li>
+        
+          <li>
+            <a href="/articles/19491.html">如何在 CentOS 7 安装图形界面</a>
+          </li>
+        
+          <li>
+            <a href="/articles/64820.html">如何在 CentOS 7 部署 Oracle 19c 数据库</a>
+          </li>
+        
+          <li>
+            <a href="/articles/45452.html">PyInstaller 生成 Python 脚本的可执行程序</a>
+          </li>
+        
+          <li>
+            <a href="/articles/13652.html">备份服务器文件上传到七牛云</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Gerald<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      | <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279417070'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279417070%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/software" class="mobile-nav-link">软件</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js"></script>
+
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "WmKqC8zD3NGA0c7Vv3DODm1U-gzGzoHsz",
+        appKey: "aCqOJKdiQ6GE8aKFOkC1Kb6L",
+        placeholder: "说点什么吧...",
+        pageSize:'10',
+        avatar:'monsterid',
+        lang:'zh-cn'
+    });
+</script>
+
+  </div>
+</body>
+</html>

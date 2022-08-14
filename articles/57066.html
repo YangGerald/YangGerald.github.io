@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>通过 Termux 将手机变为电脑 | Gerald&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Andriod 本身就是基于 Linux 内核的操作系统，如果在手机上使用 Linux，那会使手机具有如同电脑一样的功能，我们将可以在手机上执行脚本、后台运行相应的服务和使用 Linux 的其他功能。Termux 是一个 Andriod 终端模拟器和 Linux 环境应用程序，它能很好的做到这些，更重要的一点是不需要 root 手机。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过 Termux 将手机变为电脑">
+<meta property="og:url" content="https://blog.iambug.cn/articles/57066.html">
+<meta property="og:site_name" content="Gerald&#39;s Blog">
+<meta property="og:description" content="Andriod 本身就是基于 Linux 内核的操作系统，如果在手机上使用 Linux，那会使手机具有如同电脑一样的功能，我们将可以在手机上执行脚本、后台运行相应的服务和使用 Linux 的其他功能。Termux 是一个 Andriod 终端模拟器和 Linux 环境应用程序，它能很好的做到这些，更重要的一点是不需要 root 手机。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iambug.cn/images/2021-01-15/img-1.jpg">
+<meta property="og:image" content="https://blog.iambug.cn/images/2021-01-15/img-2.jpg">
+<meta property="og:image" content="https://blog.iambug.cn/images/2021-01-15/img-3.jpg">
+<meta property="article:published_time" content="2021-01-15T15:25:00.000Z">
+<meta property="article:modified_time" content="2021-12-04T07:32:37.901Z">
+<meta property="article:author" content="Gerald">
+<meta property="article:tag" content="Kali">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Termux">
+<meta property="article:tag" content="NetHunter">
+<meta property="article:tag" content="VNC">
+<meta property="article:tag" content="黑客键盘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.iambug.cn/images/2021-01-15/img-1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Gerald's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/css/bulma-message.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    <meta name="baidu-site-verification" content="code-g6ijHMgAuL" />
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Gerald&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">夏天的雷雨其实和春花秋月一样，遇到了就要好好欣赏。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/software">软件</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.iambug.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-通过-Termux-将手机变为电脑" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/articles/57066.html" class="article-date">
+  <time class="dt-published" datetime="2021-01-15T15:25:00.000Z" itemprop="datePublished">2021-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/">网络日志</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      通过 Termux 将手机变为电脑
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Andriod 本身就是基于 Linux 内核的操作系统，如果在手机上使用 Linux，那会使手机具有如同电脑一样的功能，我们将可以在手机上执行脚本、后台运行相应的服务和使用 Linux 的其他功能。Termux 是一个 Andriod 终端模拟器和 Linux 环境应用程序，它能很好的做到这些，更重要的一点是不需要 root 手机。</p>
+<span id="more"></span>
+<h2 id="安装-Termux"><a href="#安装-Termux" class="headerlink" title="安装 Termux"></a>安装 Termux</h2><p>下载 <a target="_blank" rel="noopener" href="https://f-droid.org/repository/browse/?fdid=com.termux">Termux</a> 并安装，安装过程很简单，与其他 APP 的安装基本上没什么区别。</p>
+<h2 id="安装-PRoot"><a href="#安装-PRoot" class="headerlink" title="安装 PRoot"></a>安装 PRoot</h2><p>PRoot 的主要作用是在 Termux 内运行 Linux，而无需 root 手机。需要在 Termux 执行以下命令安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg install proot</span><br></pre></td></tr></table></figure>
+<p>改变根目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-chroot</span><br></pre></td></tr></table></figure>
+
+<h2 id="授予-Termux-存储权限"><a href="#授予-Termux-存储权限" class="headerlink" title="授予 Termux 存储权限"></a>授予 Termux 存储权限</h2><p>使用 Termux 前，需要为其授予存储权限，此过程将在当前用户的主目录创建 <code>storage</code> 文件夹。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-setup-storage</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置终端样式"><a href="#设置终端样式" class="headerlink" title="设置终端样式"></a>设置终端样式</h2><p>参考：<code>https://github.com/Cabbagec/termux-ohmyzsh</code></p>
+<h2 id="设置唤醒锁定"><a href="#设置唤醒锁定" class="headerlink" title="设置唤醒锁定"></a>设置唤醒锁定</h2><p>使用唤醒锁定可以避免设备进入睡眠模式，保持在后台运行。通过下拉通知菜单，点击 <code>ACQUIRE WAKELOCK</code> 打开唤醒锁定，要关闭则点击 <code>RELEASE WAKELOCK</code>，或者使用以下的命令行方式。</p>
+<ul>
+<li>打开唤醒锁定<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-wake-lock</span><br></pre></td></tr></table></figure></li>
+<li>关闭唤醒锁定<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">termux-wake-unlock</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="SSH-远程访问"><a href="#SSH-远程访问" class="headerlink" title="SSH 远程访问"></a>SSH 远程访问</h2><p>要通过 SSH 连接 Termux，请执行以下命令启动 SSH 服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sshd</span><br></pre></td></tr></table></figure>
+<p>SSH 服务启动后就可以在其他设备连接了，可以使用以下命令查看连接的 IP 地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>默认 SSH 端口是 <code>8022</code>，连接的密码可以通过执行以下命令进行修改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure>
+<p>如果要停止 SSH 服务，只需杀掉它的进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill sshd</span><br></pre></td></tr></table></figure>
+
+<h2 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h2><p>1.安装 <a target="_blank" rel="noopener" href="https://f-droid.org/packages/com.termux.boot/">Termux:Boot</a>。<br>2.启动 Termux:Boot，这将允许其在启动时运行。<br>3.在 <code>~/.termux/</code> 目录创建 <code>boot</code> 目录，然后将开机要执行的脚本放在 <code>~/.termux/boot/</code> 目录中。如果有多个文件，则将按排序顺序执行。<br>示例：要启动 SSH 服务并防止设备进入睡眠，则创建内容如下的 <code>~/.termux/boot/boot.sh</code> 脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/data/data/com.termux/files/usr/bin/sh</span></span><br><span class="line">termux-wake-lock</span><br><span class="line">sshd</span><br></pre></td></tr></table></figure>
+<p>4.设置启动管理。Termux 设为“允许后台活动”，Termux:Boot 为“允许自启动”。</p>
+<img src="/images/2021-01-15/img-1.jpg" alt="启动管理" style="zoom:30%;" />
+
+<h2 id="安装-Kali-NetHunter"><a href="#安装-Kali-NetHunter" class="headerlink" title="安装 Kali NetHunter"></a>安装 Kali NetHunter</h2><p>参考：<code>https://github.com/Hax4us/Nethunter-In-Termux</code></p>
+<h2 id="使用图形界面"><a href="#使用图形界面" class="headerlink" title="使用图形界面"></a>使用图形界面</h2><p>在 NetHunter 执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lxde-core lxde kali-defaults kali-root-login desktop-base</span><br></pre></td></tr></table></figure>
+<p>启动 VNC。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure>
+<p>但这种方式仅允许来自本地的 VNC 连接，如果是远程连接，还应该指定 <code>-localhost</code> 参数为 <code>no</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver -localhost no</span><br></pre></td></tr></table></figure>
+<p>接下来在下载并安装 <a target="_blank" rel="noopener" href="https://www.realvnc.com/en/connect/download/viewer/">VNC Viewer</a>，然后用 VNC 服务地址和端口连接。</p>
+<p><img src="/images/2021-01-15/img-2.jpg" alt="Kali Hunter"></p>
+<h2 id="创建软链接"><a href="#创建软链接" class="headerlink" title="创建软链接"></a>创建软链接</h2><p>QQ 接收到的文件会保存在 <code>QQfile_recv</code> 目录中，执行以下命令在 NetHunter 创建该目录的软链接。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /data/data/com.termux/files/home/storage/shared/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv QQfile</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hacker’s-Keyboard"><a href="#Hacker’s-Keyboard" class="headerlink" title="Hacker’s Keyboard"></a>Hacker’s Keyboard</h2><p><a target="_blank" rel="noopener" href="https://github.com/klausw/hackerskeyboard">Hacker’s Keyboard</a> 不支持中文输入，但仍然是 Android 上很不错的输入软件（例如拼音和符号的输入），搭配 Termux 使用显然很有格调。</p>
+<p><img src="/images/2021-01-15/img-3.jpg" alt="Hacker&#39;s Keyboard"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.iambug.cn/articles/57066.html" data-id="cl6swr5zy006g64wm05793my1" data-title="通过 Termux 将手机变为电脑" class="article-share-link">分享</a>
+      
+      
+        <a href="/articles/57066.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/57066.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NetHunter/" rel="tag">NetHunter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Termux/" rel="tag">Termux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" rel="tag">黑客键盘</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/articles/38544.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Hydra 暴力破解 SSH 密码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/articles/35996.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">使用 SSH 密钥登录 Linux 服务器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  <section id="comments" class="vcomment">
+
+  </section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/">网络日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">资源共享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/">闲言碎语</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMTEmu/" rel="tag">AMTEmu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adobe/" rel="tag">Adobe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/" rel="tag">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/" rel="tag">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cron/" rel="tag">Cron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDoS/" rel="tag">DDoS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPG/" rel="tag">GPG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hallelujah/" rel="tag">Hallelujah</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IRC/" rel="tag">IRC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Irssi/" rel="tag">Irssi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/" rel="tag">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metasploit/" rel="tag">Metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NetHunter/" rel="tag">NetHunter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nmap/" rel="tag">Nmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PuTTY/" rel="tag">PuTTY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyInstaller/" rel="tag">PyInstaller</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tar/" rel="tag">Tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Termux/" rel="tag">Termux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V2Ray/" rel="tag">V2Ray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Win-KeX/" rel="tag">Win-KeX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fancyBox/" rel="tag">fancyBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freenode/" rel="tag">freenode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/" rel="tag">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" rel="tag">云存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" rel="tag">人生忠告</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" rel="tag">教堂婚礼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" rel="tag">暴力攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" rel="tag">海之言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" rel="tag">黑客键盘</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AMTEmu/" style="font-size: 10px;">AMTEmu</a> <a href="/tags/Adobe/" style="font-size: 14px;">Adobe</a> <a href="/tags/Apache/" style="font-size: 14px;">Apache</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 20px;">CentOS</a> <a href="/tags/Cron/" style="font-size: 12px;">Cron</a> <a href="/tags/DDoS/" style="font-size: 10px;">DDoS</a> <a href="/tags/GPG/" style="font-size: 10px;">GPG</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hallelujah/" style="font-size: 10px;">Hallelujah</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/IRC/" style="font-size: 10px;">IRC</a> <a href="/tags/Irssi/" style="font-size: 10px;">Irssi</a> <a href="/tags/Kali/" style="font-size: 14px;">Kali</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Metasploit/" style="font-size: 10px;">Metasploit</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NetHunter/" style="font-size: 10px;">NetHunter</a> <a href="/tags/Nmap/" style="font-size: 10px;">Nmap</a> <a href="/tags/Node-js/" style="font-size: 12px;">Node.js</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/PuTTY/" style="font-size: 10px;">PuTTY</a> <a href="/tags/PyInstaller/" style="font-size: 10px;">PyInstaller</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/SSH/" style="font-size: 14px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tar/" style="font-size: 10px;">Tar</a> <a href="/tags/Termux/" style="font-size: 10px;">Termux</a> <a href="/tags/V2Ray/" style="font-size: 10px;">V2Ray</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Win-KeX/" style="font-size: 10px;">Win-KeX</a> <a href="/tags/Windows/" style="font-size: 14px;">Windows</a> <a href="/tags/fancyBox/" style="font-size: 10px;">fancyBox</a> <a href="/tags/freenode/" style="font-size: 10px;">freenode</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" style="font-size: 10px;">云存储</a> <a href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" style="font-size: 10px;">人生忠告</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" style="font-size: 10px;">教堂婚礼</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 12px;">数据库</a> <a href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" style="font-size: 10px;">暴力攻击</a> <a href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" style="font-size: 18px;">海之言</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" style="font-size: 10px;">黑客键盘</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/articles/60956.html">Metasploit 生成木马并获取 PC 的控制权</a>
+          </li>
+        
+          <li>
+            <a href="/articles/19491.html">如何在 CentOS 7 安装图形界面</a>
+          </li>
+        
+          <li>
+            <a href="/articles/64820.html">如何在 CentOS 7 部署 Oracle 19c 数据库</a>
+          </li>
+        
+          <li>
+            <a href="/articles/45452.html">PyInstaller 生成 Python 脚本的可执行程序</a>
+          </li>
+        
+          <li>
+            <a href="/articles/13652.html">备份服务器文件上传到七牛云</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Gerald<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      | <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279417070'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279417070%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/software" class="mobile-nav-link">软件</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js"></script>
+
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "WmKqC8zD3NGA0c7Vv3DODm1U-gzGzoHsz",
+        appKey: "aCqOJKdiQ6GE8aKFOkC1Kb6L",
+        placeholder: "说点什么吧...",
+        pageSize:'10',
+        avatar:'monsterid',
+        lang:'zh-cn'
+    });
+</script>
+
+  </div>
+</body>
+</html>

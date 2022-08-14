@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>如何在 CentOS 7 部署 Oracle 19c 数据库 | Gerald&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="添加用户添加 oracle 用户并设置用户密码。 12adduser oraclepasswd oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在 CentOS 7 部署 Oracle 19c 数据库">
+<meta property="og:url" content="https://blog.iambug.cn/articles/64820.html">
+<meta property="og:site_name" content="Gerald&#39;s Blog">
+<meta property="og:description" content="添加用户添加 oracle 用户并设置用户密码。 12adduser oraclepasswd oracle">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-1.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-2.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-3.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-4.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-5.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-6.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-7.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-8.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-9.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-10.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-11.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-12.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-13.png">
+<meta property="og:image" content="https://blog.iambug.cn/images/2022-02-16/img-14.png">
+<meta property="article:published_time" content="2022-02-16T01:45:00.000Z">
+<meta property="article:modified_time" content="2022-04-01T16:23:26.054Z">
+<meta property="article:author" content="Gerald">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Oracle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.iambug.cn/images/2022-02-16/img-1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Gerald's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/css/bulma-message.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    <meta name="baidu-site-verification" content="code-g6ijHMgAuL" />
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Gerald&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">夏天的雷雨其实和春花秋月一样，遇到了就要好好欣赏。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/software">软件</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.iambug.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-如何在-CentOS-7-部署-Oracle-19c-数据库" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/articles/64820.html" class="article-date">
+  <time class="dt-published" datetime="2022-02-16T01:45:00.000Z" itemprop="datePublished">2022-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何在 CentOS 7 部署 Oracle 19c 数据库
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>添加 <code>oracle</code> 用户并设置用户密码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adduser oracle</span><br><span class="line">passwd oracle</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>添加 <code>oinstall</code> 和 <code>dba</code> 组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd oinstall</span><br><span class="line">groupadd dba</span><br></pre></td></tr></table></figure>
+<p>设置 <code>oracle</code> 用户的主组为 <code>oinstall</code> 附加组为 <code>dba</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g oinstall -G dba oracle</span><br></pre></td></tr></table></figure>
+
+<h2 id="新建目录并设置权限"><a href="#新建目录并设置权限" class="headerlink" title="新建目录并设置权限"></a>新建目录并设置权限</h2><p>新建 <code>u01</code> 目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /u01</span><br></pre></td></tr></table></figure>
+<p>打开 <code>/etc/fstab</code> 文件，添加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb1 /u01 xfs defaults 0 0</span><br></pre></td></tr></table></figure>
+<p>重启或执行以下命令，将 <code>sdb1</code> 分区挂载到 <code>u01</code> 目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -a</span><br></pre></td></tr></table></figure>
+<p>新建 <code>oracle</code> 和 <code>oraInventory</code> 目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /u01/app/oracle</span><br><span class="line"><span class="built_in">mkdir</span> -p /u01/app/oraInventory</span><br></pre></td></tr></table></figure>
+<p>分别将它们指定为 <code>dba</code> 和 <code>oinstall</code> 组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R oracle:dba /u01/app/oracle</span><br><span class="line"><span class="built_in">chown</span> -R oracle:oinstall /u01/app/oraInventory</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>打开 <code>/home/oracle/.bash_profile</code> 文件，配置环境变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=/u01/app/oracle/product/19.3/dbhome_1</span><br><span class="line">export PATH=$PATH:$ORACLE_HOME/bin</span><br><span class="line">export ORACLE_SID=orcl</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Oracle-Database-19c"><a href="#安装-Oracle-Database-19c" class="headerlink" title="安装 Oracle Database 19c"></a>安装 Oracle Database 19c</h2><p>从 <code>https://www.oracle.com/database/technologies/oracle-database-software-downloads.html</code> 选择 <a target="_blank" rel="noopener" href="https://download.oracle.com/otn/linux/oracle19c/190000/LINUX.X64_193000_db_home.zip">Linux x86-64</a> 用迅雷下载 Oracle Database 19c，使用 <a target="_blank" rel="noopener" href="https://winscp.net/eng/index.php">WinSCP</a> 上传到 Linux。新建 <code>dbhome_1</code> 目录并解压 <code>LINUX.X64_193000_db_home.zip</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /u01/app/oracle/product/19.3/dbhome_1</span><br><span class="line">unzip LINUX.X64_193000_db_home.zip -d /u01/app/oracle/product/19.3/dbhome_1</span><br></pre></td></tr></table></figure>
+<p>指定所有者和组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R oracle:dba /u01/app/oracle</span><br></pre></td></tr></table></figure>
+<p>使用 <code>oracle</code> 用户登录 CentOS 7 图形界面，打开终端执行以下命令运行 <code>runInstaller</code> 安装脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/u01/app/oracle/product/19.3/dbhome_1/runInstaller</span><br></pre></td></tr></table></figure>
+<p>然后在弹出的安装界面参考以下步骤安装：</p>
+<ol>
+<li>配置选项，选择“仅设置软件”；<br><img src="/images/2022-02-16/img-1.png" alt="配置选项"></li>
+<li>数据库安装选项；<br><img src="/images/2022-02-16/img-2.png" alt="数据库安装选项"></li>
+<li>数据库版本；<br><img src="/images/2022-02-16/img-3.png" alt="数据库版本"></li>
+<li>安装位置；<br><img src="/images/2022-02-16/img-4.png" alt="安装位置"></li>
+<li>创建产品清单；<br><img src="/images/2022-02-16/img-5.png" alt="创建产品清单"></li>
+<li>操作系统组，数据库操作员组选择“dba”；<br><img src="/images/2022-02-16/img-6.png" alt="操作系统组"></li>
+<li>Root 脚本执行，勾选“自动运行配置脚本”，使用“root”用户身份证明并输入口令；<br><img src="/images/2022-02-16/img-7.png" alt="Root 脚本执行"></li>
+<li>先决条件检查，修补并再次检查，对于不可修复的需要手动修复后重新检查；<br><img src="/images/2022-02-16/img-8.png" alt="先决条件检查"></li>
+<li>概要；<br><img src="/images/2022-02-16/img-9.png" alt="概要"></li>
+<li>安装产品，点击“是”继续；<br><img src="/images/2022-02-16/img-10.png" alt="安装产品"></li>
+<li>完成。<br><img src="/images/2022-02-16/img-11.png" alt="完成"></li>
+</ol>
+<h2 id="监听程序与本地-Net-服务名配置"><a href="#监听程序与本地-Net-服务名配置" class="headerlink" title="监听程序与本地 Net 服务名配置"></a>监听程序与本地 Net 服务名配置</h2><p>执行以下命令配置监听程序与本地 Net 服务名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netca</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><p>执行以下命令创建数据库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbca</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h2><p>打开 <code>/etc/oratab</code> 文件，将 <code>orcl:/u01/app/oracle/product/19.3/dbhome_1:N</code> 修改为 <code>orcl:/u01/app/oracle/product/19.3/dbhome_1:Y</code>。然后再打开 <code>/etc/rc.d/rc.local</code> 文件，添加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su oracle -lc &quot;/u01/app/oracle/product/19.3/dbhome_1/bin/lsnrctl start&quot;</span><br><span class="line">su oracle -lc &quot;/u01/app/oracle/product/19.3/dbhome_1/bin/dbstart&quot;</span><br></pre></td></tr></table></figure>
+<p>执行以下命令使 <code>rc.local</code> 文件具有可执行权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>执行以下命令开放 <code>1521</code> 端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=1521/tcp --permanent</span><br></pre></td></tr></table></figure>
+<p>重新加载 firewalld，使规则立即生效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题及解决方法"><a href="#问题及解决方法" class="headerlink" title="问题及解决方法"></a>问题及解决方法</h2><p>以下是安装时先决条件检查失败及未设置开机自启动会遇到的问题，对于 ORA-12541、ORA-12514 和 ORA-01034 问题，其实设置开机自启动后就可以不用理会了，写出来主要是一些时候方便参考。<br><strong>先决条件检查失败</strong></p>
+<ul>
+<li>操作系统内核参数 <code>shmmax</code><br>要确定共享内存段的最大大小，请运行：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/sys/kernel/shmmax</span><br></pre></td></tr></table></figure>
+<p><code>shmmax</code> 可以在 <code>/proc/sys/kernel/shmmax</code> 文件或执行以下命令（4x1024x1024x1024&#x3D;4G）更改而无需重新启动。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w kernel.shmmax = 4294967296</span><br></pre></td></tr></table></figure>
+<p>要使更改永久生效，请将以下内容添加到 <code>/etc/sysctl.conf</code> 文件并重新启动。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kernel.shmmax = 4294967296</span><br></pre></td></tr></table></figure>
+<ul>
+<li>交换空间大小</li>
+</ul>
+<p>在分区时，如果合理分配交换分区就不会存在这个问题了，不过也可以通过添加交换文件的方式来增加交换空间大小。首先要生成 2G 的 <code>swapfile</code> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=swapfile bs=1M count=2048</span><br></pre></td></tr></table></figure>
+<p>将 <code>swapfile</code> 文件格式化为交换文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap swapfile</span><br></pre></td></tr></table></figure>
+<p>启用交换文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon swapfile</span><br></pre></td></tr></table></figure>
+<p>在 <code>/etc/fstab</code> 文件添加以下内容，以便在重新启动时启用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/swapfile swap swap defaults 0 0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>程序包</li>
+</ul>
+<p>使用 yum 安装依赖的程序包。</p>
+<p><strong>ORA-12541: TNS:no listener</strong><br><img src="/images/2022-02-16/img-12.png" alt="ORA-12541: TNS:no listener"><br>执行以下命令，启动监听。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsnrctl start</span><br></pre></td></tr></table></figure>
+<p><strong>ORA-12514: TNS:listener does not currently know of service requested in connect descriptor</strong><br><img src="/images/2022-02-16/img-13.png" alt="ORA-12514: TNS:listener does not currently know of service requested in connect descriptor"><br>打开 <code>/u01/app/oracle/product/19.3/dbhome_1/network/admin/listener.ora</code> 文件，添加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SID_LIST_LISTENER =</span><br><span class="line">  (SID_LIST =</span><br><span class="line">    (SID_DESC =</span><br><span class="line">      (ORACLE_HOME = /u01/app/oracle/product/19.3/dbhome_1)</span><br><span class="line">      (SID_NAME = orcl)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<p><strong>ORA-01034: ORACLE not available</strong><br><img src="/images/2022-02-16/img-14.png" alt="ORA-01034: ORACLE not available"><br>打开 SQL Plus，使用 <code>sys</code> 用户强制关闭，再启动数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlplus /nolog</span><br><span class="line">conn sys/sys as sysdba</span><br><span class="line">shutdown abort</span><br><span class="line">startup</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.iambug.cn/articles/64820.html" data-id="cl6swr5zf002g64wm9u5v51wp" data-title="如何在 CentOS 7 部署 Oracle 19c 数据库" class="article-share-link">分享</a>
+      
+      
+        <a href="/articles/64820.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/articles/64820.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/" rel="tag">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/articles/19491.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          如何在 CentOS 7 安装图形界面
+        
+      </div>
+    </a>
+  
+  
+    <a href="/articles/45452.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">PyInstaller 生成 Python 脚本的可执行程序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  <section id="comments" class="vcomment">
+
+  </section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4/">系统运维</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97/">网络日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/">资源共享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%B2%E8%A8%80%E7%A2%8E%E8%AF%AD/">闲言碎语</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMTEmu/" rel="tag">AMTEmu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Adobe/" rel="tag">Adobe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/" rel="tag">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/" rel="tag">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cron/" rel="tag">Cron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDoS/" rel="tag">DDoS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPG/" rel="tag">GPG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hallelujah/" rel="tag">Hallelujah</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IRC/" rel="tag">IRC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Irssi/" rel="tag">Irssi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/" rel="tag">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metasploit/" rel="tag">Metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NetHunter/" rel="tag">NetHunter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nmap/" rel="tag">Nmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PuTTY/" rel="tag">PuTTY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyInstaller/" rel="tag">PyInstaller</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/" rel="tag">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tar/" rel="tag">Tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Termux/" rel="tag">Termux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V2Ray/" rel="tag">V2Ray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Win-KeX/" rel="tag">Win-KeX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fancyBox/" rel="tag">fancyBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freenode/" rel="tag">freenode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/" rel="tag">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" rel="tag">云存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" rel="tag">人生忠告</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" rel="tag">教堂婚礼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" rel="tag">暴力攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" rel="tag">海之言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%BE%E5%90%8D/" rel="tag">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" rel="tag">黑客键盘</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AMTEmu/" style="font-size: 10px;">AMTEmu</a> <a href="/tags/Adobe/" style="font-size: 14px;">Adobe</a> <a href="/tags/Apache/" style="font-size: 14px;">Apache</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/CentOS/" style="font-size: 20px;">CentOS</a> <a href="/tags/Cron/" style="font-size: 12px;">Cron</a> <a href="/tags/DDoS/" style="font-size: 10px;">DDoS</a> <a href="/tags/GPG/" style="font-size: 10px;">GPG</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hallelujah/" style="font-size: 10px;">Hallelujah</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/IRC/" style="font-size: 10px;">IRC</a> <a href="/tags/Irssi/" style="font-size: 10px;">Irssi</a> <a href="/tags/Kali/" style="font-size: 14px;">Kali</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Metasploit/" style="font-size: 10px;">Metasploit</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NetHunter/" style="font-size: 10px;">NetHunter</a> <a href="/tags/Nmap/" style="font-size: 10px;">Nmap</a> <a href="/tags/Node-js/" style="font-size: 12px;">Node.js</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/PuTTY/" style="font-size: 10px;">PuTTY</a> <a href="/tags/PyInstaller/" style="font-size: 10px;">PyInstaller</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/SSH/" style="font-size: 14px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tar/" style="font-size: 10px;">Tar</a> <a href="/tags/Termux/" style="font-size: 10px;">Termux</a> <a href="/tags/V2Ray/" style="font-size: 10px;">V2Ray</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/WSL/" style="font-size: 10px;">WSL</a> <a href="/tags/Win-KeX/" style="font-size: 10px;">Win-KeX</a> <a href="/tags/Windows/" style="font-size: 14px;">Windows</a> <a href="/tags/fancyBox/" style="font-size: 10px;">fancyBox</a> <a href="/tags/freenode/" style="font-size: 10px;">freenode</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/%E4%BA%91%E5%AD%98%E5%82%A8/" style="font-size: 10px;">云存储</a> <a href="/tags/%E4%BA%BA%E7%94%9F%E5%BF%A0%E5%91%8A/" style="font-size: 10px;">人生忠告</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E6%95%99%E5%A0%82%E5%A9%9A%E7%A4%BC/" style="font-size: 10px;">教堂婚礼</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 12px;">数据库</a> <a href="/tags/%E6%9A%B4%E5%8A%9B%E6%94%BB%E5%87%BB/" style="font-size: 10px;">暴力攻击</a> <a href="/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/" style="font-size: 18px;">海之言</a> <a href="/tags/%E7%AD%BE%E5%90%8D/" style="font-size: 10px;">签名</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E9%BB%91%E5%AE%A2%E9%94%AE%E7%9B%98/" style="font-size: 10px;">黑客键盘</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/articles/60956.html">Metasploit 生成木马并获取 PC 的控制权</a>
+          </li>
+        
+          <li>
+            <a href="/articles/19491.html">如何在 CentOS 7 安装图形界面</a>
+          </li>
+        
+          <li>
+            <a href="/articles/64820.html">如何在 CentOS 7 部署 Oracle 19c 数据库</a>
+          </li>
+        
+          <li>
+            <a href="/articles/45452.html">PyInstaller 生成 Python 脚本的可执行程序</a>
+          </li>
+        
+          <li>
+            <a href="/articles/13652.html">备份服务器文件上传到七牛云</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Gerald<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      | <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279417070'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279417070%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/software" class="mobile-nav-link">软件</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js"></script>
+
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "WmKqC8zD3NGA0c7Vv3DODm1U-gzGzoHsz",
+        appKey: "aCqOJKdiQ6GE8aKFOkC1Kb6L",
+        placeholder: "说点什么吧...",
+        pageSize:'10',
+        avatar:'monsterid',
+        lang:'zh-cn'
+    });
+</script>
+
+  </div>
+</body>
+</html>
