@@ -6,7 +6,7 @@
   <link href="https://blog.iambug.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2023-06-18T03:16:35.340Z</updated>
+  <updated>2024-01-25T15:13:28.518Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何用 U 盘安装 Windows 系统</title>
+    <link href="https://blog.iambug.cn/articles/11178.html"/>
+    <id>https://blog.iambug.cn/articles/11178.html</id>
+    <published>2024-01-25T05:35:00.000Z</published>
+    <updated>2024-01-25T15:13:28.518Z</updated>
+    
+    <content type="html"><![CDATA[<p>优启通是一个比较不错的 PE 工具，安装系统时，用于制作启动盘。以下简单介绍一下用它制作启动盘、启动和进入 PE 安装 Windows 系统的这个过程。</p><span id="more"></span><h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><ul><li>准备一个 8G 以上的U盘</li><li><a href="/windows">优启通和Windows系统映像</a></li></ul><h2 id="制作启动盘"><a href="#制作启动盘" class="headerlink" title="制作启动盘"></a>制作启动盘</h2><p>下载优启通，解压并打开。<br><img src="/images/2024-01-25/img-1.png" alt="优启通"><br>插入 U 盘，点击“全新制作”开始制作启动盘（此操作会删除 U 盘的全部数据，请提前做好备份），制作完成后，把系统映像复制到 U 盘。<br><img src="/images/2024-01-25/img-2.png" alt="制作启动盘"><br><img src="/images/2024-01-25/img-3.png" alt="删除数据的提示"></p><h2 id="进入PE系统"><a href="#进入PE系统" class="headerlink" title="进入PE系统"></a>进入PE系统</h2><p>将 U 盘插入需要装系统的电脑，然后开机，在屏幕开始亮时长按启动快捷键进入启动界面。<br><img src="/images/2024-01-25/img-4.png" alt="启动快捷键"><br>选择 U 盘进入 PE 系统（BIOS 设置就不啰嗦了）；<br><img src="/images/2024-01-25/img-5.png" alt="启动界面"><br>按任意键进入优启通；<br><img src="/images/2024-01-25/img-6.png" alt="按任意键提示"><br>选择“Menu”打开菜单；<br><img src="/images/2024-01-25/img-7.png" alt="Windows启动管理器"><br>选择“启动 Windows 10 PE x64(新机型)”；<br><img src="/images/2024-01-25/img-8.png" alt="优启通菜单"><br>进入 PE 系统。<br><img src="/images/2024-01-25/img-9.png" alt="PE 系统桌面"></p><h2 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h2><p>进入 PE 系统后，打开“DG硬盘分区”，根据需要进行新建分区、格式化和删除分区等。</p><ul><li>新建分区<br>选择要分区的空闲区域，点击“新建分区”，在弹出的建立新分区对话框选择分区类型、文件系统类型，输入新分区大小后点击“确定”新建分区，但是新建逻辑分区要先新建扩展磁盘分区，然后再选择扩展磁盘分区继续新建逻辑分区。<br><img src="/images/2024-01-25/img-10.png" alt="新建分区"></li><li>格式化<br>选择要格式化的分区，点击“格式化”。<br><img src="/images/2024-01-25/img-11.png" alt="格式化"></li><li>删除分区<br>选择要删除的分区，点击“删除分区”。<br><img src="/images/2024-01-25/img-12.png" alt="删除分区"></li></ul><h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>打开“EIX系统安装”，选择“恢复映像”和“目标分区”，然后点击“一键恢复”。<br><img src="/images/2024-01-25/img-13.png" alt="映像恢复"><br>勾选“验证映像的完整性”，取消勾选“恢复完成后自动运行万能驱动”，最后点击“确认”开始映像恢复，等待~<br><img src="/images/2024-01-25/img-14.png" alt="确认执行"><br>欢迎进入桌面。<br><img src="/images/2024-01-25/img-15.png" alt="Windows系统桌面"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;优启通是一个比较不错的 PE 工具，安装系统时，用于制作启动盘。以下简单介绍一下用它制作启动盘、启动和进入 PE 安装 Windows 系统的这个过程。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="操作系统" scheme="https://blog.iambug.cn/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="Windows" scheme="https://blog.iambug.cn/tags/Windows/"/>
+    
+    <category term="PE工具" scheme="https://blog.iambug.cn/tags/PE%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="优启通" scheme="https://blog.iambug.cn/tags/%E4%BC%98%E5%90%AF%E9%80%9A/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 系统的备份与恢复</title>
@@ -189,7 +214,7 @@
     <link href="https://blog.iambug.cn/articles/54668.html"/>
     <id>https://blog.iambug.cn/articles/54668.html</id>
     <published>2021-11-27T01:23:00.000Z</published>
-    <updated>2021-12-04T07:43:14.378Z</updated>
+    <updated>2024-01-25T02:45:44.373Z</updated>
     
     <content type="html"><![CDATA[<p>WSL 是一个可以直接在 Windows 上安装和运行 Linux 系统的工具，它使两个系统之间可以轻松的切换使用，而不必安装双系统，通过开关机反复切换系统，也无需虚拟机。本以为 WSL 相对于各自独立的双系统，表现会不尽如人意，但体验下来还挺不错。</p><span id="more"></span><h2 id="更新-WSL"><a href="#更新-WSL" class="headerlink" title="更新 WSL"></a>更新 WSL</h2><p>以管理员身份运行 PowerShell 或命令提示符，执行以下命令更新 WSL。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --update</span><br></pre></td></tr></table></figure><p>更新完成后，关闭 WSL。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure><h2 id="安装-Kali-Linux"><a href="#安装-Kali-Linux" class="headerlink" title="安装 Kali Linux"></a>安装 Kali Linux</h2><p>默认情况下，<code>wsl --install</code> 命令安装的发行版是 Ubuntu，安装 Kali Linux 则使用 <code>-d</code> 参数指定发行版，列出发行版的命令为 <code>wsl -l -o</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --install -d kali-linux</span><br></pre></td></tr></table></figure><p>安装完成会弹出创建用户的窗口，请输入用户名和密码创建用户（此用户将成为默认用户在启动时自动登录并具有运行 <code>sudo</code> 命令的权限），或者直接关闭窗口，使用 <code>root</code> 作为默认用户登录。<br><img src="/images/2021-11-27/img-1.jpg" alt="创建用户"></p><h2 id="设置根用户密码"><a href="#设置根用户密码" class="headerlink" title="设置根用户密码"></a>设置根用户密码</h2><p>以 <code>root</code> 用户登录 Kali Linux：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl -u root</span><br></pre></td></tr></table></figure><p>设置密码：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><h2 id="关于两个错误"><a href="#关于两个错误" class="headerlink" title="关于两个错误"></a>关于两个错误</h2><p>下载 <code>kali-archive-keyring_2020.2_all.deb</code> 文件，在开始菜单打开 Kali Linux，修改以下命令 <code>-i</code> 参数后面的路径，然后执行命令安装签名。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i /mnt/c/Users/ROG/Downloads/kali-archive-keyring_2020.2_all.deb</span><br></pre></td></tr></table></figure><p>否则会出现如下错误：<br><img src="/images/2021-11-27/img-2.jpg" alt="EXPKEYSIG ED444FF07D8D0BF6">其次还需要下载并复制 <a href="https://pb82-my.sharepoint.com/:u:/g/personal/vebcoa_t_5tb_in/EY5OKRzo_8lDrrX4Gcqk1D0BPf3UKUJgaVHERIV-JUutfg?e=nn1gFb">libcrypt.so.1</a> 文件到 <code>/lib/x86_64-linux-gnu</code> 目录，安装依赖 libc-bin：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y libc-bin</span><br></pre></td></tr></table></figure><p>否则执行 <code>apt install -y nmap</code> 这样的安装命令会出现如下错误：<br><img src="/images/2021-11-27/img-3.jpg" alt="libcrypt.so.1: cannot open shared object file"><br><img src="/images/2021-11-27/img-4.jpg" alt="libc-bin 依赖"></p><h2 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h2><p>编辑 <code>sources.list</code> 文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/apt/sources.list</span><br></pre></td></tr></table></figure><p>复制清华源和阿里源并添加到 <code>sources.list</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#清华源</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">#deb-src http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">#阿里源</span><br><span class="line">deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br><span class="line">#deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br></pre></td></tr></table></figure><p><img src="/images/2021-11-27/img-5.jpg" alt="sources.list">执行更新：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></figure><h2 id="安装-Win-KeX"><a href="#安装-Win-KeX" class="headerlink" title="安装 Win-KeX"></a>安装 Win-KeX</h2><p>安装 Win-KeX，为 Kali Linux 提供桌面体验。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y kali-win-kex</span><br></pre></td></tr></table></figure><h2 id="运行-Win-KeX"><a href="#运行-Win-KeX" class="headerlink" title="运行 Win-KeX"></a>运行 Win-KeX</h2><p>Win-KeX 支持窗口模式、增强的会话模式、无缝模式3种运行模式。</p><ul><li>有声音支持的窗口模式（需要设置 VNC 密码）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kex --win -s</span><br></pre></td></tr></table></figure><img src="/images/2021-11-27/img-6.jpg" alt="窗口模式"></li><li>有声音支持和 arm 解决方法的增强会话模式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kex --esm --ip -s</span><br></pre></td></tr></table></figure><img src="/images/2021-11-27/img-7.jpg" alt="增强会话模式"></li><li>有声音支持的无缝模式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kex --sl -s</span><br></pre></td></tr></table></figure><img src="/images/2021-11-27/img-8.jpg" alt="无缝模式">如果使用 <a href="https://github.com/microsoft/terminal">Windows Terminal</a>，还可以为以上命令创建终端快捷方式，例如：<code>kex --sl -s</code>。<br><img src="/images/2021-11-27/img-9.jpg" alt="终端快捷方式"></li></ul><h2 id="Kali-Linux-Large"><a href="#Kali-Linux-Large" class="headerlink" title="Kali Linux Large"></a>Kali Linux Large</h2><p>如果希望 Kali Linux 包含更多的工具，则执行以下命令安装 Kali-Linux-Large，此操作会占用一定量的存储空间。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y kali-linux-large</span><br></pre></td></tr></table></figure><h2 id="设置系统语言为中文"><a href="#设置系统语言为中文" class="headerlink" title="设置系统语言为中文"></a>设置系统语言为中文</h2><p>安装 locales：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y locales</span><br></pre></td></tr></table></figure><p>执行以下命令进行区域设置，按空格键盘选择 <code>zh_CN.UTF-8 UTF-8</code>，下一步选择 <code>zh_CN.UTF-8</code> 作为默认的区域设置，然后重启 Kali Linux。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-reconfigure locales</span><br></pre></td></tr></table></figure><h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>安装 <code>ibus</code>、<code>ibus-pinyin</code>、<code>im-config</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y ibus ibus-pinyin im-config</span><br></pre></td></tr></table></figure><p>执行以下命令设置输入法切换快捷键或添加删除输入法。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibus-setup</span><br></pre></td></tr></table></figure><p>配置输入法为 iBus，再重启 Kali Linux。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">im-config</span><br></pre></td></tr></table></figure><h2 id="WPS-提示系统缺失字体"><a href="#WPS-提示系统缺失字体" class="headerlink" title="WPS 提示系统缺失字体"></a>WPS 提示系统缺失字体</h2><p>在系统安装 WPS 时，打开 WPS 会提示系统缺失字体。此时在 Windows 的 <code>C:\Windows\Fonts</code> 目录找到缺失的字体并复制到 <code>/usr/share/fonts/</code> 目录下，重新打开就正常了。</p>]]></content>
     
@@ -437,9 +462,9 @@
     
     <category term="Apache" scheme="https://blog.iambug.cn/tags/Apache/"/>
     
-    <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
-    
     <category term="MySQL" scheme="https://blog.iambug.cn/tags/MySQL/"/>
+    
+    <category term="Cron" scheme="https://blog.iambug.cn/tags/Cron/"/>
     
     <category term="Shell" scheme="https://blog.iambug.cn/tags/Shell/"/>
     
@@ -494,28 +519,6 @@
     
     
     <category term="海之言" scheme="https://blog.iambug.cn/tags/%E6%B5%B7%E4%B9%8B%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows 7 光盘映像（ISO 文件）</title>
-    <link href="https://blog.iambug.cn/articles/56536.html"/>
-    <id>https://blog.iambug.cn/articles/56536.html</id>
-    <published>2020-11-22T01:11:00.000Z</published>
-    <updated>2020-12-03T13:41:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>Windows 7 旗舰版（32位）</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x86_dvd_u_677486.iso</span><br></pre></td></tr></table></figure><span id="more"></span><p><strong>Windows 7 旗舰版（64位）</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;Windows 7 旗舰版（32位）&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http://download.msdn.microsoft.com/pr/cn_windows_7_ultimate_with_sp1_x86_dvd_u_677486.iso&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="资源共享" scheme="https://blog.iambug.cn/categories/%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB/"/>
-    
-    
-    <category term="Windows" scheme="https://blog.iambug.cn/tags/Windows/"/>
     
   </entry>
   
