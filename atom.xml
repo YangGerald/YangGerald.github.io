@@ -130,9 +130,9 @@
     
     <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
     
-    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
-    
     <category term="数据库" scheme="https://blog.iambug.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
     
     <category term="Oracle" scheme="https://blog.iambug.cn/tags/Oracle/"/>
     
