@@ -6,7 +6,7 @@
   <link href="https://blog.iambug.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.iambug.cn/"/>
-  <updated>2024-01-25T15:13:28.518Z</updated>
+  <updated>2025-02-15T10:29:05.445Z</updated>
   <id>https://blog.iambug.cn/</id>
   
   <author>
@@ -21,12 +21,12 @@
     <link href="https://blog.iambug.cn/articles/11178.html"/>
     <id>https://blog.iambug.cn/articles/11178.html</id>
     <published>2024-01-25T05:35:00.000Z</published>
-    <updated>2024-01-25T15:13:28.518Z</updated>
+    <updated>2025-02-15T10:29:05.445Z</updated>
     
-    <content type="html"><![CDATA[<p>优启通是一个比较不错的 PE 工具，安装系统时，用于制作启动盘。以下简单介绍一下用它制作启动盘、启动和进入 PE 安装 Windows 系统的这个过程。</p><span id="more"></span><h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><ul><li>准备一个 8G 以上的U盘</li><li><a href="/windows">优启通和Windows系统映像</a></li></ul><h2 id="制作启动盘"><a href="#制作启动盘" class="headerlink" title="制作启动盘"></a>制作启动盘</h2><p>下载优启通，解压并打开。<br><img src="/images/2024-01-25/img-1.png" alt="优启通"><br>插入 U 盘，点击“全新制作”开始制作启动盘（此操作会删除 U 盘的全部数据，请提前做好备份），制作完成后，把系统映像复制到 U 盘。<br><img src="/images/2024-01-25/img-2.png" alt="制作启动盘"><br><img src="/images/2024-01-25/img-3.png" alt="删除数据的提示"></p><h2 id="进入PE系统"><a href="#进入PE系统" class="headerlink" title="进入PE系统"></a>进入PE系统</h2><p>将 U 盘插入需要装系统的电脑，然后开机，在屏幕开始亮时长按启动快捷键进入启动界面。<br><img src="/images/2024-01-25/img-4.png" alt="启动快捷键"><br>选择 U 盘进入 PE 系统（BIOS 设置就不啰嗦了）；<br><img src="/images/2024-01-25/img-5.png" alt="启动界面"><br>按任意键进入优启通；<br><img src="/images/2024-01-25/img-6.png" alt="按任意键提示"><br>选择“Menu”打开菜单；<br><img src="/images/2024-01-25/img-7.png" alt="Windows启动管理器"><br>选择“启动 Windows 10 PE x64(新机型)”；<br><img src="/images/2024-01-25/img-8.png" alt="优启通菜单"><br>进入 PE 系统。<br><img src="/images/2024-01-25/img-9.png" alt="PE 系统桌面"></p><h2 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h2><p>进入 PE 系统后，打开“DG硬盘分区”，根据需要进行新建分区、格式化和删除分区等。</p><ul><li>新建分区<br>选择要分区的空闲区域，点击“新建分区”，在弹出的建立新分区对话框选择分区类型、文件系统类型，输入新分区大小后点击“确定”新建分区，但是新建逻辑分区要先新建扩展磁盘分区，然后再选择扩展磁盘分区继续新建逻辑分区。<br><img src="/images/2024-01-25/img-10.png" alt="新建分区"></li><li>格式化<br>选择要格式化的分区，点击“格式化”。<br><img src="/images/2024-01-25/img-11.png" alt="格式化"></li><li>删除分区<br>选择要删除的分区，点击“删除分区”。<br><img src="/images/2024-01-25/img-12.png" alt="删除分区"></li></ul><h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>打开“EIX系统安装”，选择“恢复映像”和“目标分区”，然后点击“一键恢复”。<br><img src="/images/2024-01-25/img-13.png" alt="映像恢复"><br>勾选“验证映像的完整性”，取消勾选“恢复完成后自动运行万能驱动”，最后点击“确认”开始映像恢复，等待~<br><img src="/images/2024-01-25/img-14.png" alt="确认执行"><br>欢迎进入桌面。<br><img src="/images/2024-01-25/img-15.png" alt="Windows系统桌面"></p>]]></content>
+    <content type="html"><![CDATA[<p>优启通是一个比较不错的 PE 工具，安装系统时，用于制作启动盘。以下简单介绍一下用它制作启动盘、启动和进入 PE 安装 Windows 系统的这个过程1。</p><span id="more"></span><h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><ul><li>准备一个 8G 以上的U盘</li><li><a href="/windows">优启通和Windows系统映像</a></li></ul><h2 id="制作启动盘"><a href="#制作启动盘" class="headerlink" title="制作启动盘"></a>制作启动盘</h2><p>下载优启通，解压并打开。<br><img src="/images/2024-01-25/img-1.png" alt="优启通"><br>插入 U 盘，点击“全新制作”开始制作启动盘（此操作会删除 U 盘的全部数据，请提前做好备份），制作完成后，把系统映像复制到 U 盘。<br><img src="/images/2024-01-25/img-2.png" alt="制作启动盘"><br><img src="/images/2024-01-25/img-3.png" alt="删除数据的提示"></p><h2 id="进入PE系统"><a href="#进入PE系统" class="headerlink" title="进入PE系统"></a>进入PE系统</h2><p>将 U 盘插入需要装系统的电脑，然后开机，在屏幕开始亮时长按启动快捷键进入启动界面。<br><img src="/images/2024-01-25/img-4.png" alt="启动快捷键"><br>选择 U 盘进入 PE 系统（BIOS 设置就不啰嗦了）；<br><img src="/images/2024-01-25/img-5.png" alt="启动界面"><br>按任意键进入优启通；<br><img src="/images/2024-01-25/img-6.png" alt="按任意键提示"><br>选择“Menu”打开菜单；<br><img src="/images/2024-01-25/img-7.png" alt="Windows启动管理器"><br>选择“启动 Windows 10 PE x64(新机型)”；<br><img src="/images/2024-01-25/img-8.png" alt="优启通菜单"><br>进入 PE 系统。<br><img src="/images/2024-01-25/img-9.png" alt="PE 系统桌面"></p><h2 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h2><p>进入 PE 系统后，打开“DG硬盘分区”，根据需要进行新建分区、格式化和删除分区等。</p><ul><li>新建分区<br>选择要分区的空闲区域，点击“新建分区”，在弹出的建立新分区对话框选择分区类型、文件系统类型，输入新分区大小后点击“确定”新建分区，但是新建逻辑分区要先新建扩展磁盘分区，然后再选择扩展磁盘分区继续新建逻辑分区。<br><img src="/images/2024-01-25/img-10.png" alt="新建分区"></li><li>格式化<br>选择要格式化的分区，点击“格式化”。<br><img src="/images/2024-01-25/img-11.png" alt="格式化"></li><li>删除分区<br>选择要删除的分区，点击“删除分区”。<br><img src="/images/2024-01-25/img-12.png" alt="删除分区"></li></ul><h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>打开“EIX系统安装”，选择“恢复映像”和“目标分区”，然后点击“一键恢复”。<br><img src="/images/2024-01-25/img-13.png" alt="映像恢复"><br>勾选“验证映像的完整性”，取消勾选“恢复完成后自动运行万能驱动”，最后点击“确认”开始映像恢复，等待~<br><img src="/images/2024-01-25/img-14.png" alt="确认执行"><br>欢迎进入桌面。<br><img src="/images/2024-01-25/img-15.png" alt="Windows系统桌面"></p>]]></content>
     
     
-    <summary type="html">&lt;p&gt;优启通是一个比较不错的 PE 工具，安装系统时，用于制作启动盘。以下简单介绍一下用它制作启动盘、启动和进入 PE 安装 Windows 系统的这个过程。&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;优启通是一个比较不错的 PE 工具，安装系统时，用于制作启动盘。以下简单介绍一下用它制作启动盘、启动和进入 PE 安装 Windows 系统的这个过程1。&lt;/p&gt;</summary>
     
     
     
@@ -130,9 +130,9 @@
     
     <category term="CentOS" scheme="https://blog.iambug.cn/tags/CentOS/"/>
     
-    <category term="数据库" scheme="https://blog.iambug.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
     <category term="Linux" scheme="https://blog.iambug.cn/tags/Linux/"/>
+    
+    <category term="数据库" scheme="https://blog.iambug.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     <category term="Oracle" scheme="https://blog.iambug.cn/tags/Oracle/"/>
     
